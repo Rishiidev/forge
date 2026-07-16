@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Your request is in. Here is what happens next, and what you can do in the meantime.">
+  <meta name="theme-color" content="#3A3B1F">
+  <title>Request received - Forge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ground: #3A3B1F;
+      --ground-2: #2A2B16;
+      --mark: #D6DDA0;
+      --mark-2: #B7C074;
+      --paper: #F5F3EC;
+      --paper-2: #EDEAE0;
+      --ink: #1B1B12;
+      --line: rgba(27, 27, 18, .10);
+      --line-2: rgba(27, 27, 18, .06);
+      --line-dark: rgba(245, 243, 236, .10);
+      --muted: #6B6A55;
+      --success: #4A7C2A;
+      --max: 900px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; letter-spacing: -.005em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: 0; background: none; }
+    img, svg { display: block; max-width: 100%; }
+    ::selection { background: var(--ground); color: var(--mark); }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .section { padding: clamp(60px, 9vw, 120px) 0; }
+    .muted { color: var(--muted); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--ground); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { letter-spacing: -.035em; line-height: 1; font-weight: 600; }
+    h1 { font-size: clamp(2.6rem, 5.4vw, 4.6rem); letter-spacing: -.04em; }
+    h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+    .lede { color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 50ch; }
+    .serif { font-family: "Fraunces", "Times New Roman", serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+    :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; border-radius: 4px; }
+
+    .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
+    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
+
+    .button { display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: var(--ground); color: var(--mark); font-weight: 600; font-size: 15px; transition: transform .25s var(--ease), background .25s ease; }
+    .button:hover { background: var(--ground-2); transform: translateY(-1px); }
+    .button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .button.secondary:hover { background: var(--paper-2); }
+    .button.large { min-height: 58px; padding: 0 28px; font-size: 16px; }
+    .button.on-dark { background: var(--mark); color: var(--ground); }
+    .button.on-dark:hover { background: #E2E9B0; }
+    .button.on-dark.secondary { background: transparent; color: var(--mark); border-color: rgba(214, 221, 160, .3); }
+    .button.on-dark.secondary:hover { background: rgba(214, 221, 160, .08); }
+
+    .hero { padding: 96px 0 60px; }
+    .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .hero h1 { margin-bottom: 22px; }
+    .hero p { max-width: 52ch; margin: 0 auto; }
+    .success-card { margin: 36px auto 0; max-width: 580px; padding: 24px; background: #fff; border: 1px solid var(--success); border-radius: 18px; display: flex; gap: 16px; align-items: flex-start; text-align: left; }
+    .success-card .check { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--success); color: #fff; flex-shrink: 0; font-weight: 700; }
+    .success-card h3 { font-size: 17px; margin-bottom: 4px; }
+    .success-card p { color: var(--muted); font-size: 14px; }
+
+    .timeline { background: var(--paper-2); }
+    .timeline-head { text-align: center; margin-bottom: 40px; }
+    .timeline-head h2 { margin: 0 auto; max-width: 22ch; }
+    .timeline-head p { max-width: 56ch; margin: 14px auto 0; }
+    .timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .t-cell { padding: 24px 18px; border-right: 1px solid var(--line); position: relative; }
+    .t-cell:last-child { border-right: 0; }
+    .t-cell .when { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ground); margin-bottom: 10px; }
+    .t-cell strong { display: block; margin-bottom: 6px; font-size: 16px; }
+    .t-cell span { color: var(--muted); font-size: 14px; }
+
+    .checklist { background: var(--paper); }
+    .checklist-head { text-align: center; margin-bottom: 32px; }
+    .checklist-head h2 { margin: 0 auto; max-width: 22ch; }
+    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #fff; }
+    .checklist-col { padding: 26px; }
+    .checklist-col:first-child { border-right: 1px solid var(--line); }
+    .checklist-col h3 { font-size: 16px; margin-bottom: 14px; }
+    .checklist-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; font-size: 14px; }
+    .checklist-col li { display: flex; gap: 12px; align-items: start; }
+    .checklist-col.has li::before { content: "✓"; color: var(--success); font-weight: 700; }
+    .checklist-col.need li::before { content: "→"; color: var(--ground); font-weight: 700; }
+    .checklist-col span { color: var(--muted); }
+
+    .refer { background: var(--ground); color: var(--mark); }
+    .refer-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .refer h2 { margin-bottom: 14px; }
+    .refer h2 .serif { color: var(--mark); }
+    .refer p { color: rgba(214, 221, 160, .75); max-width: 52ch; margin: 0 auto 22px; font-size: 17px; }
+    .refer-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .refer-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line-dark); margin-top: 48px; text-align: left; }
+    .refer-item { padding: 22px 18px; border-right: 1px solid var(--line-dark); }
+    .refer-item:last-child { border-right: 0; }
+    .refer-item .label { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(214, 221, 160, .55); margin-bottom: 8px; }
+    .refer-item strong { display: block; font-size: 15px; color: var(--mark); margin-bottom: 6px; }
+    .refer-item p { color: rgba(214, 221, 160, .7); font-size: 13px; margin: 0; }
+
+    footer { padding: 24px 0 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; background: var(--paper); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--ink); }
+
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero { padding: 64px 0 40px; }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
+      .t-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .t-cell:nth-child(2n) { border-right: 0; }
+      .t-cell:last-child, .t-cell:nth-last-child(2) { border-bottom: 0; }
+      .checklist-grid { grid-template-columns: 1fr; }
+      .checklist-col:first-child { border-right: 0; border-bottom: 1px solid var(--line); }
+      .refer-list { grid-template-columns: 1fr; }
+      .refer-item { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .refer-item:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      h1 { font-size: clamp(2.4rem, 11vw, 3.4rem); }
+      h2 { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html" aria-label="Forge home">
+        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
+          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
+          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
+        </svg>
+        <span>Forge</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="audit.html">Free audit</a>
+        <a href="operator.html">Operator plan</a>
+      </nav>
+      <a class="nav-cta" href="index.html">Back to home</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner" data-reveal>
+        <div class="eyebrow" style="justify-content:center;">Request received</div>
+        <h1>You are <span class="serif">in.</span></h1>
+        <p>Your note or preview request is logged. We will reach out from <strong>hello@forge.local</strong> with the next step. In the meantime, here is what to expect.</p>
+        <div class="success-card" data-reveal>
+          <span class="check" aria-hidden="true">✓</span>
+          <div>
+            <h3 id="successTitle">Your request is in Forge's inbox.</h3>
+            <p id="successSub">A confirmation has been sent to your email. We will review your details and respond within one business day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section timeline">
+      <div class="wrap">
+        <div class="timeline-head" data-reveal>
+          <div class="eyebrow" style="justify-content:center;">What happens next</div>
+          <h2>Four steps, predictable timing.</h2>
+          <p>No surprises. No follow-up sequences. Each step happens at the time you expect, and we tell you when the next one starts.</p>
+        </div>
+        <div class="timeline-grid" data-reveal>
+          <div class="t-cell"><div class="when">Within 24 hours</div><strong>We review</strong><span>Your Google profile, niche, and notes. We either send the private preview or the audit, depending on which one you asked for.</span></div>
+          <div class="t-cell"><div class="when">Within 48 hours</div><strong>You review</strong><span>The preview or audit lands in your inbox. You decide whether to continue. No call required.</span></div>
+          <div class="t-cell"><div class="when">When you say yes</div><strong>You reserve</strong><span>50% deposit reserves your slot. The remaining 50% is due before the domain goes live.</span></div>
+          <div class="t-cell"><div class="when">48 hours after approval</div><strong>We launch</strong><span>Conditional on approval, deposit, and the required domain access. Otherwise your deposit is refunded.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section checklist">
+      <div class="wrap">
+        <div class="checklist-head" data-reveal>
+          <div class="eyebrow" style="justify-content:center;">While you wait</div>
+          <h2>Two lists, one for each side.</h2>
+        </div>
+        <div class="checklist-grid" data-reveal>
+          <div class="checklist-col has">
+            <h3>You do not need to</h3>
+            <ul>
+              <li>Create a Vercel, GitHub, or hosting account <span>(we handle it)</span></li>
+              <li>Write the website copy <span>(we draft from your Google profile)</span></li>
+              <li>Find a designer <span>(we are the designer)</span></li>
+              <li>Manage timelines <span>(we send a preview first)</span></li>
+              <li>Take new photos <span>(we use your approved existing assets)</span></li>
+            </ul>
+          </div>
+          <div class="checklist-col need">
+            <h3>You will need to</h3>
+            <ul>
+              <li>Reply to one short email <span>(with any missing details)</span></li>
+              <li>Approve the preview or audit <span>(one click)</span></li>
+              <li>If proceeding, send the 50% deposit <span>(UPI or bank transfer)</span></li>
+              <li>Provide domain access when asked <span>(we walk you through it)</span></li>
+              <li>One revision request, if needed <span>(included)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section refer">
+      <div class="wrap refer-inner" data-reveal>
+        <div class="eyebrow on-dark" style="justify-content:center;">The bigger picture</div>
+        <h2>Forge is not just the launch.</h2>
+        <p>The website is the first layer. If the launch goes well, three more layers become available over time. The first one is the most useful to most businesses.</p>
+        <div class="refer-list">
+          <div class="refer-item"><span class="label">Phase 01 · Now</span><strong>Website</strong><p>A credible home for your business online.</p></div>
+          <div class="refer-item"><span class="label">Phase 02 · Next</span><strong>Reviews and SEO</strong><p>Get discovered, build proof, stay present.</p></div>
+          <div class="refer-item"><span class="label">Phase 03 · Soon</span><strong>Bookings and CRM</strong><p>Turn interest into customers, into repeat customers.</p></div>
+        </div>
+        <div class="refer-actions" style="margin-top: 36px;">
+          <a class="button on-dark" href="operator.html">Read the operator plan</a>
+          <a class="button on-dark secondary" href="index.html">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© Forge. Thank you for trusting us with this.</span>
+      <div class="footer-links"><a href="index.html">Home</a><a href="audit.html">Free audit</a><a href="mailto:hello@forge.local">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      // Read source from the URL so the page knows what to confirm
+      const params = new URLSearchParams(window.location.search);
+      const source = params.get('source') || 'preview';
+      const tier = params.get('tier');
+      const position = params.get('position');
+      const title = document.getElementById('successTitle');
+      const sub = document.getElementById('successSub');
+      if (source === 'audit') {
+        title.textContent = 'Your free 7-point audit is being prepared.';
+        sub.textContent = 'The private write-up will land in your inbox within 48 hours. No list. No follow-up sequence.';
+      } else if (source === 'waitlist') {
+        const posText = position ? (' You are <strong>#' + position + '</strong> in the queue.') : '';
+        title.innerHTML = 'You are on the waitlist for next month.' + posText;
+        sub.textContent = 'When a slot opens, the first people on the waitlist receive their private preview one week before the page is updated.';
+      } else if (source === 'operator') {
+        title.textContent = 'Your note to Forge is in.';
+        const tierText = tier ? (' You were interested in the <strong>' + tier + '</strong> plan.') : '';
+        sub.innerHTML = 'We will respond to your email within one business day with the right plan and the next available slot.' + tierText;
+      } else {
+        title.textContent = 'Your preview request is in Forge\'s inbox.';
+        sub.textContent = 'A confirmation has been sent to your email. We will review your Google profile and send a private concept within 24 hours.';
+      }
+
+      const reveal = document.querySelectorAll('[data-reveal]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveal.forEach(i => i.classList.add('visible'));
+      } else {
+        const obs = new IntersectionObserver((entries, o) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+        }, { threshold: .12, rootMargin: '0px 0px -40px' });
+        reveal.forEach(i => obs.observe(i));
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Forge Operator plan. Ongoing management, hosting, and evolution of your professional online presence. For local businesses that want the website to keep working after launch.">
+  <meta name="theme-color" content="#3A3B1F">
+  <title>Operator Plan - Forge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ground: #3A3B1F;
+      --ground-2: #2A2B16;
+      --mark: #D6DDA0;
+      --mark-2: #B7C074;
+      --paper: #F5F3EC;
+      --paper-2: #EDEAE0;
+      --paper-3: #E2DFD3;
+      --ink: #1B1B12;
+      --line: rgba(27, 27, 18, .10);
+      --line-2: rgba(27, 27, 18, .06);
+      --line-dark: rgba(245, 243, 236, .10);
+      --muted: #6B6A55;
+      --success: #4A7C2A;
+      --max: 1100px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; letter-spacing: -.005em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; border: 0; background: none; }
+    img, svg { display: block; max-width: 100%; }
+    ::selection { background: var(--ground); color: var(--mark); }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .section { padding: clamp(80px, 11vw, 140px) 0; }
+    .section-tight { padding: clamp(56px, 8vw, 96px) 0; }
+    .muted { color: var(--muted); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--ground); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+    .eyebrow.on-dark { color: var(--mark); }
+    .eyebrow.on-dark::before { background: var(--mark-2); }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { letter-spacing: -.035em; line-height: 1; font-weight: 600; }
+    h1 { font-size: clamp(2.6rem, 5.4vw, 4.8rem); letter-spacing: -.04em; }
+    h2 { font-size: clamp(2.2rem, 4.4vw, 4rem); }
+    h3 { font-size: 1.3rem; }
+    .lede { color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 50ch; }
+    .serif { font-family: "Fraunces", "Times New Roman", serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; border-radius: 4px; }
+
+    .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
+    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
+
+    .button { display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: var(--ground); color: var(--mark); font-weight: 600; font-size: 15px; transition: transform .25s var(--ease), background .25s ease; }
+    .button:hover { background: var(--ground-2); transform: translateY(-1px); }
+    .button:active { transform: translateY(0) scale(.98); }
+    .button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+    .button.secondary:hover { background: var(--paper-2); }
+    .button.large { min-height: 58px; padding: 0 28px; font-size: 16px; }
+    .button .arrow { transition: transform .25s var(--ease); }
+    .button:hover .arrow { transform: translateX(3px); }
+    .button.on-dark { background: var(--mark); color: var(--ground); }
+    .button.on-dark:hover { background: #E2E9B0; }
+    .button.on-dark.secondary { background: transparent; color: var(--mark); border-color: rgba(214, 221, 160, .3); }
+    .button.on-dark.secondary:hover { background: rgba(214, 221, 160, .08); }
+
+    .hero { padding: 96px 0 60px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(40px, 6vw, 100px); align-items: start; }
+    .hero h1 { margin-bottom: 22px; }
+    .hero h1 .underline-mark { position: relative; display: inline-block; }
+    .hero h1 .underline-mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2%; height: 9px; background: var(--mark-2); opacity: .65; border-radius: 2px; z-index: -1; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; color: var(--muted); font-size: 13px; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--success); }
+    .hero-callout { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: #fff; }
+    .hero-callout h3 { font-size: 18px; margin-bottom: 8px; }
+    .hero-callout p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+    .hero-callout ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: 14px; }
+    .hero-callout li { display: flex; gap: 10px; align-items: start; }
+    .hero-callout li::before { content: "→"; color: var(--ground); }
+
+    .who { background: var(--paper-2); }
+    .who-head { text-align: center; margin-bottom: 40px; }
+    .who-head h2 { margin: 0 auto; max-width: 22ch; }
+    .who-head p { max-width: 56ch; margin: 14px auto 0; }
+    .who-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .who-cell { padding: 24px 18px; border-right: 1px solid var(--line); }
+    .who-cell:last-child { border-right: 0; }
+    .who-cell .label { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .who-cell strong { display: block; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .who-cell span { color: var(--muted); font-size: 14px; }
+
+    .tiers { background: var(--paper); }
+    .tiers-head { text-align: center; margin-bottom: 56px; }
+    .tiers-head h2 { margin-bottom: 14px; }
+    .tiers-head p { max-width: 56ch; margin: 0 auto; }
+    .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .tier { position: relative; padding: 28px; border: 1px solid var(--line); border-radius: 18px; background: #fff; display: flex; flex-direction: column; }
+    .tier.featured { border-color: var(--ground); box-shadow: 0 20px 50px rgba(58, 59, 31, .08); }
+    .tier .ribbon { position: absolute; top: 0; right: 28px; padding: 6px 12px; background: var(--ground); color: var(--mark); font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border-radius: 0 0 8px 8px; }
+    .tier .tier-name { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .tier .tier-price { display: flex; align-items: baseline; gap: 8px; padding: 8px 0 18px; border-bottom: 1px solid var(--line-2); }
+    .tier .tier-price .amt { font-size: 44px; font-weight: 600; letter-spacing: -.04em; }
+    .tier .tier-price .meta { color: var(--muted); font-size: 13px; }
+    .tier .tier-tag { font-size: 14px; color: var(--muted); margin: 14px 0 18px; min-height: 42px; }
+    .tier ul { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; font-size: 14px; flex: 1; }
+    .tier li { display: flex; gap: 10px; align-items: start; }
+    .tier li::before { content: "✓"; color: var(--success); font-weight: 700; }
+    .tier .button { width: 100%; justify-content: center; margin-top: auto; }
+    .tier.featured .button { background: var(--ground); color: var(--mark); }
+    .tier.featured .button:hover { background: var(--ground-2); }
+
+    .includes { background: var(--ground); color: var(--mark); }
+    .includes .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(40px, 6vw, 100px); align-items: start; }
+    .includes h2 { margin-bottom: 18px; }
+    .includes .lede { color: rgba(214, 221, 160, .75); }
+    .includes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--line-dark); }
+    .includes-cell { padding: 22px 0; border-bottom: 1px solid var(--line-dark); }
+    .includes-cell:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--line-dark); }
+    .includes-cell:nth-child(even) { padding-left: 20px; }
+    .includes-cell strong { display: block; margin-bottom: 4px; font-size: 15px; }
+    .includes-cell span { color: rgba(214, 221, 160, .7); font-size: 13px; }
+
+    .boundary { background: var(--paper-2); }
+    .boundary-head { text-align: center; margin-bottom: 40px; }
+    .boundary-head h2 { margin-bottom: 12px; }
+    .boundary-head p { max-width: 56ch; margin: 0 auto; }
+    .boundary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--paper); }
+    .boundary-col { padding: 28px; }
+    .boundary-col:first-child { border-right: 1px solid var(--line); }
+    .boundary-col h3 { font-size: 18px; margin-bottom: 14px; }
+    .boundary-col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 14px; }
+    .boundary-col li { display: flex; gap: 10px; align-items: start; }
+    .boundary-col.included li::before { content: "✓"; color: var(--success); font-weight: 700; }
+    .boundary-col.excluded li::before { content: "−"; color: var(--muted-2, #B85A2E); font-weight: 700; }
+
+    .process { background: var(--paper); }
+    .process-head { text-align: center; margin-bottom: 48px; }
+    .process-head h2 { margin: 0 auto; max-width: 22ch; }
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .process-cell { padding: 24px 18px; border-right: 1px solid var(--line); position: relative; }
+    .process-cell:last-child { border-right: 0; }
+    .process-cell .n { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ground); margin-bottom: 12px; }
+    .process-cell strong { display: block; margin-bottom: 6px; font-size: 17px; }
+    .process-cell span { color: var(--muted); font-size: 14px; }
+
+    .commitment { background: var(--ink-2, var(--ground-2)); color: var(--mark); }
+    .commitment-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .commitment h2 { margin-bottom: 14px; }
+    .commitment h2 .serif { color: var(--mark); }
+    .commitment p { color: rgba(214, 221, 160, .75); max-width: 52ch; margin: 0 auto 22px; font-size: 17px; }
+    .commitment-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; max-width: 580px; margin: 0 auto; }
+    .commitment-form input { width: 100%; min-height: 58px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line-dark); background: rgba(214, 221, 160, .04); color: var(--mark); outline: none; }
+    .commitment-form input::placeholder { color: rgba(214, 221, 160, .45); }
+    .commitment-form input:focus { border-color: var(--mark); background: rgba(214, 221, 160, .08); }
+    .commitment-state { min-height: 22px; margin-top: 14px; font-size: 13px; color: rgba(214, 221, 160, .6); }
+    .commitment-state.success { color: #C5DC8A; }
+    .commitment-state.error { color: #E2B0A0; }
+
+    footer { padding: 24px 0 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; background: var(--paper); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--ink); }
+
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+    .stagger > * { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+    .stagger.visible > * { opacity: 1; transform: translateY(0); }
+    .stagger.visible > *:nth-child(2) { transition-delay: .08s; }
+    .stagger.visible > *:nth-child(3) { transition-delay: .16s; }
+    .stagger.visible > *:nth-child(4) { transition-delay: .24s; }
+
+    @media (max-width: 980px) {
+      .nav-links { display: none; }
+      .hero { padding: 64px 0 40px; }
+      .hero-grid, .includes .wrap, .boundary-grid { grid-template-columns: 1fr; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+      .who-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .who-cell:nth-child(2n) { border-right: 0; }
+      .who-cell:last-child, .who-cell:nth-last-child(2) { border-bottom: 0; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .process-cell { border-right: 0; border-bottom: 1px solid var(--line); }
+      .process-cell:nth-child(2n) { border-right: 0; }
+      .process-cell:last-child, .process-cell:nth-last-child(2) { border-bottom: 0; }
+      .includes-grid { grid-template-columns: 1fr; }
+      .includes-cell:nth-child(odd) { padding-right: 0; border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .includes-cell:nth-child(even) { padding-left: 0; padding-top: 22px; }
+      .boundary-col:first-child { border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      h1 { font-size: clamp(2.4rem, 11vw, 3.6rem); }
+      h2 { font-size: clamp(1.9rem, 9vw, 2.8rem); }
+      .commitment-form { grid-template-columns: 1fr; }
+      .commitment-form .button { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+      [data-reveal], .stagger > * { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html" aria-label="Forge home">
+        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
+          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
+          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
+        </svg>
+        <span>Forge</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="#tiers">Plans</a>
+        <a href="#includes">What's included</a>
+        <a href="#boundary">Scope</a>
+        <a href="#commitment">Talk to Forge</a>
+      </nav>
+      <a class="nav-cta" href="#commitment">Talk to Forge <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy" data-reveal>
+          <div class="eyebrow">For businesses that want the website to keep working</div>
+          <h1>The <span class="underline-mark">Operator plan</span> for businesses that have outgrown a one-time website.</h1>
+          <p>Your website is not a brochure. It is a working piece of infrastructure for your business. The Operator plan keeps it updated, secure, and quietly improving every month, so it keeps doing its job after launch day.</p>
+          <div class="hero-meta">
+            <span><span class="dot"></span> Capped at 8 active clients</span>
+            <span><span class="dot"></span> Monthly check-in, not tickets</span>
+            <span><span class="dot"></span> Cancel any month</span>
+          </div>
+        </div>
+        <div class="hero-callout" data-reveal>
+          <h3>What changes after launch</h3>
+          <p>Most websites decay quietly. Photos go stale, services change, hours shift, the WhatsApp link breaks. The Operator plan makes sure none of that reaches the customer.</p>
+          <ul>
+            <li>Monthly content and photo updates, handled for you</li>
+            <li>Quarterly review of the seven-point audit</li>
+            <li>Priority response for any breakage or change</li>
+            <li>Early access to Reviews, SEO, and Bookings layers</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section who">
+      <div class="wrap">
+        <div class="who-head" data-reveal>
+          <div class="eyebrow">Who this is for</div>
+          <h2>You probably already know if you are one of these.</h2>
+          <p>The Operator plan is for businesses where the website is part of how the business runs, not a side project. You can stop reading if your site is purely a portfolio.</p>
+        </div>
+        <div class="who-grid stagger" data-reveal>
+          <div class="who-cell"><span class="label">01</span><strong>You answer the website</strong><span>It is the first place customers check before they call, visit, or message.</span></div>
+          <div class="who-cell"><span class="label">02</span><strong>You change things often</strong><span>New services, new hours, new photos, new prices, new staff.</span></div>
+          <div class="who-cell"><span class="label">03</span><strong>You would rather not manage it</strong><span>You have a business to run, not a website to babysit.</span></div>
+          <div class="who-cell"><span class="label">04</span><strong>You want it to compound</strong><span>The website should be a quieter, more visible version of your business over time, not a snapshot.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tiers" id="tiers">
+      <div class="wrap">
+        <div class="tiers-head" data-reveal>
+          <div class="eyebrow">Three plans, one promise</div>
+          <h2>Pick the one that matches how often you change.</h2>
+          <p>Every plan is monthly. You can upgrade, downgrade, or cancel any month. Hosting, SSL, backups, monitoring, and support are always included.</p>
+        </div>
+        <div class="tiers-grid stagger" data-reveal>
+          <article class="tier">
+            <div class="tier-name">Steady</div>
+            <div class="tier-price"><span class="amt">₹1,499</span><span class="meta">/ month</span></div>
+            <p class="tier-tag">For businesses with a stable offer and a website that does not change often.</p>
+            <ul>
+              <li>Hosting, SSL, backups, uptime monitoring</li>
+              <li>One small content update per month</li>
+              <li>14-day bug support included</li>
+              <li>Monthly quiet check-in email</li>
+            </ul>
+            <a class="button secondary" href="#commitment">Start with Steady</a>
+          </article>
+          <article class="tier featured">
+            <div class="ribbon">Most businesses</div>
+            <div class="tier-name">Active</div>
+            <div class="tier-price"><span class="amt">₹3,999</span><span class="meta">/ month</span></div>
+            <p class="tier-tag">For businesses that change services, photos, prices, or hours every month or two.</p>
+            <ul>
+              <li>Everything in Steady</li>
+              <li>Up to three content or photo updates per month</li>
+              <li>Quarterly seven-point audit re-review</li>
+              <li>Two small design updates per quarter</li>
+              <li>48-hour response on any issue</li>
+            </ul>
+            <a class="button" href="#commitment">Start with Active</a>
+          </article>
+          <article class="tier">
+            <div class="tier-name">Forged</div>
+            <div class="tier-price"><span class="amt">₹7,999</span><span class="meta">/ month</span></div>
+            <p class="tier-tag">For businesses building a serious online presence and want the next layers.</p>
+            <ul>
+              <li>Everything in Active</li>
+              <li>Monthly content and photo updates</li>
+              <li>Reviews and SEO layer, when launched</li>
+              <li>Priority access to Bookings and CRM layer</li>
+              <li>Direct line to Forge, no shared inbox</li>
+            </ul>
+            <a class="button secondary" href="#commitment">Start with Forged</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section includes" id="includes">
+      <div class="wrap">
+        <div data-reveal>
+          <div class="eyebrow on-dark">Always included</div>
+          <h2>The things that never need a separate invoice.</h2>
+          <p class="lede">Every plan ships these. They are part of what the website needs to be alive, not a feature you pay for on top.</p>
+        </div>
+        <div class="includes-grid" data-reveal>
+          <div class="includes-cell"><strong>Hosting and SSL</strong><span>Fast, monitored, on the same infrastructure used for your launch.</span></div>
+          <div class="includes-cell"><strong>Backups and restore</strong><span>Daily backups, one-click restore, no extra fee for recovery.</span></div>
+          <div class="includes-cell"><strong>Uptime monitoring</strong><span>Watched by an external service. If it goes down, we hear it before you do.</span></div>
+          <div class="includes-cell"><strong>Domain and DNS care</strong><span>We watch the renewals and walk you through any DNS change.</span></div>
+          <div class="includes-cell"><strong>Security updates</strong><span>Monthly patches for the stack. Quiet, not your problem.</span></div>
+          <div class="includes-cell"><strong>Small change requests</strong><span>Within your plan's quota, included. Larger work is quoted separately.</span></div>
+          <div class="includes-cell"><strong>Monthly summary</strong><span>A short email with what changed, what was fixed, and what is next.</span></div>
+          <div class="includes-cell"><strong>Ownership, always</strong><span>Your domain, your content, your files. The plan manages the website, never owns it.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section boundary" id="boundary">
+      <div class="wrap">
+        <div class="boundary-head" data-reveal>
+          <div class="eyebrow">Honest scope</div>
+          <h2>What is included, and what is not.</h2>
+          <p>Good partnerships need clear edges. The Operator plan is for the running of the website. Larger work is a separate conversation, quoted before it starts.</p>
+        </div>
+        <div class="boundary-grid" data-reveal>
+          <div class="boundary-col included">
+            <h3>Included</h3>
+            <ul>
+              <li>Hosting, SSL, backups, monitoring</li>
+              <li>Security and dependency updates</li>
+              <li>Content and photo changes within your plan's quota</li>
+              <li>Small design refinements within your plan's quota</li>
+              <li>Quarterly audit re-review (Active and Forged)</li>
+              <li>Priority response for breakage</li>
+              <li>Monthly summary</li>
+              <li>Domain renewal reminders</li>
+            </ul>
+          </div>
+          <div class="boundary-col excluded">
+            <h3>Not included</h3>
+            <ul>
+              <li>New pages, new sections, new features beyond the launched scope</li>
+              <li>Logo, brand identity, or large design work</li>
+              <li>Ad campaigns, paid media, social media management</li>
+              <li>Copywriting beyond light edits to existing pages</li>
+              <li>Photography or video production</li>
+              <li>Major replatforming or replatform migrations</li>
+              <li>Anything we did not agree to in writing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process">
+      <div class="wrap">
+        <div class="process-head" data-reveal>
+          <div class="eyebrow">How it works</div>
+          <h2>Four steps, repeated every month.</h2>
+        </div>
+        <div class="process-grid stagger" data-reveal>
+          <div class="process-cell"><div class="n">01</div><strong>You send changes</strong><span>Email, WhatsApp, or call. A new photo, an updated service, a new price. Whatever you need this month.</span></div>
+          <div class="process-cell"><div class="n">02</div><strong>We do them</strong><span>Within your plan's quota, no extra ticket. For larger work, we quote before touching anything.</span></div>
+          <div class="process-cell"><div class="n">03</div><strong>You review and approve</strong><span>A short preview before anything goes live. You stay in control of the public version of your business.</span></div>
+          <div class="process-cell"><div class="n">04</div><strong>You get a monthly summary</strong><span>What changed, what was fixed, what is queued for next month. One short email, no noise.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section commitment" id="commitment">
+      <div class="wrap commitment-inner" data-reveal>
+        <div class="eyebrow on-dark" style="justify-content:center;">Talk to Forge</div>
+        <h2>The Operator plan is <span class="serif">capped at 8 active clients</span>.</h2>
+        <p>If you want ongoing management of the website Forge built for you, leave a note. We will tell you honestly whether the Active plan fits, or whether Steady is enough, or whether we are full this month.</p>
+        <form class="commitment-form" id="opForm" novalidate>
+          <label class="sr-only" for="opEmail">Email</label>
+          <input id="opEmail" type="email" placeholder="you@business.com" required>
+          <button class="button on-dark large" type="submit">Talk to Forge <span class="arrow" aria-hidden="true">→</span></button>
+        </form>
+        <div class="commitment-state" id="opState" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© Forge. Operator plan. Capped at 8 active clients.</span>
+      <div class="footer-links"><a href="index.html">Home</a><a href="audit.html">Free audit</a><a href="mailto:hello@forge.local">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const reveal = document.querySelectorAll('[data-reveal]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveal.forEach(i => i.classList.add('visible'));
+      } else {
+        const obs = new IntersectionObserver((entries, o) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+        }, { threshold: .12, rootMargin: '0px 0px -40px' });
+        reveal.forEach(i => obs.observe(i));
+      }
+
+      const form = document.getElementById('opForm');
+      const state = document.getElementById('opState');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('opEmail');
+        const submit = form.querySelector('button');
+        if (!input.value) {
+          state.className = 'commitment-state error';
+          state.textContent = 'Drop your email and we will respond within one business day.';
+          return;
+        }
+        const original = submit.innerHTML;
+        submit.disabled = true;
+        submit.textContent = 'Sending...';
+        state.className = 'commitment-state';
+        state.textContent = 'Reading your note and checking the Operator plan availability for this month.';
+        window.setTimeout(() => {
+          submit.disabled = false;
+          submit.innerHTML = original;
+          state.className = 'commitment-state success';
+          state.innerHTML = 'Note received. We will reply to <strong>' + input.value.replace(/[<>]/g, '') + '</strong> within one business day with the right plan and the next available slot.';
+          input.value = '';
+        }, 1100);
+      });
+    })();
+  </script>
+</body>
+</html>

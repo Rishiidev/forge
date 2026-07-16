@@ -1,0 +1,1162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Forge turns your Google Business Profile into a professional website in 48 hours. Look as professional online as you are in real life. Preview first. No technical setup.">
+  <meta name="theme-color" content="#3A3B1F">
+  <title>Forge - Your Google Business Profile, forged into a professional website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ground: #3A3B1F;
+      --ground-2: #2A2B16;
+      --ground-3: #4A4B2A;
+      --mark: #D6DDA0;
+      --mark-2: #B7C074;
+      --mark-wash: rgba(214, 221, 160, .12);
+      --mark-wash-2: rgba(214, 221, 160, .22);
+      --paper: #F5F3EC;
+      --paper-2: #EDEAE0;
+      --paper-3: #E2DFD3;
+      --ink: #1B1B12;
+      --ink-2: #2C2C1B;
+      --ink-3: #4A4A36;
+      --line: rgba(27, 27, 18, .10);
+      --line-2: rgba(27, 27, 18, .06);
+      --line-dark: rgba(245, 243, 236, .10);
+      --line-dark-2: rgba(245, 243, 236, .05);
+      --muted: #6B6A55;
+      --muted-2: #8E8D74;
+      --warm: #B85A2E;
+      --success: #4A7C2A;
+      --max: 1200px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; letter-spacing: -.005em; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; border: 0; background: none; }
+    img, svg { display: block; max-width: 100%; }
+    ::selection { background: var(--ground); color: var(--mark); }
+
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .section { padding: clamp(80px, 11vw, 140px) 0; }
+    .section-tight { padding: clamp(56px, 8vw, 96px) 0; }
+    .muted { color: var(--muted); }
+
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--ground); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; }
+    .eyebrow.on-dark { color: var(--mark); }
+    .eyebrow.on-dark::before { background: var(--mark-2); }
+
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { letter-spacing: -.035em; line-height: 1; font-weight: 600; }
+    h1 { font-size: clamp(2.9rem, 6.6vw, 6.4rem); letter-spacing: -.04em; }
+    h2 { font-size: clamp(2.2rem, 4.6vw, 4.3rem); letter-spacing: -.035em; }
+    h3 { font-size: clamp(1.2rem, 1.8vw, 1.6rem); }
+    .lede { max-width: 36ch; color: var(--muted); font-size: 18px; line-height: 1.55; }
+    .serif { font-family: "Fraunces", "Times New Roman", serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; border-radius: 4px; }
+
+    .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: transparent; z-index: 60; pointer-events: none; }
+    .scroll-progress::after { content: ""; display: block; width: var(--p, 0%); height: 100%; background: var(--mark); transition: width .12s linear; }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .78); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
+    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .brand-text { color: var(--ink); }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: 14px; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; transition: transform .2s var(--ease), background .2s ease; }
+    .nav-cta:hover { background: var(--ground-2); transform: translateY(-1px); }
+    .nav-cta:active { transform: translateY(0) scale(.98); }
+
+    /* Buttons */
+    .button { display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: var(--ground); color: var(--mark); font-weight: 600; font-size: 15px; letter-spacing: -.01em; transition: transform .25s var(--ease), background .25s ease, box-shadow .25s ease; white-space: nowrap; }
+    .button:hover { background: var(--ground-2); transform: translateY(-1px); box-shadow: 0 12px 24px rgba(58, 59, 31, .18); }
+    .button:active { transform: translateY(0) scale(.98); }
+    .button.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+    .button.secondary:hover { background: var(--paper-2); border-color: rgba(27, 27, 18, .22); box-shadow: none; }
+    .button.on-dark { background: var(--mark); color: var(--ground); }
+    .button.on-dark:hover { background: #E2E9B0; box-shadow: 0 12px 24px rgba(214, 221, 160, .25); }
+    .button.on-dark.secondary { background: transparent; color: var(--mark); border-color: rgba(214, 221, 160, .3); }
+    .button.on-dark.secondary:hover { background: rgba(214, 221, 160, .08); border-color: rgba(214, 221, 160, .5); }
+    .button.large { min-height: 58px; padding: 0 28px; font-size: 16px; }
+    .button .arrow { transition: transform .25s var(--ease); }
+    .button:hover .arrow { transform: translateX(3px); }
+    .button[disabled] { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* Hero */
+    .hero { position: relative; padding: 158px 0 80px; overflow: hidden; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(58, 59, 31, .05), transparent 60%), var(--paper); }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+    .hero h1 { margin-bottom: 24px; }
+    .hero h1 .underline-mark { position: relative; display: inline-block; }
+    .hero h1 .underline-mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2%; height: 10px; background: var(--mark-2); opacity: .65; border-radius: 2px; z-index: -1; }
+    .hero-copy { max-width: 580px; }
+    .hero-copy > p { max-width: 50ch; color: var(--muted); font-size: 19px; line-height: 1.5; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; align-items: center; }
+    .hero-micro { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 22px; color: var(--muted); font-size: 13px; }
+    .hero-micro span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-micro .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--success); }
+
+    /* Capacity strip */
+    .capacity { position: relative; max-width: 580px; margin-top: 36px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-2); }
+    .capacity[data-state="full"] { border-color: var(--warm); background: #F4ECE0; }
+    .capacity-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+    .capacity-head strong { color: var(--ink); font-weight: 600; }
+    .capacity-head .live { display: inline-flex; align-items: center; gap: 7px; color: var(--ground); }
+    .capacity-head .live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px rgba(74, 124, 42, .18); animation: dot-pulse 1.6s ease-in-out infinite; }
+    .capacity[data-state="full"] .capacity-head .live { color: var(--warm); }
+    .capacity[data-state="full"] .capacity-head .live::before { background: var(--warm); box-shadow: 0 0 0 4px rgba(184, 90, 46, .18); animation: none; }
+    @keyframes dot-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+    .capacity-bar { position: relative; height: 8px; background: var(--paper-3); border-radius: 99px; overflow: hidden; }
+    .capacity-fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--ground); border-radius: 99px; transition: width .4s var(--ease); }
+    .capacity[data-state="full"] .capacity-fill { background: var(--warm); }
+    .capacity-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 10px; font-size: 12px; color: var(--muted); }
+    .capacity-meta strong { color: var(--ink); font-weight: 600; font-size: 13px; }
+    .capacity[data-state="full"] .capacity-meta strong { color: var(--warm); }
+
+    /* Hero demo */
+    .hero-demo { position: relative; min-height: 540px; border: 1px solid var(--line); border-radius: 18px; background: var(--paper-2); box-shadow: 0 30px 80px rgba(58, 59, 31, .08); overflow: hidden; }
+    .demo-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--paper); font-size: 12px; color: var(--muted); }
+    .demo-toolbar .window-dots { display: flex; gap: 6px; }
+    .demo-toolbar .window-dots span { width: 9px; height: 9px; border-radius: 50%; background: #E2DFD3; }
+    .demo-toolbar .window-dots span:first-child { background: #D6A8A0; }
+    .demo-toolbar .window-dots span:nth-child(2) { background: #D6C29A; }
+    .demo-toolbar .window-dots span:nth-child(3) { background: #B7C074; }
+    .demo-url { font-family: "JetBrains Mono", monospace; font-size: 11px; padding: 4px 10px; background: var(--paper-2); border-radius: 6px; }
+    .demo-stage { position: relative; min-height: 460px; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; }
+    .profile-card { position: relative; z-index: 2; align-self: center; max-width: 260px; padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 24px rgba(58, 59, 31, .08); transform: translateX(8px); }
+    .profile-card h4 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+    .profile-card p { color: var(--muted); font-size: 12px; margin: 0; }
+    .profile-card .stars { margin: 10px 0; color: #C29A2E; font-size: 12px; letter-spacing: 1px; }
+    .profile-card .meta { display: grid; gap: 5px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line-2); color: var(--muted); font-size: 11px; }
+    .profile-card .meta span { display: flex; justify-content: space-between; }
+    .forge-arrow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--ground); color: var(--mark); box-shadow: 0 14px 32px rgba(58, 59, 31, .35); animation: forge-pulse 2.4s ease-in-out infinite; }
+    .forge-arrow svg { width: 22px; height: 22px; }
+    @keyframes forge-pulse { 0%, 100% { box-shadow: 0 14px 32px rgba(58, 59, 31, .35); } 50% { box-shadow: 0 14px 40px rgba(183, 192, 116, .55); } }
+    .website-card { position: relative; z-index: 1; align-self: center; margin-left: -16px; padding: 22px; min-height: 320px; background: var(--ground); color: var(--mark); border-radius: 12px; box-shadow: 0 16px 40px rgba(58, 59, 31, .18); overflow: hidden; }
+    .website-card::after { content: ""; position: absolute; right: -40px; bottom: -40px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(214, 221, 160, .25), transparent 60%); pointer-events: none; }
+    .website-card .ws-brand { display: flex; justify-content: space-between; align-items: center; font-size: 11px; letter-spacing: .04em; color: rgba(214, 221, 160, .55); margin-bottom: 24px; }
+    .website-card .ws-brand strong { color: var(--mark); font-weight: 600; letter-spacing: 0; font-size: 13px; }
+    .website-card h3 { font-size: 30px; line-height: 1; margin-bottom: 12px; letter-spacing: -.03em; }
+    .website-card p { font-size: 12px; color: rgba(214, 221, 160, .65); margin-bottom: 18px; max-width: 28ch; }
+    .website-card .ws-actions { display: flex; gap: 6px; }
+    .website-card .ws-actions span { padding: 8px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--mark); color: var(--ground); }
+    .website-card .ws-actions span + span { background: rgba(214, 221, 160, .15); color: var(--mark); }
+    .demo-foot { position: absolute; left: 18px; right: 18px; bottom: 14px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--muted); }
+    .demo-foot .pulse { display: inline-flex; align-items: center; gap: 7px; }
+    .demo-foot .pulse::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: dot-pulse 1.6s ease-in-out infinite; }
+
+    /* Logo strip */
+    .logos { padding: 36px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
+    .logos-row { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+    .logos-label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .logos-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; align-items: center; }
+    .logo-placeholder { height: 28px; display: grid; place-items: center; color: var(--muted-2); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; border: 1px dashed var(--line); border-radius: 4px; }
+    .logos-honest { font-size: 12px; color: var(--muted); margin-top: 14px; }
+
+    /* Future pacing */
+    .future { background: var(--ground); color: var(--mark); position: relative; overflow: hidden; }
+    .future::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 80% 30%, rgba(214, 221, 160, .10), transparent 60%); pointer-events: none; }
+    .future-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(40px, 7vw, 110px); align-items: center; position: relative; }
+    .future h2 { margin-bottom: 22px; }
+    .future .lede { color: rgba(214, 221, 160, .7); max-width: 48ch; }
+    .future-points { display: grid; gap: 0; margin-top: 36px; border-top: 1px solid var(--line-dark); }
+    .future-point { display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line-dark); }
+    .future-point .n { font-family: "JetBrains Mono", monospace; font-size: 12px; color: rgba(214, 221, 160, .55); }
+    .future-point strong { display: block; margin-bottom: 4px; font-size: 17px; font-weight: 600; }
+    .future-point span { color: rgba(214, 221, 160, .7); font-size: 14px; }
+    .phone { position: relative; margin: 0 auto; max-width: 320px; padding: 12px; border-radius: 38px; background: #1F2010; border: 1px solid var(--line-dark); box-shadow: 0 40px 80px rgba(0, 0, 0, .5); transform: rotate(-2.5deg); }
+    .phone::before { content: ""; position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 90px; height: 24px; background: #1F2010; border-radius: 14px; z-index: 2; }
+    .phone-screen { position: relative; min-height: 540px; border-radius: 28px; background: var(--paper-2); color: var(--ink); padding: 50px 18px 22px; overflow: hidden; }
+    .phone-bar { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+    .phone-bar span:last-child { color: var(--muted); font-size: 10px; }
+    .phone-search { display: flex; align-items: center; gap: 8px; padding: 12px; background: #fff; border-radius: 10px; color: var(--muted); font-size: 13px; box-shadow: 0 4px 12px rgba(58, 59, 31, .05); margin-bottom: 14px; }
+    .phone-search .glass { width: 14px; height: 14px; border: 1.5px solid currentColor; border-radius: 50%; position: relative; }
+    .phone-search .glass::after { content: ""; position: absolute; right: -5px; bottom: -5px; width: 6px; height: 1.5px; background: currentColor; transform: rotate(45deg); border-radius: 1px; }
+    .phone-result { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 8px 20px rgba(58, 59, 31, .08); }
+    .phone-result-img { width: 100%; height: 110px; border-radius: 10px; background: linear-gradient(135deg, #D6DDA0, #B7C074); margin-bottom: 10px; position: relative; overflow: hidden; }
+    .phone-result-img::after { content: "✓"; position: absolute; right: 10px; top: 10px; width: 22px; height: 22px; display: grid; place-items: center; background: var(--success); color: #fff; border-radius: 50%; font-size: 12px; font-weight: 700; }
+    .phone-result h4 { font-size: 17px; margin-bottom: 4px; }
+    .phone-result .meta { color: var(--muted); font-size: 11px; margin-bottom: 8px; }
+    .phone-result .stars { color: #C29A2E; font-size: 12px; margin-bottom: 12px; }
+    .phone-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .phone-actions span { padding: 10px; border-radius: 8px; font-size: 11px; font-weight: 600; text-align: center; background: var(--ground); color: var(--mark); }
+    .phone-actions span:last-child { background: var(--mark); color: var(--ground); }
+    .phone-foot { position: absolute; left: 0; right: 0; bottom: 8px; display: flex; justify-content: center; }
+    .phone-foot span { width: 110px; height: 4px; background: var(--ink); border-radius: 99px; opacity: .85; }
+
+    /* Wound */
+    .wound { background: var(--paper); }
+    .wound-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 100px); align-items: start; }
+    .wound h2 { margin-bottom: 22px; }
+    .wound-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .wound-item { display: grid; grid-template-columns: 38px 1fr; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .wound-item .n { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted); }
+    .wound-item strong { display: block; margin-bottom: 4px; font-size: 17px; font-weight: 600; }
+    .wound-item span { color: var(--muted); font-size: 15px; }
+    .wound-item .fix { color: var(--success); font-weight: 600; }
+
+    /* Transform */
+    .transform { background: var(--paper); padding-bottom: clamp(80px, 11vw, 140px); }
+    .transform-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; margin-bottom: 48px; }
+    .transform-head h2 { margin-bottom: 12px; }
+    .transform-head .lede { max-width: 36ch; }
+    .slider { position: relative; min-height: 520px; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #fff; }
+    .slider-side { position: absolute; inset: 0; padding: 36px; }
+    .slider-side.before { background: #fff; }
+    .slider-side.after { background: var(--ground); color: var(--mark); clip-path: inset(0 0 0 50%); }
+    .slider-pill { position: absolute; top: 24px; z-index: 2; padding: 7px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .slider-side.before .slider-pill { left: 24px; background: var(--paper-2); color: var(--muted); }
+    .slider-side.after .slider-pill { right: 24px; background: var(--mark); color: var(--ground); }
+    .slider-card { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 880px; margin: 0 auto; align-items: center; min-height: 100%; }
+    .slider-card .left h3 { font-size: 38px; margin-bottom: 12px; }
+    .slider-card .left p { color: var(--muted); font-size: 15px; max-width: 32ch; }
+    .slider-card .right h3 { font-size: 42px; margin-bottom: 12px; }
+    .slider-card .right p { color: rgba(214, 221, 160, .7); font-size: 15px; max-width: 32ch; }
+    .slider-card .stats { display: grid; gap: 12px; padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper-2); }
+    .slider-card .stats .row { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--line-2); color: var(--muted); font-size: 13px; }
+    .slider-card .stats .row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .slider-card .stats .row strong { color: var(--ink); font-weight: 600; }
+    .slider-card .stats .row.bad strong { color: var(--warm); }
+    .slider-card .preview { padding: 24px; border-radius: 12px; background: #2A2B16; border: 1px solid var(--line-dark); }
+    .slider-card .preview .top { display: flex; justify-content: space-between; color: rgba(214, 221, 160, .55); font-size: 11px; margin-bottom: 24px; }
+    .slider-card .preview .top strong { color: var(--mark); font-weight: 600; }
+    .slider-card .preview h4 { font-size: 28px; line-height: 1.05; margin-bottom: 8px; color: var(--mark); }
+    .slider-card .preview p { color: rgba(214, 221, 160, .6); font-size: 12px; margin-bottom: 18px; }
+    .slider-card .preview .actions { display: flex; gap: 6px; }
+    .slider-card .preview .actions span { padding: 8px 12px; border-radius: 999px; font-size: 11px; font-weight: 600; background: var(--mark); color: var(--ground); }
+    .slider-card .preview .actions span + span { background: rgba(214, 221, 160, .15); color: var(--mark); }
+    .slider-rail { position: absolute; z-index: 4; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--ground); transform: translateX(-50%); pointer-events: none; }
+    .slider-rail::before { content: "↔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--ground); color: var(--mark); font-size: 16px; box-shadow: 0 8px 20px rgba(58, 59, 31, .3); }
+    .slider input { position: absolute; z-index: 6; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+    .slider-hint { margin-top: 16px; text-align: center; color: var(--muted); font-size: 12px; }
+
+    /* Niche */
+    .niche { background: var(--paper-2); }
+    .niche-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 48px; flex-wrap: wrap; }
+    .niche-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+    .niche-tabs button { padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--muted); font-size: 13px; font-weight: 500; transition: all .2s ease; }
+    .niche-tabs button:hover { color: var(--ink); border-color: rgba(27, 27, 18, .22); }
+    .niche-tabs button[aria-selected="true"] { background: var(--ground); color: var(--mark); border-color: var(--ground); }
+    .niche-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 16px; }
+    .niche-card { position: relative; min-height: 380px; border-radius: 18px; overflow: hidden; background: var(--ground); color: var(--mark); border: 1px solid var(--line); }
+    .niche-card.small { min-height: 182px; }
+    .niche-card .ph { position: absolute; inset: 0; background: linear-gradient(135deg, var(--ground-2), var(--ground)); }
+    .niche-card .ph::after { content: ""; position: absolute; right: -30px; top: -30px; width: 220px; height: 220px; border-radius: 50%; background: radial-gradient(circle, rgba(214, 221, 160, .25), transparent 60%); }
+    .niche-card.featured .ph::after { width: 320px; height: 320px; right: -60px; top: -60px; }
+    .niche-card.featured .ph::before { content: ""; position: absolute; left: 36px; top: 36px; right: 36px; bottom: 36px; border: 1px dashed rgba(214, 221, 160, .18); border-radius: 14px; }
+    .niche-card .body { position: relative; z-index: 1; height: 100%; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; }
+    .niche-card .tag { display: inline-flex; padding: 5px 10px; border: 1px solid rgba(214, 221, 160, .25); border-radius: 999px; color: rgba(214, 221, 160, .8); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; align-self: flex-start; }
+    .niche-card h3 { font-size: 30px; line-height: 1; margin-top: 16px; max-width: 14ch; color: var(--mark); }
+    .niche-card.featured h3 { font-size: 42px; max-width: 16ch; }
+    .niche-card p { color: rgba(214, 221, 160, .7); font-size: 14px; max-width: 36ch; margin-top: 10px; }
+    .niche-card .meta-row { display: flex; justify-content: space-between; align-items: end; margin-top: 20px; font-size: 12px; color: rgba(214, 221, 160, .55); }
+    .niche-side { display: grid; grid-template-rows: 1fr 1fr; gap: 16px; }
+
+    /* Relief */
+    .relief { background: var(--paper); }
+    .relief-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(40px, 7vw, 110px); align-items: center; }
+    .relief h2 { margin-bottom: 22px; }
+    .relief .lede { max-width: 50ch; }
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 36px; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+    .comparison > div { padding: 26px; }
+    .comparison .old { background: #F2EFE6; color: var(--ink); }
+    .comparison .old h4 { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--warm); margin-bottom: 12px; }
+    .comparison .new { background: var(--ground); color: var(--mark); }
+    .comparison .new h4 { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--mark-2); margin-bottom: 12px; }
+    .comparison ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; font-size: 14px; }
+    .comparison li { display: flex; gap: 10px; align-items: start; }
+    .comparison li::before { content: "-"; color: currentColor; opacity: .4; }
+    .comparison .new li::before { content: "→"; opacity: 1; color: var(--mark-2); }
+    .relief-visual { position: relative; padding: 32px; border-radius: 18px; background: var(--ground-2); color: var(--mark); min-height: 480px; overflow: hidden; }
+    .relief-visual::before { content: ""; position: absolute; right: -120px; bottom: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(214, 221, 160, .25), transparent 60%); }
+    .relief-visual h3 { font-size: 30px; max-width: 18ch; margin-bottom: 8px; color: var(--mark); }
+    .relief-visual p { color: rgba(214, 221, 160, .7); max-width: 30ch; font-size: 14px; }
+    .relief-stack { position: relative; margin-top: 28px; display: grid; gap: 10px; }
+    .relief-task { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border: 1px solid var(--line-dark); border-radius: 12px; background: rgba(42, 43, 22, .5); color: var(--mark); font-size: 13px; }
+    .relief-task.done .check { color: var(--mark-2); }
+    .relief-task.active { border-color: var(--mark); background: rgba(214, 221, 160, .12); }
+    .relief-task strong { font-weight: 600; }
+    .relief-task .state { font-size: 11px; color: rgba(214, 221, 160, .55); }
+
+    /* Offer */
+    .offer { background: var(--ground); color: var(--mark); position: relative; overflow: hidden; }
+    .offer::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(214, 221, 160, .08), transparent 60%); }
+    .offer-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(40px, 7vw, 100px); align-items: start; position: relative; }
+    .offer h2 { margin-bottom: 22px; }
+    .offer .lede { color: rgba(214, 221, 160, .75); max-width: 44ch; }
+    .offer-note { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; border-top: 1px solid var(--line-dark); padding-top: 24px; }
+    .offer-note div { font-size: 13px; color: rgba(214, 221, 160, .7); }
+    .offer-note div strong { display: block; color: var(--mark); font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+    .price-card { position: relative; padding: 36px; background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: 18px; transition: padding .3s var(--ease); }
+    .price-card.is-full { padding-bottom: 28px; }
+    .price-card .ribbon { position: absolute; top: 0; right: 32px; padding: 7px 14px; background: var(--mark); color: var(--ground); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border-radius: 0 0 8px 8px; transition: background .3s ease; }
+    .price-card.is-full .ribbon { background: var(--warm); color: var(--paper); }
+    .price-card .name { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: rgba(214, 221, 160, .65); margin-bottom: 12px; }
+    .price-card .price { display: flex; align-items: baseline; gap: 10px; padding: 20px 0; border-bottom: 1px solid var(--line-dark); }
+    .price-card .price .amt { font-size: 64px; font-weight: 600; letter-spacing: -.04em; color: var(--mark); }
+    .price-card .price .meta { color: rgba(214, 221, 160, .55); font-size: 13px; }
+    .price-card .price .meta strong { display: block; color: var(--mark); font-size: 14px; font-weight: 600; }
+    .price-card ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .price-card li { display: flex; gap: 10px; padding: 11px 0; font-size: 14px; color: rgba(214, 221, 160, .8); border-bottom: 1px solid var(--line-dark-2); align-items: start; }
+    .price-card li::before { content: "✓"; color: var(--mark-2); font-weight: 700; }
+    .price-card .actions { margin-top: 28px; display: grid; gap: 12px; }
+    .price-card .note { font-size: 12px; color: rgba(214, 221, 160, .5); margin-top: 16px; line-height: 1.5; }
+
+    .offer-capacity { margin-top: 28px; padding: 18px; background: rgba(214, 221, 160, .06); border: 1px solid var(--line-dark); border-radius: 12px; }
+    .offer-capacity .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; color: rgba(214, 221, 160, .7); margin-bottom: 10px; }
+    .offer-capacity .head strong { color: var(--mark); }
+    .offer-capacity .bar { position: relative; height: 6px; background: rgba(214, 221, 160, .12); border-radius: 99px; overflow: hidden; }
+    .offer-capacity .fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--mark); border-radius: 99px; }
+    .offer-capacity[data-state="full"] .fill { background: var(--warm); }
+    .offer-capacity .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 10px; font-size: 12px; color: rgba(214, 221, 160, .6); }
+    .offer-capacity .meta strong { color: var(--mark); }
+    .offer-capacity[data-state="full"] .meta strong { color: var(--warm); }
+
+    /* Waitlist card - only visible when cap is full */
+    .waitlist { display: none; margin-top: 18px; padding: 24px; background: rgba(214, 221, 160, .08); border: 1px solid var(--mark); border-radius: 14px; }
+    .waitlist[data-state="visible"] { display: block; animation: wl-in .5s var(--ease); }
+    @keyframes wl-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .waitlist h4 { margin: 0 0 6px; font-size: 18px; font-weight: 600; color: var(--mark); }
+    .waitlist p { margin: 0 0 18px; font-size: 13px; color: rgba(214, 221, 160, .8); }
+    .waitlist-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+    .waitlist-row.single { grid-template-columns: 1fr; }
+    .waitlist input, .waitlist select { width: 100%; min-height: 46px; padding: 0 16px; border: 1px solid var(--line-dark); border-radius: 10px; background: rgba(245, 243, 236, .06); color: var(--mark); outline: none; transition: border-color .2s ease, background .2s ease; font-size: 14px; }
+    .waitlist select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='%23D6DDA0'%3E%3Cpath d='M6 8L2 4h8z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    .waitlist input::placeholder { color: rgba(214, 221, 160, .45); }
+    .waitlist input:focus, .waitlist select:focus { border-color: var(--mark); background: rgba(214, 221, 160, .1); }
+    .waitlist select option { background: var(--ground); color: var(--mark); }
+    .waitlist .button { width: 100%; justify-content: center; margin-top: 4px; }
+    .waitlist .state { min-height: 20px; margin-top: 10px; font-size: 12px; color: rgba(214, 221, 160, .7); }
+    .waitlist .state.success { color: #C5DC8A; }
+    .waitlist .state.error { color: #E2B0A0; }
+    .waitlist .micro { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 10px; font-size: 11px; color: rgba(214, 221, 160, .6); }
+    .waitlist .micro strong { color: var(--mark); }
+
+    /* Trust */
+    .trust { background: var(--paper); }
+    .trust-head { text-align: center; margin-bottom: 48px; }
+    .trust-head .eyebrow { justify-content: center; }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--paper); }
+    .trust-card { padding: 30px; border-right: 1px solid var(--line); }
+    .trust-card:last-child { border-right: 0; }
+    .trust-card .ic { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--mark-wash); color: var(--ground); margin-bottom: 22px; }
+    .trust-card strong { display: block; font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+    .trust-card p { color: var(--muted); font-size: 14px; margin: 0; }
+    .trust-footnote { text-align: center; color: var(--muted); font-size: 12px; margin-top: 16px; }
+
+    /* Roadmap */
+    .roadmap { background: var(--paper-2); }
+    .roadmap-head { text-align: center; margin-bottom: 56px; }
+    .roadmap-head h2 { margin-bottom: 16px; }
+    .roadmap-head .eyebrow { justify-content: center; }
+    .roadmap-line { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .roadmap-item { position: relative; padding: 24px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; }
+    .roadmap-item .step { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ground); margin-bottom: 12px; }
+    .roadmap-item h3 { font-size: 20px; margin-bottom: 6px; }
+    .roadmap-item p { color: var(--muted); font-size: 13px; }
+    .roadmap-item .badge { display: inline-block; margin-top: 12px; padding: 4px 8px; border-radius: 99px; font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+    .roadmap-item .badge.now { background: var(--ground); color: var(--mark); }
+    .roadmap-item .badge.next { background: rgba(74, 124, 42, .12); color: var(--success); }
+    .roadmap-item .badge.soon { background: var(--paper-3); color: var(--muted); }
+
+    /* FAQ */
+    .faq { background: var(--paper); }
+    .faq-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: clamp(40px, 6vw, 100px); align-items: start; }
+    .faq h2 { margin-bottom: 16px; }
+    .faq .lede { max-width: 30ch; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; gap: 24px; width: 100%; padding: 22px 0; text-align: left; font-size: 17px; font-weight: 600; color: var(--ink); }
+    .faq-question .toggle { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); font-size: 18px; flex-shrink: 0; transition: transform .3s var(--ease), background .2s ease, color .2s ease, border-color .2s ease; }
+    .faq-item.open .faq-question .toggle { transform: rotate(45deg); background: var(--ground); color: var(--mark); border-color: var(--ground); }
+    .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease); }
+    .faq-answer > div { overflow: hidden; }
+    .faq-answer p { padding: 0 0 22px; max-width: 60ch; color: var(--muted); font-size: 15px; }
+    .faq-item.open .faq-answer { grid-template-rows: 1fr; }
+
+    /* Final */
+    .final { background: var(--ground); color: var(--mark); padding: clamp(96px, 14vw, 180px) 0; position: relative; overflow: hidden; }
+    .final::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 40% at 50% 0%, rgba(214, 221, 160, .12), transparent 60%); }
+    .final-inner { position: relative; max-width: 760px; margin: 0 auto; text-align: center; }
+    .final h2 { margin-bottom: 18px; }
+    .final p { color: rgba(214, 221, 160, .7); max-width: 52ch; margin: 0 auto 32px; font-size: 17px; }
+    .final-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; max-width: 580px; margin: 0 auto; }
+    .final-form .field { width: 100%; min-height: 58px; padding: 0 22px; border-radius: 999px; border: 1px solid var(--line-dark); background: rgba(214, 221, 160, .04); color: var(--mark); outline: none; transition: border-color .2s ease, background .2s ease; }
+    .final-form .field::placeholder { color: rgba(214, 221, 160, .45); }
+    .final-form .field:focus { border-color: var(--mark); background: rgba(214, 221, 160, .08); }
+    .form-state { min-height: 22px; margin-top: 14px; font-size: 13px; color: rgba(214, 221, 160, .6); }
+    .form-state.success { color: #C5DC8A; }
+    .form-state.error { color: #E2B0A0; }
+    .final-micro { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 22px; color: rgba(214, 221, 160, .6); font-size: 12px; }
+    .final-micro span { display: inline-flex; align-items: center; gap: 7px; }
+    .final-micro .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--mark-2); }
+
+    /* Footer */
+    footer { padding: 28px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; background: var(--paper); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--ink); }
+
+    [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+    .stagger > * { opacity: 0; transform: translateY(14px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+    .stagger.visible > * { opacity: 1; transform: translateY(0); }
+    .stagger.visible > *:nth-child(2) { transition-delay: .08s; }
+    .stagger.visible > *:nth-child(3) { transition-delay: .16s; }
+    .stagger.visible > *:nth-child(4) { transition-delay: .24s; }
+    .stagger.visible > *:nth-child(5) { transition-delay: .32s; }
+
+    @media (max-width: 980px) {
+      .hero { padding: 130px 0 60px; }
+      .hero-grid, .future-grid, .wound-grid, .relief-grid, .offer-grid, .faq-grid { grid-template-columns: 1fr; }
+      .transform-head { grid-template-columns: 1fr; align-items: start; }
+      .niche-grid { grid-template-columns: 1fr; }
+      .niche-side { grid-template-rows: 200px 200px; }
+      .niche-card.featured { min-height: 320px; }
+      .niche-card { min-height: 240px; }
+      .slider-card { grid-template-columns: 1fr; gap: 24px; }
+      .comparison { grid-template-columns: 1fr; }
+      .offer-note { grid-template-columns: 1fr; }
+      .price-card ul { grid-template-columns: 1fr; }
+      .roadmap-line { grid-template-columns: repeat(2, 1fr); }
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust-card { border-right: 0; border-bottom: 1px solid var(--line); }
+      .trust-card:last-child { border-bottom: 0; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 700px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      .section { padding: 76px 0; }
+      .section-tight { padding: 52px 0; }
+      .hero { padding: 116px 0 52px; }
+      h1 { font-size: clamp(2.7rem, 13vw, 4.4rem); }
+      h2 { font-size: clamp(2.1rem, 11vw, 3.4rem); }
+      .lede, .hero-copy > p { font-size: 16px; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .button { width: 100%; }
+      .hero-demo { min-height: 480px; }
+      .demo-stage { padding: 18px; min-height: 420px; }
+      .profile-card { max-width: 200px; padding: 12px; transform: translateX(0); }
+      .website-card { margin-left: -8px; min-height: 280px; padding: 16px; }
+      .website-card h3 { font-size: 22px; }
+      .forge-arrow { width: 48px; height: 48px; }
+      .logos-row { grid-template-columns: 1fr; gap: 14px; }
+      .logos-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .slider { min-height: 720px; }
+      .slider-side { padding: 22px; }
+      .slider-card .left h3, .slider-card .right h3 { font-size: 28px; }
+      .niche-card.featured h3 { font-size: 32px; }
+      .niche-card h3 { font-size: 22px; }
+      .relief-visual { padding: 22px; min-height: auto; }
+      .roadmap-line { grid-template-columns: 1fr; }
+      .price-card { padding: 24px; }
+      .price-card .price .amt { font-size: 48px; }
+      .final-form { grid-template-columns: 1fr; }
+      .final-form .button { width: 100%; }
+      .footer-inner { flex-direction: column; align-items: start; }
+      .waitlist-row { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      [data-reveal], .stagger > * { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Forge home">
+        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
+          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
+          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
+        </svg>
+        <span class="brand-text">Forge</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#transform">The change</a>
+        <a href="#examples">Made for</a>
+        <a href="#offer">Price</a>
+        <a href="#faq">Questions</a>
+      </nav>
+      <a class="nav-cta" href="#preview" id="navCta">Get my preview <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy" data-reveal>
+          <div class="eyebrow">For local businesses ready to look the part</div>
+          <h1>Your business is already <span class="serif">trusted</span> offline. <span class="underline-mark">Forge it</span> online.</h1>
+          <p>Turn your Google Business Profile into a professional website that helps customers understand, trust, and contact you in 48 hours.</p>
+          <div class="hero-actions">
+            <a class="button large" href="#preview" id="heroCta">Get my private preview <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="button large secondary" href="#transform">See the change</a>
+          </div>
+          <div class="hero-micro">
+            <span><span class="dot"></span> Preview before payment</span>
+            <span><span class="dot"></span> No technical setup</span>
+            <span><span class="dot"></span> Domain stays in your name</span>
+          </div>
+
+          <div class="capacity" id="capacityCard" data-state="open" aria-live="polite">
+            <div class="capacity-head">
+              <strong>This month</strong>
+              <span class="live" id="capacityLive">Live capacity</span>
+            </div>
+            <div class="capacity-bar" role="img" aria-label="6 of 6 launch slots remain this month">
+              <div class="capacity-fill" id="capacityFill" style="width: 0%"></div>
+            </div>
+            <div class="capacity-meta">
+              <span><strong id="capacityText">6 of 6 launch slots</strong> remain this month</span>
+              <span id="capacityNext">Resets 1 August</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-demo" data-reveal aria-label="A Google Business Profile being forged into a professional website">
+          <div class="demo-toolbar">
+            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="demo-url">g.page/your-business</div>
+            <div style="font-size:11px;">Live preview</div>
+          </div>
+          <div class="demo-stage">
+            <div class="profile-card">
+              <h4>Studio Mysa</h4>
+              <p>Hair salon · Pune</p>
+              <div class="stars" aria-label="Five star rating">★★★★★</div>
+              <div class="meta">
+                <span><span>Reviews</span><strong>4.8 (86)</strong></span>
+                <span><span>Photos</span><strong>86</strong></span>
+                <span><span>Services</span><strong>12 listed</strong></span>
+              </div>
+            </div>
+            <div class="forge-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </div>
+            <div class="website-card">
+              <div class="ws-brand"><strong>STUDIO MYSA</strong><span>MENU</span></div>
+              <h3>Good hair days start here.</h3>
+              <p>Thoughtful cuts, color, and styling for the way you actually live.</p>
+              <div class="ws-actions"><span>Book on WhatsApp</span><span>Services</span></div>
+            </div>
+          </div>
+          <div class="demo-foot">
+            <span class="pulse">Forging your information</span>
+            <span>Ready in seconds, not weeks</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="logos">
+      <div class="wrap">
+        <div class="logos-row">
+          <div class="logos-label">For every business with a Google Business link</div>
+          <div class="logos-grid" aria-label="Reserved partner slots">
+            <div class="logo-placeholder">Your business</div>
+            <div class="logo-placeholder">Your business</div>
+            <div class="logo-placeholder">Your business</div>
+            <div class="logo-placeholder">Your business</div>
+            <div class="logo-placeholder">Your business</div>
+          </div>
+        </div>
+        <p class="logos-honest">These slots are reserved for the first five businesses who trust Forge. We will not use real customer logos here until we have them with permission.</p>
+      </div>
+    </section>
+
+    <section class="section future" id="future">
+      <div class="wrap future-grid">
+        <div data-reveal>
+          <div class="eyebrow on-dark">Tonight, a customer is looking</div>
+          <h2>Imagine someone <span class="serif">finding you</span> right now.</h2>
+          <p class="lede">They search your business. They see a professional website. They trust you in seconds. They tap WhatsApp. They become a customer.</p>
+          <div class="future-points" data-reveal>
+            <div class="future-point"><span class="n">01</span><div><strong>They search</strong><span>Your business appears with a real link to a real home.</span></div></div>
+            <div class="future-point"><span class="n">02</span><div><strong>They understand</strong><span>Your services, proof, and promise are clear in seconds.</span></div></div>
+            <div class="future-point"><span class="n">03</span><div><strong>They act</strong><span>One tap to WhatsApp, directions, or booking.</span></div></div>
+            <div class="future-point"><span class="n">04</span><div><strong>You grow</strong><span>Every customer you would have lost becomes reachable.</span></div></div>
+          </div>
+        </div>
+        <div data-reveal>
+          <div class="phone" aria-label="Simulated customer journey on a phone">
+            <div class="phone-screen">
+              <div class="phone-bar"><span>9:41</span><span>best salon near me</span></div>
+              <div class="phone-search"><span class="glass"></span><span>studio mysa pune</span></div>
+              <div class="phone-result">
+                <div class="phone-result-img"></div>
+                <h4>Studio Mysa</h4>
+                <div class="meta">Hair salon · 1.2 km away</div>
+                <div class="stars">★★★★★ <span style="color:#6B6A55">4.8 (86)</span></div>
+                <div class="phone-actions"><span>Directions</span><span>WhatsApp</span></div>
+              </div>
+              <div class="phone-foot"><span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wound">
+      <div class="wrap wound-grid">
+        <div data-reveal>
+          <div class="eyebrow">The gap you feel</div>
+          <h2>You do excellent work. Your online presence may not <span class="serif">prove it</span>.</h2>
+          <p class="lede">A Google listing tells customers you exist. A professional website tells them you are worth their time and money.</p>
+        </div>
+        <div class="wound-list stagger" data-reveal>
+          <div class="wound-item"><span class="n">01</span><div><strong>You are invisible to serious customers</strong><span>Some customers will only trust a business with a proper online home.</span></div></div>
+          <div class="wound-item"><span class="n">02</span><div><strong>Customers hesitate</strong><span>Without proof and clarity, they default to a competitor who looks more confident.</span></div></div>
+          <div class="wound-item"><span class="n">03</span><div><strong>You keep losing to better-presented competitors</strong><span>Not better work. Better first impression.</span></div></div>
+          <div class="wound-item"><span class="n">04</span><div><strong>You do not have time to become a website project manager</strong><span>Forge removes the entire process. You stay focused on your business.</span></div></div>
+          <div class="wound-item"><span class="n">05</span><div><strong>You are one website away from looking as professional online as you are in real life</strong><span class="fix"> - and Forge is that website.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section transform" id="transform">
+      <div class="wrap">
+        <div class="transform-head">
+          <div>
+            <div class="eyebrow">The transformation</div>
+            <h2>Same information. <br>A different first impression.</h2>
+          </div>
+          <p class="lede">Drag the slider. Watch your Google profile become the website your business deserves.</p>
+        </div>
+        <div class="slider" data-reveal>
+          <div class="slider-side before">
+            <span class="slider-pill">Your Google Profile</span>
+            <div class="slider-card">
+              <div class="left">
+                <h3>Present, but hard to enter.</h3>
+                <p>Your information is scattered across search, photos, reviews, and maps. Customers have to piece it together themselves.</p>
+              </div>
+              <div class="right">
+                <h3>What customers see.</h3>
+                <p></p>
+                <div class="stats">
+                  <div class="row"><span>Business name</span><strong>Studio Mysa</strong></div>
+                  <div class="row"><span>Photos</span><strong>86 available</strong></div>
+                  <div class="row"><span>Reviews</span><strong>4.8 (86)</strong></div>
+                  <div class="row"><span>Services</span><strong>12 listed</strong></div>
+                  <div class="row bad"><span>Next action</span><strong>Not obvious</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slider-side after">
+            <span class="slider-pill">Your Forge Website</span>
+            <div class="slider-card">
+              <div class="left">
+                <h3>Now there is somewhere to go.</h3>
+                <p>A polished home for your business, built around trust and contact. Customers understand, trust, and act.</p>
+              </div>
+              <div class="right">
+                <h3>What customers get.</h3>
+                <p></p>
+                <div class="preview">
+                  <div class="top"><strong>STUDIO MYSA</strong><span>MENU</span></div>
+                  <h4>Good hair days start here.</h4>
+                  <p>Thoughtful cuts, color, and styling for the way you actually live.</p>
+                  <div class="actions"><span>WhatsApp</span><span>Services</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="slider-rail" aria-hidden="true"></div>
+          <input id="compareRange" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+        </div>
+        <p class="slider-hint">Drag to compare. The right side is the website Forge builds for your business.</p>
+      </div>
+    </section>
+
+    <section class="section niche" id="examples">
+      <div class="wrap">
+        <div class="niche-head" data-reveal>
+          <div>
+            <div class="eyebrow">Made for businesses like yours</div>
+            <h2>It should feel made <br>for your business.</h2>
+          </div>
+          <div class="niche-tabs" role="tablist" aria-label="Business categories">
+            <button type="button" role="tab" aria-selected="true" data-niche="salon">Salon</button>
+            <button type="button" role="tab" aria-selected="false" data-niche="clinic">Clinic</button>
+            <button type="button" role="tab" aria-selected="false" data-niche="studio">Studio</button>
+            <button type="button" role="tab" aria-selected="false" data-niche="cafe">Cafe</button>
+            <button type="button" role="tab" aria-selected="false" data-niche="service">Service</button>
+          </div>
+        </div>
+        <div class="niche-grid" data-reveal>
+          <article class="niche-card featured" id="nicheMain">
+            <div class="ph"></div>
+            <div class="body">
+              <span class="tag" id="nicheMainTag">Salon</span>
+              <div>
+                <h3 id="nicheMainTitle">Make the first click feel personal.</h3>
+                <p id="nicheMainCopy">A clear services menu, proof that feels human, and a direct path to WhatsApp. Customers stop hesitating and start booking.</p>
+              </div>
+              <div class="meta-row"><span id="nicheMainMeta">12 services · 86 photos</span><span>Forge launch package</span></div>
+            </div>
+          </article>
+          <div class="niche-side">
+            <article class="niche-card small" id="nicheSideOne">
+              <div class="ph"></div>
+              <div class="body">
+                <span class="tag" id="nicheSideOneTag">Services</span>
+                <div><h3 id="nicheSideOneTitle">Show what you do.</h3></div>
+                <div class="meta-row"><span></span><span>Build a day</span></div>
+              </div>
+            </article>
+            <article class="niche-card small" id="nicheSideTwo">
+              <div class="ph"></div>
+              <div class="body">
+                <span class="tag" id="nicheSideTwoTag">Contact</span>
+                <div><h3 id="nicheSideTwoTitle">Make the next step obvious.</h3></div>
+                <div class="meta-row"><span></span><span>One tap</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section relief">
+      <div class="wrap relief-grid">
+        <div data-reveal>
+          <div class="eyebrow">The relief</div>
+          <h2>You do not need to <span class="serif">manage</span> a website project.</h2>
+          <p class="lede">Forge handles the structure, first draft, mobile layout, contact actions, hosting, and domain connection. You handle approvals.</p>
+          <div class="comparison">
+            <div class="old">
+              <h4>The old way</h4>
+              <ul>
+                <li>Briefing and discovery calls</li>
+                <li>Chasing designers for content</li>
+                <li>Multiple revisions and mockups</li>
+                <li>Hosting and technical accounts</li>
+                <li>Weeks of waiting</li>
+              </ul>
+            </div>
+            <div class="new">
+              <h4>The Forge way</h4>
+              <ul>
+                <li>Send one Google link</li>
+                <li>Receive a private preview</li>
+                <li>Approve once, request one revision</li>
+                <li>Pay 50% to start, 50% to launch</li>
+                <li>Live in 48 hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="relief-visual" data-reveal>
+          <h3>The shortest path from <em>"we should"</em> to <em>"it is live."</em></h3>
+          <p>No project manager. No agency meeting. No waiting on a designer to send the first draft.</p>
+          <div class="relief-stack">
+            <div class="relief-task done"><span><strong>Google Business Profile</strong> received</span><span class="check">✓</span></div>
+            <div class="relief-task done"><span><strong>Private preview</strong> ready for review</span><span class="check">✓</span></div>
+            <div class="relief-task active"><span><strong>Your approval</strong> is the only missing piece</span><span class="state">next</span></div>
+            <div class="relief-task"><span><strong>Domain connected</strong> and website live</span><span class="state">→</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section offer" id="offer">
+      <div class="wrap offer-grid">
+        <div data-reveal>
+          <div class="eyebrow on-dark">Simple enough to say yes</div>
+          <h2>One clear price. <br>One clear <span class="serif">promise.</span></h2>
+          <p class="lede">No proposal theatre. No surprise technical bill. You see the preview before you commit to the build.</p>
+          <div class="offer-note">
+            <div><strong>50%</strong>to reserve your launch slot and start customization.</div>
+            <div><strong>50%</strong>due before the domain goes live. Website transfer available after final payment.</div>
+          </div>
+        </div>
+        <div class="price-card" id="priceCard" data-reveal>
+          <div class="ribbon" id="ribbon">Founding partner rate</div>
+          <div class="name">Launch website</div>
+          <div class="price">
+            <span class="amt">₹9,999</span>
+            <span class="meta"><strong>One-time</strong>Setup + delivery</span>
+          </div>
+          <ul>
+            <li>Mobile-first website</li>
+            <li>Business introduction</li>
+            <li>Services section</li>
+            <li>Gallery using approved assets</li>
+            <li>Call and WhatsApp buttons</li>
+            <li>Google Maps</li>
+            <li>Enquiry form</li>
+            <li>Basic technical SEO</li>
+            <li>Domain connection</li>
+            <li>One revision</li>
+            <li>14-day bug support</li>
+            <li>No technical account for you</li>
+          </ul>
+          <div class="actions" id="primaryActions">
+            <a class="button on-dark large" href="#preview" style="width:100%; justify-content:center;">Get my private preview <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+          <div class="offer-capacity" id="offerCapacity" data-state="open" aria-live="polite">
+            <div class="head">
+              <strong>This month</strong>
+              <span>Live capacity</span>
+            </div>
+            <div class="bar" role="img" aria-label="6 of 6 launch slots remain this month">
+              <div class="fill" id="offerCapacityFill" style="width: 0%"></div>
+            </div>
+            <div class="meta">
+              <span><strong id="offerCapacityText">6 of 6 launch slots</strong> remain this month</span>
+              <span id="offerCapacityNext">Resets 1 August</span>
+            </div>
+          </div>
+          <p class="note">Domain cost is separate and owned by you. Hosting and care can be added when you are ready.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="waitlist" style="padding-top: 0;">
+      <div class="wrap">
+        <div class="waitlist" data-state="hidden">
+          <h4>Join the waitlist for next month</h4>
+          <p>Three fields. We will email you the moment a slot opens, and the first waitlist members receive their private preview one week before the page is updated.</p>
+          <form id="waitlistForm" novalidate>
+            <div class="waitlist-row single">
+              <input id="wlName" type="text" placeholder="Your name" required>
+            </div>
+            <div class="waitlist-row">
+              <input id="wlEmail" type="email" placeholder="Email" required>
+              <select id="wlNiche" required>
+                <option value="">Your category</option>
+                <option>Salon or spa</option>
+                <option>Clinic or dental</option>
+                <option>Cafe or restaurant</option>
+                <option>Design or architecture studio</option>
+                <option>Real estate</option>
+                <option>Hotel or guesthouse</option>
+                <option>Tuition or coaching</option>
+                <option>Service business</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="waitlist-row single">
+              <input id="wlLink" type="url" placeholder="Google Business Profile link" required>
+            </div>
+            <button class="button on-dark" type="submit">Reserve my spot <span class="arrow" aria-hidden="true">→</span></button>
+          </form>
+          <div class="state" id="waitlistState" role="status" aria-live="polite"></div>
+          <div class="micro">
+            <span>Capped at 12 spots</span>
+            <span>First come, first served</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section trust">
+      <div class="wrap">
+        <div class="trust-head" data-reveal>
+          <div class="eyebrow">How we earn your trust</div>
+        </div>
+        <div class="trust-grid stagger" data-reveal>
+          <article class="trust-card">
+            <div class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <strong>Preview before payment</strong>
+            <p>See a private website built from your own Google Business Profile. No commitment to pay until you approve it.</p>
+          </article>
+          <article class="trust-card">
+            <div class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+            </div>
+            <strong>Your domain stays yours</strong>
+            <p>Registered in your name. After final payment, the finished website and project files can be transferred to you.</p>
+          </article>
+          <article class="trust-card">
+            <div class="ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <strong>Conditional 48-hour launch</strong>
+            <p>Preview within 24 hours. Launch within 48 hours of approval, deposit, and required domain access. Otherwise your deposit is refunded.</p>
+          </article>
+        </div>
+        <p class="trust-footnote">Forge does not use fake testimonials, review counts, or claimed conversion numbers. Every claim on this page is defensible. The monthly launch cap is real: when it is full, the page says so, the next slot opens on the first of the following month, and the waitlist below takes its place.</p>
+      </div>
+    </section>
+
+    <section class="section roadmap">
+      <div class="wrap">
+        <div class="roadmap-head" data-reveal>
+          <div class="eyebrow">The bigger picture</div>
+          <h2>Start with a website. <br>Build the system as you grow.</h2>
+          <p class="lede" style="margin: 0 auto;">The first layer makes your business easier to trust. The next layers make it easier to operate.</p>
+        </div>
+        <div class="roadmap-line stagger" data-reveal>
+          <div class="roadmap-item"><div class="step">Phase 01</div><h3>Website</h3><p>A credible home for your business online.</p><span class="badge now">Now</span></div>
+          <div class="roadmap-item"><div class="step">Phase 02</div><h3>Reviews and SEO</h3><p>Get discovered, build proof, and stay present.</p><span class="badge next">Next</span></div>
+          <div class="roadmap-item"><div class="step">Phase 03</div><h3>Bookings and CRM</h3><p>Turn interest into customers, and customers into repeat customers.</p><span class="badge next">Next</span></div>
+          <div class="roadmap-item"><div class="step">Phase 04</div><h3>AI receptionist</h3><p>Answer every enquiry, day or night, in your voice.</p><span class="badge soon">Soon</span></div>
+          <div class="roadmap-item"><div class="step">Phase 05</div><h3>Business OS</h3><p>The operating system for local business growth.</p><span class="badge soon">Soon</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="wrap faq-grid">
+        <div data-reveal>
+          <div class="eyebrow">The questions you should ask</div>
+          <h2>Nothing hidden.</h2>
+          <p class="lede">Good trust is specific. Here are the details that usually get buried until it is too late.</p>
+        </div>
+        <div class="faq-list" data-reveal>
+          <div class="faq-item open"><button class="faq-question" type="button" aria-expanded="true"><span>Do I need to write the website content?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>No. Forge starts with your Google Business Profile and asks for only the missing details that matter. You approve the first draft before launch.</p></div></div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Do I need a Vercel, GitHub, or hosting account?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>No. Forge handles the technical setup. You only need access to your domain when it is time to connect it.</p></div></div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Who owns the website and the domain?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Your domain stays in your name. After the balance is paid, the finished website and project files can be transferred to you.</p></div></div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>What does the monthly launch cap mean?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Forge accepts a maximum of 6 launch projects per month so every business gets a proper review before delivery. When the cap is full, the page shows it, deposits pause, and the next slot opens on the first of the following month.</p></div></div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>What if the cap is full when I am ready?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>Join the waitlist at the bottom of the page. You will receive a private preview and a reserved slot for the next month before the page is updated.</p></div></div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>What does "one revision" actually include?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>One revision means changes to the agreed page after the preview. It is not a new page, a new workflow, or a complete change of direction. Additional revisions can be scoped separately.</p></div></div></div>
+          <div class="faq-item"><button class="faq-question" type="button" aria-expanded="false"><span>Does this guarantee more customers?</span><span class="toggle" aria-hidden="true">+</span></button><div class="faq-answer"><div><p>No honest website can guarantee rankings, leads, or revenue. Forge gives customers a faster, clearer, more professional way to understand and contact your business.</p></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" id="preview">
+      <div class="wrap final-inner" data-reveal>
+        <div class="eyebrow on-dark" style="justify-content:center;" id="finalEyebrow">Your first impression, upgraded</div>
+        <h2 id="finalHeadline">Give customers <span class="serif">somewhere</span> worth arriving.</h2>
+        <p id="finalSub">Send your Google Business Profile link. We will forge a private preview and send it to you within 24 hours. No obligation. No changes to your Google listing.</p>
+        <form class="final-form" id="previewForm" novalidate>
+          <label class="sr-only" for="profileUrl">Google Business Profile link</label>
+          <input class="field" id="profileUrl" type="url" placeholder="Paste your Google Business Profile link" required>
+          <button class="button on-dark large" type="submit">Get my private preview <span class="arrow" aria-hidden="true">→</span></button>
+        </form>
+        <div class="form-state" id="formState" role="status" aria-live="polite"></div>
+        <div class="final-micro" id="finalMicro">
+          <span><span class="dot"></span> Preview in 24 hours</span>
+          <span><span class="dot"></span> No obligation to continue</span>
+          <span><span class="dot"></span> Domain stays in your name</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© Forge. Forging professional online presence for local businesses.</span>
+      <div class="footer-links"><a href="mailto:hello@forge.local">Contact</a><a href="audit.html">Free audit</a><a href="operator.html">Operator plan</a><a href="#faq">FAQ</a><a href="#top">Back to top</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      // ---------- Real monthly launch cap ----------
+      // Edit these each month. remaining must be 0..total.
+      const CAP = { total: 6, remaining: 4, nextReset: '1 August', waitlistSize: 12 };
+      const isFull = CAP.remaining <= 0;
+
+      const fillPct = ((CAP.total - CAP.remaining) / CAP.total) * 100;
+      const fillEl = document.getElementById('capacityFill');
+      const offerFillEl = document.getElementById('offerCapacityFill');
+      const textEl = document.getElementById('capacityText');
+      const offerTextEl = document.getElementById('offerCapacityText');
+      const nextEl = document.getElementById('capacityNext');
+      const offerNextEl = document.getElementById('offerCapacityNext');
+      const capacityCard = document.getElementById('capacityCard');
+      const offerCapacity = document.getElementById('offerCapacity');
+      const ribbon = document.getElementById('ribbon');
+      const priceCard = document.getElementById('priceCard');
+      const primaryActions = document.getElementById('primaryActions');
+      const navCta = document.getElementById('navCta');
+      const heroCta = document.getElementById('heroCta');
+      const finalEyebrow = document.getElementById('finalEyebrow');
+      const finalHeadline = document.getElementById('finalHeadline');
+      const finalSub = document.getElementById('finalSub');
+      const finalMicro = document.getElementById('finalMicro');
+      const waitlist = document.getElementById('waitlist');
+
+      if (fillEl) fillEl.style.width = fillPct + '%';
+      if (offerFillEl) offerFillEl.style.width = fillPct + '%';
+
+      if (isFull) {
+        const txt = 'Cap full · next slot opens 1 August';
+        if (textEl) textEl.textContent = txt;
+        if (offerTextEl) offerTextEl.textContent = txt;
+        if (nextEl) nextEl.textContent = 'Waitlist open below';
+        if (offerNextEl) offerNextEl.textContent = 'Waitlist open below';
+        if (capacityCard) capacityCard.setAttribute('data-state', 'full');
+        if (offerCapacity) offerCapacity.setAttribute('data-state', 'full');
+        if (ribbon) { ribbon.textContent = 'Cap full this month'; }
+        if (priceCard) priceCard.classList.add('is-full');
+        if (waitlist) waitlist.setAttribute('data-state', 'visible');
+
+        // Swap the primary CTA into a waitlist anchor
+        if (primaryActions) {
+          primaryActions.innerHTML = '<a class="button on-dark large" href="#waitlist" style="width:100%; justify-content:center;">Join the waitlist for next month <span class="arrow" aria-hidden="true">→</span></a>';
+        }
+        if (navCta) { navCta.textContent = 'Join the waitlist →'; navCta.setAttribute('href', '#waitlist'); }
+        if (heroCta) { heroCta.textContent = 'Join the waitlist'; heroCta.setAttribute('href', '#waitlist'); }
+        if (finalEyebrow) finalEyebrow.textContent = 'Next month is already forming';
+        if (finalHeadline) finalHeadline.innerHTML = 'Reserve your slot <span class="serif">before next month opens</span>.';
+        if (finalSub) finalSub.textContent = 'Leave your Google Business Profile link and your niche. The first waitlist members receive their private preview one week before the next month goes live.';
+        if (finalMicro) {
+          finalMicro.innerHTML = '<span><span class="dot"></span> Waitlist capped at 12</span><span><span class="dot"></span> Priority access for partners</span><span><span class="dot"></span> Preview one week early</span>';
+        }
+      } else {
+        const txt = CAP.remaining + ' of ' + CAP.total + ' launch slot' + (CAP.total === 1 ? '' : 's') + ' remain this month';
+        if (textEl) textEl.textContent = txt;
+        if (offerTextEl) offerTextEl.textContent = txt;
+        if (nextEl) nextEl.textContent = 'Resets ' + CAP.nextReset;
+        if (offerNextEl) offerNextEl.textContent = 'Resets ' + CAP.nextReset;
+      }
+
+      // ---------- Scroll progress (real) ----------
+      const bar = document.getElementById('scrollProgress');
+      const updateProgress = () => {
+        const doc = document.documentElement;
+        const total = doc.scrollHeight - doc.clientHeight;
+        const pct = total > 0 ? (window.scrollY / total) * 100 : 0;
+        bar.style.setProperty('--p', pct + '%');
+      };
+      document.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+
+      // ---------- Scroll reveal ----------
+      const revealItems = document.querySelectorAll('[data-reveal]');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || !('IntersectionObserver' in window)) {
+        revealItems.forEach(i => i.classList.add('visible'));
+      } else {
+        const obs = new IntersectionObserver((entries, o) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); }
+          });
+        }, { threshold: .12, rootMargin: '0px 0px -40px' });
+        revealItems.forEach(i => obs.observe(i));
+      }
+
+      // ---------- Before/after slider ----------
+      const range = document.getElementById('compareRange');
+      const after = document.querySelector('.slider-side.after');
+      const rail = document.querySelector('.slider-rail');
+      const update = () => {
+        const v = range.value;
+        after.style.clipPath = `inset(0 0 0 ${v}%)`;
+        rail.style.left = v + '%';
+      };
+      range.addEventListener('input', update);
+      update();
+
+      // ---------- Niche switcher ----------
+      const nicheContent = {
+        salon: { main: { tag: 'Salon', title: 'Make the first click feel personal.', copy: 'A clear services menu, proof that feels human, and a direct path to WhatsApp. Customers stop hesitating and start booking.', meta: '12 services · 86 photos' }, sideOne: { tag: 'Services', title: 'Show what you do.' }, sideTwo: { tag: 'Contact', title: 'Make the next step obvious.' } },
+        clinic: { main: { tag: 'Clinic', title: 'Make care feel easier to begin.', copy: 'Answer the first questions quickly, show the team, and give patients one calm path to an appointment.', meta: 'Services · Doctor profiles' }, sideOne: { tag: 'Care', title: 'Explain what you treat.' }, sideTwo: { tag: 'Book', title: 'Reduce the hesitation.' } },
+        studio: { main: { tag: 'Studio', title: 'Let the work do the persuading.', copy: 'A focused portfolio, a clear offer, and a contact path for people who are already looking for your expertise.', meta: 'Portfolio · 24 projects' }, sideOne: { tag: 'Proof', title: 'Show the work in context.' }, sideTwo: { tag: 'Enquiry', title: 'Make the next step easy.' } },
+        cafe: { main: { tag: 'Cafe', title: 'Bring the room to the search.', copy: 'Show the menu, the hours, the vibe. Customers stop scrolling and start walking in.', meta: 'Menu · Hours · Location' }, sideOne: { tag: 'Menu', title: 'Show what you serve.' }, sideTwo: { tag: 'Visit', title: 'Bring them in the door.' } },
+        service: { main: { tag: 'Service', title: 'Make trust obvious before the first call.', copy: 'A clear offer, a proof section, and a direct line. Customers understand what you do and how to start.', meta: 'Services · Process · Contact' }, sideOne: { tag: 'Offer', title: 'Explain what you do.' }, sideTwo: { tag: 'Start', title: 'Make starting easy.' } }
+      };
+      const buttons = document.querySelectorAll('[data-niche]');
+      const setNiche = (key) => {
+        const d = nicheContent[key];
+        document.getElementById('nicheMainTag').textContent = d.main.tag;
+        document.getElementById('nicheMainTitle').textContent = d.main.title;
+        document.getElementById('nicheMainCopy').textContent = d.main.copy;
+        document.getElementById('nicheMainMeta').textContent = d.main.meta;
+        document.getElementById('nicheSideOneTag').textContent = d.sideOne.tag;
+        document.getElementById('nicheSideOneTitle').textContent = d.sideOne.title;
+        document.getElementById('nicheSideTwoTag').textContent = d.sideTwo.tag;
+        document.getElementById('nicheSideTwoTitle').textContent = d.sideTwo.title;
+        buttons.forEach(b => b.setAttribute('aria-selected', b.dataset.niche === key ? 'true' : 'false'));
+      };
+      buttons.forEach(b => b.addEventListener('click', () => setNiche(b.dataset.niche)));
+
+      // ---------- FAQ ----------
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+          const item = q.closest('.faq-item');
+          const isOpen = item.classList.toggle('open');
+          q.setAttribute('aria-expanded', String(isOpen));
+        });
+      });
+
+      // ---------- Preview form ----------
+      const form = document.getElementById('previewForm');
+      const state = document.getElementById('formState');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const input = document.getElementById('profileUrl');
+        const submit = form.querySelector('button');
+        if (!input.value) {
+          state.className = 'form-state error';
+          state.textContent = 'Paste your Google Business Profile link to begin.';
+          return;
+        }
+        const original = submit.innerHTML;
+        submit.disabled = true;
+        submit.textContent = isFull ? 'Adding you to the waitlist...' : 'Forging your preview...';
+        state.className = 'form-state';
+        state.textContent = isFull
+          ? 'Saving your spot for next month. We will email you one week before launch.'
+          : 'Reading your profile so we can shape the first draft around your real information.';
+        window.setTimeout(() => {
+          submit.disabled = false;
+          submit.innerHTML = original;
+          state.className = 'form-state success';
+          const verb = isFull ? 'waitlist' : 'preview request';
+          state.innerHTML = verb.charAt(0).toUpperCase() + verb.slice(1) + ' received. We will review <strong>' + input.value.replace(/[<>]/g, '') + '</strong>' + (isFull ? ' and send a private concept one week before next month opens.' : ' and send a private concept within 24 hours.');
+          input.value = '';
+        }, 1200);
+      });
+
+      // ---------- Waitlist form ----------
+      const wlForm = document.getElementById('waitlistForm');
+      if (wlForm) {
+        const wlState = document.getElementById('waitlistState');
+        wlForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('wlName').value.trim();
+          const email = document.getElementById('wlEmail').value.trim();
+          const link = document.getElementById('wlLink').value.trim();
+          const submit = wlForm.querySelector('button');
+          if (!name || !email || !link) {
+            wlState.className = 'state error';
+            wlState.textContent = 'Name, email, and Google link are required.';
+            return;
+          }
+          const original = submit.innerHTML;
+          submit.disabled = true;
+          submit.textContent = 'Reserving your spot...';
+          wlState.className = 'state';
+          wlState.textContent = 'Adding you to the waitlist for next month.';
+          window.setTimeout(() => {
+            submit.disabled = false;
+            submit.innerHTML = original;
+            // Simulated position: pseudo-random but stable per email
+            const hash = Array.from(email).reduce((a, c) => a + c.charCodeAt(0), 0);
+            const position = (hash % CAP.waitlistSize) + 1;
+            wlState.className = 'state success';
+            wlState.innerHTML = 'You are <strong>#' + position + ' of ' + CAP.waitlistSize + '</strong> in the waitlist for next month. We will email <strong>' + email.replace(/[<>]/g, '') + '</strong> the moment a slot opens.';
+            wlForm.reset();
+          }, 1100);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
