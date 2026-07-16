@@ -285,7 +285,7 @@
       <div class="wrap hero-inner" data-reveal>
         <div class="eyebrow" style="justify-content:center;">Request received</div>
         <h1>You are <span class="serif">in.</span></h1>
-        <p>Your note or preview request is logged. We will reach out from <strong>hello@forge.local</strong> with the next step. In the meantime, here is what to expect.</p>
+        <p>We will follow up on <strong>WhatsApp</strong> first — that is where the conversation happens.</p>
         <div class="success-card" data-reveal>
           <span class="check" aria-hidden="true">✓</span>
           <div>
@@ -433,12 +433,23 @@
       }
 
       function subFor(s, ref) {
-        const refLine = ref ? 'Your reference is <strong>' + safe(ref) + '</strong>.' : '';
-        if (s === 'audit')    return refLine + ' Tap the WhatsApp button below to confirm and we will start the review today.';
-        if (s === 'preview')  return refLine + ' Tap the WhatsApp button below to confirm and we will send the preview within 24 hours.';
-        if (s === 'waitlist') return refLine + ' Tap the WhatsApp button below and we will tell you the moment a slot opens.';
-        if (s === 'operator') return refLine + ' Tap the WhatsApp button below and we will reply within one business day.';
-        return refLine + ' Tap the WhatsApp button below to confirm and we will take it from there.';
+        // Direction 1: outcome + speed. Reference already shown in the
+        // success card below, so the sub-line just needs to motivate the tap.
+        const speed = 'We reply within the hour during business hours.';
+        if (s === 'audit')    return 'Send your 7-point audit on WhatsApp. ' + speed;
+        if (s === 'preview')  return 'Send your private preview on WhatsApp. ' + speed;
+        if (s === 'waitlist') return 'Hold your spot on WhatsApp. ' + speed;
+        if (s === 'operator') return 'Talk through the right plan on WhatsApp. ' + speed;
+        return 'Chat with us on WhatsApp. ' + speed;
+      }
+
+      function ctaLabelFor(s) {
+        // Button copy. Outcome-first, not platform-first. Always short (< 30 chars).
+        if (s === 'audit')    return 'Send my audit on WhatsApp →';
+        if (s === 'preview')  return 'Send my preview on WhatsApp →';
+        if (s === 'waitlist') return 'Reserve my spot on WhatsApp →';
+        if (s === 'operator') return "Let's talk on WhatsApp →";
+        return 'Chat on WhatsApp →';
       }
 
       // ---------- Render the success card + WhatsApp CTA ----------
@@ -456,7 +467,7 @@
       }
       if (waCta) {
         waCta.href = WA_BASE + '?text=' + encodeURIComponent(buildWhatsAppMessage());
-        waCta.textContent = 'Open WhatsApp to confirm — ' + (reference || 'your request') + ' ' + '→';
+        waCta.textContent = ctaLabelFor(source);
       }
 
       // ---------- Floating WhatsApp button (general enquiry) ----------
