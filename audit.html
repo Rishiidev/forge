@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A free 7-point website audit for local businesses. See what your Google profile is telling customers, and what your website should be telling them.">
-  <meta name="theme-color" content="#3A3B1F">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#262D0D">
   <title>Free 7-Point Website Audit - Forge</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,7 +55,7 @@
     .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
     .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
-    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .brand-mark { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; }
     .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
     .nav-links a:hover { color: var(--ink); }
     .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
@@ -171,13 +173,32 @@
       [data-reveal] { opacity: 1; transform: none; }
     }
   
-    /* ---------- Floating WhatsApp button ---------- */
-    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; background: #25D366; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: 0 12px 28px rgba(37, 211, 102, .35); transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s ease; }
-    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(37, 211, 102, .45); }
-    .wa-float:active { transform: translateY(0) scale(.98); }
-    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
-    .wa-float .label { display: none; }
-    @media (min-width: 720px) { .wa-float .label { display: inline; } }
+    /* ---------- Floating WhatsApp button (desktop only) ---------- */
+    .wa-float {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      padding: 0;
+      background: var(--ground);
+      color: var(--mark);
+      border: 1px solid rgba(214, 221, 160, .25);
+      border-radius: 50%;
+      box-shadow: 0 14px 32px rgba(38, 45, 13, .32), 0 2px 6px rgba(38, 45, 13, .18);
+      transition: transform .25s var(--ease), box-shadow .25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-float svg { width: 26px; height: 26px; flex-shrink: 0; display: block; }
+    .wa-float .label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(38, 45, 13, .38), 0 3px 8px rgba(38, 45, 13, .22); }
+    .wa-float:active { transform: translateY(0) scale(.96); }
+    .wa-float:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+    @media (min-width: 960px) { .wa-float { display: inline-flex; } }
     @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
   </style>
 </head>
@@ -185,11 +206,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="index.html" aria-label="Forge home">
-        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
-          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
-          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
-        </svg>
+        <img src="logo.png" alt="Forge" class="brand-mark">
         <span>Forge</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
@@ -218,20 +235,49 @@
         <div class="form-card" data-reveal>
           <h3>Get the free audit</h3>
           <p>Paste your Google Business Profile link. We review seven specific points and send a private write-up within 48 hours.</p>
-          <iframe
-            src="https://tally.so/embed/9qy0M5?hideTitle=1&transparentBackground=1&dynamicHeight=1"
-            loading="lazy"
-            width="100%"
-            height="900"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            title="Get the free 7-point audit"
-            style="width: 100%; border: 0; background: transparent;"
-          ></iframe>
-          <script async src="https://tally.so/widgets/embed.js"></script>
-          <p class="consent">By submitting, you agree to receive one private audit and one optional follow-up. No list, no spam, no selling your data.</p>
-        </div>
+          <form class="audit-form" id="auditForm" novalidate>
+            <input type="text" name="website" id="au-hp" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="form-row">
+              <label for="aName">Your name</label>
+              <input id="aName" type="text" placeholder="e.g. Priya Shah" required>
+            </div>
+            <div class="form-row two">
+              <div>
+                <label for="aEmail">Email</label>
+                <input id="aEmail" type="email" placeholder="you@business.com" required>
+              </div>
+              <div>
+                <label for="aBiz">Business name</label>
+                <input id="aBiz" type="text" placeholder="e.g. Studio Mysa" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <label for="aCategory">Category</label>
+              <select id="aCategory" required>
+                <option value="">Select your category</option>
+                <option>Salon or spa</option>
+                <option>Clinic or dental</option>
+                <option>Cafe or restaurant</option>
+                <option>Design or architecture studio</option>
+                <option>Real estate</option>
+                <option>Hotel or guesthouse</option>
+                <option>Tuition or coaching</option>
+                <option>Service business</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="aLink">Google Business Profile link</label>
+              <input id="aLink" type="url" placeholder="https://g.page/your-business" required>
+            </div>
+            <div class="form-row">
+              <label for="aWhatsApp">Your WhatsApp number</label>
+              <input id="aWhatsApp" type="tel" placeholder="+91 99999 99999" pattern="[0-9+\-\s()]{7,}" required>
+            </div>
+            <button class="button large" type="submit">Send my free audit <span class="arrow" aria-hidden="true">→</span></button>
+            <p class="consent">By submitting, you agree to receive one private audit and one optional follow-up. No list, no spam, no selling your data.</p>
+            <div class="form-state" id="auditState" role="status" aria-live="polite"></div>
+          </form>
       </div>
     </section>
 
@@ -322,20 +368,66 @@
   <script>
     (() => {
       // ---------- WhatsApp number ----------
-
-      // ---------- Floating WhatsApp button ----------
-      (() => {
-        const float = document.getElementById('waFloat');
-        if (!float) return;
-        const url = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
-        float.href = url;
-      })();
-
-      // Edit this once. Format: country code + number, no +, no spaces.
       const WA_NUMBER = '919999999999';
       const WA_BASE = 'https://wa.me/' + WA_NUMBER;
 
-      const form = document.getElementById('auditForm');
+      // ---------- Floating WhatsApp button ----------
+      const float = document.getElementById('waFloat');
+      if (float) {
+        float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
+      }
+
+      // ---------- Audit form (native) ----------
+      const auditForm = document.getElementById('auditForm');
+      if (auditForm) {
+        auditForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submit = auditForm.querySelector('button');
+          const state = document.getElementById('auditState');
+          const name = document.getElementById('aName').value.trim();
+          const email = document.getElementById('aEmail').value.trim();
+          const biz = document.getElementById('aBiz').value.trim();
+          const category = document.getElementById('aCategory').value;
+          const link = document.getElementById('aLink').value.trim();
+          const wa = document.getElementById('aWhatsApp').value.trim();
+          if (!name || !email || !biz || !category || !link || !wa) {
+            state.className = 'form-state error';
+            state.textContent = 'All six fields are required to give you an honest audit.';
+            return;
+          }
+          const original = submit.innerHTML;
+          submit.disabled = true;
+          submit.textContent = 'Sending...';
+          state.className = 'form-state';
+          state.textContent = 'Sending your audit request.';
+          try {
+            const res = await fetch('/api/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ source: 'audit', name, email, biz, category, link, whatsapp: wa }),
+            });
+            const data = await res.json().catch(() => ({ ok: res.ok }));
+            submit.disabled = false;
+            submit.innerHTML = original;
+            if (res.ok && data.ok) {
+              state.className = 'form-state success';
+              state.innerHTML = 'Audit request received for ' + biz + '. The private write-up will arrive within 48 hours.';
+              const dest = 'thanks.html?source=audit&biz=' + encodeURIComponent(biz) + (wa ? '&wa=' + encodeURIComponent(wa) : '');
+              window.setTimeout(() => { window.location.href = dest; }, 900);
+            } else {
+              state.className = 'form-state error';
+              state.textContent = 'Could not send right now. Please try again or message us on WhatsApp.';
+            }
+          } catch (err) {
+            submit.disabled = false;
+            submit.innerHTML = original;
+            state.className = 'form-state error';
+            state.textContent = 'Network error. Please try again, or message us on WhatsApp.';
+          }
+        });
+      }
+
+      // ---------- Scroll reveal ----------
       const reveal = document.querySelectorAll('[data-reveal]');
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || !('IntersectionObserver' in window)) {
@@ -346,17 +438,12 @@
         }, { threshold: .12, rootMargin: '0px 0px -40px' });
         reveal.forEach(i => obs.observe(i));
       }
-
-      // The audit form is now a Tally iframe — submission goes to Tally,
-      // and Tally redirects directly to thanks.html?source=audit.
-      // No client-side handler needed.
-      if (form) { /* keep variable defined for any future re-introduction */ }
     })();
   </script>
 
-  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp">
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-    <span class="label">Chat on WhatsApp</span>
+    <span class="label">Chat with Forge on WhatsApp</span>
   </a>
 </body>
 </html>

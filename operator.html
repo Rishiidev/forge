@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The Forge Operator plan. Ongoing management, hosting, and evolution of your professional online presence. For local businesses that want the website to keep working after launch.">
-  <meta name="theme-color" content="#3A3B1F">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#262D0D">
   <title>Operator Plan - Forge</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +58,7 @@
     .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
     .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
-    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .brand-mark { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; }
     .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
     .nav-links a:hover { color: var(--ink); }
     .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
@@ -211,13 +213,32 @@
       [data-reveal], .stagger > * { opacity: 1; transform: none; }
     }
   
-    /* ---------- Floating WhatsApp button ---------- */
-    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; background: #25D366; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: 0 12px 28px rgba(37, 211, 102, .35); transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s ease; }
-    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(37, 211, 102, .45); }
-    .wa-float:active { transform: translateY(0) scale(.98); }
-    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
-    .wa-float .label { display: none; }
-    @media (min-width: 720px) { .wa-float .label { display: inline; } }
+    /* ---------- Floating WhatsApp button (desktop only) ---------- */
+    .wa-float {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      padding: 0;
+      background: var(--ground);
+      color: var(--mark);
+      border: 1px solid rgba(214, 221, 160, .25);
+      border-radius: 50%;
+      box-shadow: 0 14px 32px rgba(38, 45, 13, .32), 0 2px 6px rgba(38, 45, 13, .18);
+      transition: transform .25s var(--ease), box-shadow .25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-float svg { width: 26px; height: 26px; flex-shrink: 0; display: block; }
+    .wa-float .label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(38, 45, 13, .38), 0 3px 8px rgba(38, 45, 13, .22); }
+    .wa-float:active { transform: translateY(0) scale(.96); }
+    .wa-float:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+    @media (min-width: 960px) { .wa-float { display: inline-flex; } }
     @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
   </style>
 </head>
@@ -225,11 +246,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="index.html" aria-label="Forge home">
-        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
-          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
-          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
-        </svg>
+        <img src="logo.png" alt="Forge" class="brand-mark">
         <span>Forge</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
@@ -413,18 +430,15 @@
         <div class="eyebrow on-dark" style="justify-content:center;">Talk to Forge</div>
         <h2>The Operator plan is <span class="serif">capped at 8 active clients</span>.</h2>
         <p>If you want ongoing management of the website Forge built for you, leave a note. We will tell you honestly whether the Active plan fits, or whether Steady is enough, or whether we are full this month.</p>
-        <iframe
-          src="https://tally.so/embed/0Qy0kB?hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy"
-          width="100%"
-          height="600"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          title="Talk to Forge about the Operator plan"
-          style="width: 100%; max-width: 580px; margin: 0 auto; border: 0; background: transparent; display: block;"
-        ></iframe>
-        <script async src="https://tally.so/widgets/embed.js"></script>
+        <form class="commitment-form" id="opForm" novalidate>
+          <input type="text" name="website" id="op-hp" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <label class="sr-only" for="opEmail">Email</label>
+          <input id="opEmail" type="email" placeholder="you@business.com" required>
+          <label class="sr-only" for="opWhatsApp">WhatsApp number</label>
+          <input id="opWhatsApp" type="tel" placeholder="Your WhatsApp number" pattern="[0-9+\-\s()]{7,}" required>
+          <button class="button on-dark large" type="submit">Talk to Forge <span class="arrow" aria-hidden="true">→</span></button>
+        </form>
+        <div class="commitment-state" id="opState" role="status" aria-live="polite"></div>
       </div>
     </section>
   </main>
@@ -435,23 +449,65 @@
       <div class="footer-links"><a href="index.html">Home</a><a href="audit.html">Free audit</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@forge.local">Contact</a></div>
     </div>
   </footer>
-
   <script>
     (() => {
       // ---------- WhatsApp number ----------
-
-      // ---------- Floating WhatsApp button ----------
-      (() => {
-        const float = document.getElementById('waFloat');
-        if (!float) return;
-        const url = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
-        float.href = url;
-      })();
-
-      // Edit this once. Format: country code + number, no +, no spaces.
       const WA_NUMBER = '919999999999';
       const WA_BASE = 'https://wa.me/' + WA_NUMBER;
 
+      // ---------- Floating WhatsApp button ----------
+      const float = document.getElementById('waFloat');
+      if (float) {
+        float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
+      }
+
+      // ---------- Operator form (native) ----------
+      const opForm = document.getElementById('opForm');
+      if (opForm) {
+        opForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const submit = opForm.querySelector('button');
+          const state = document.getElementById('opState');
+          const email = document.getElementById('opEmail').value.trim();
+          const wa = document.getElementById('opWhatsApp').value.trim();
+          if (!email || !wa) {
+            state.className = 'commitment-state error';
+            state.textContent = 'Drop your email and WhatsApp number. We will respond within one business day.';
+            return;
+          }
+          const original = submit.innerHTML;
+          submit.disabled = true;
+          submit.textContent = 'Sending...';
+          state.className = 'commitment-state';
+          state.textContent = 'Reading your note and checking the Operator plan availability for this month.';
+          try {
+            const res = await fetch('/api/submit', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ source: 'operator', email, whatsapp: wa, tier: 'Active' }),
+            });
+            const data = await res.json().catch(() => ({ ok: res.ok }));
+            submit.disabled = false;
+            submit.innerHTML = original;
+            if (res.ok && data.ok) {
+              state.className = 'commitment-state success';
+              state.innerHTML = 'Note received. We will reply to ' + email + ' within one business day with the right plan and the next available slot.';
+              const dest = 'thanks.html?source=operator&tier=Active' + (wa ? '&wa=' + encodeURIComponent(wa) : '');
+              window.setTimeout(() => { window.location.href = dest; }, 900);
+            } else {
+              state.className = 'commitment-state error';
+              state.textContent = 'Could not send right now. Please try again or message us on WhatsApp.';
+            }
+          } catch (err) {
+            submit.disabled = false;
+            submit.innerHTML = original;
+            state.className = 'commitment-state error';
+            state.textContent = 'Network error. Please try again, or message us on WhatsApp.';
+          }
+        });
+      }
+
+      // ---------- Scroll reveal ----------
       const reveal = document.querySelectorAll('[data-reveal]');
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || !('IntersectionObserver' in window)) {
@@ -462,16 +518,12 @@
         }, { threshold: .12, rootMargin: '0px 0px -40px' });
         reveal.forEach(i => obs.observe(i));
       }
-
-      // The Operator form is now a Tally iframe.
-      // Submission goes to Tally, and Tally redirects directly to thanks.html?source=operator&tier=Active.
-      // No client-side handler needed.
     })();
   </script>
 
-  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp">
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-    <span class="label">Chat on WhatsApp</span>
+    <span class="label">Chat with Forge on WhatsApp</span>
   </a>
 </body>
 </html>
