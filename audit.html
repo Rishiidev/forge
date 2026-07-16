@@ -252,8 +252,8 @@
             <input id="aLink" type="url" placeholder="https://g.page/your-business" required>
           </div>
           <div class="form-row">
-            <label for="aWhatsApp">WhatsApp number (optional - faster reply)</label>
-            <input id="aWhatsApp" type="tel" placeholder="+91 99999 99999" pattern="[0-9+\-\s()]{7,}">
+            <label for="aWhatsApp">Your WhatsApp number</label>
+            <input id="aWhatsApp" type="tel" placeholder="+91 99999 99999" pattern="[0-9+\-\s()]{7,}" required>
           </div>
           <button class="button large" type="submit">Send my free audit <span class="arrow" aria-hidden="true">→</span></button>
           <p class="consent">By submitting, you agree to receive one private audit and one optional follow-up. No list, no spam, no selling your data.</p>
@@ -386,7 +386,7 @@
         const submit = form.querySelector('button');
         if (!name || !email || !biz || !cat || !link) {
           state.className = 'form-state error';
-          state.textContent = 'All five fields are required to give you an honest audit.';
+          state.textContent = 'All six fields are required to give you an honest audit.';
           return;
         }
         const original = submit.innerHTML;

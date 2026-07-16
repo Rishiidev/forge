@@ -159,14 +159,6 @@
     .demo-foot .pulse { display: inline-flex; align-items: center; gap: 7px; }
     .demo-foot .pulse::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: dot-pulse 1.6s ease-in-out infinite; }
 
-    /* Logo strip */
-    .logos { padding: 36px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper); }
-    .logos-row { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
-    .logos-label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-    .logos-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; align-items: center; }
-    .logo-placeholder { height: 28px; display: grid; place-items: center; color: var(--muted-2); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; border: 1px dashed var(--line); border-radius: 4px; }
-    .logos-honest { font-size: 12px; color: var(--muted); margin-top: 14px; }
-
     /* Future pacing */
     .future { background: var(--ground); color: var(--mark); position: relative; overflow: hidden; }
     .future::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 80% 30%, rgba(214, 221, 160, .10), transparent 60%); pointer-events: none; }
@@ -454,8 +446,6 @@
       .website-card { margin-left: -8px; min-height: 280px; padding: 16px; }
       .website-card h3 { font-size: 22px; }
       .forge-arrow { width: 48px; height: 48px; }
-      .logos-row { grid-template-columns: 1fr; gap: 14px; }
-      .logos-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .slider { min-height: 720px; }
       .slider-side { padding: 22px; }
       .slider-card .left h3, .slider-card .right h3 { font-size: 28px; }
@@ -513,7 +503,6 @@
     <section class="hero">
       <div class="wrap hero-grid">
         <div class="hero-copy" data-reveal>
-          <div class="eyebrow">For local businesses ready to look the part</div>
           <h1>Your business is already <span class="serif">trusted</span> offline. <span class="underline-mark">Forge it</span> online.</h1>
           <p>Turn your Google Business Profile into a professional website that helps customers understand, trust, and contact you in 48 hours.</p>
           <div class="hero-actions">
@@ -575,21 +564,7 @@
       </div>
     </section>
 
-    <section class="logos">
-      <div class="wrap">
-        <div class="logos-row">
-          <div class="logos-label">For every business with a Google Business link</div>
-          <div class="logos-grid" aria-label="Reserved partner slots">
-            <div class="logo-placeholder">Your business</div>
-            <div class="logo-placeholder">Your business</div>
-            <div class="logo-placeholder">Your business</div>
-            <div class="logo-placeholder">Your business</div>
-            <div class="logo-placeholder">Your business</div>
-          </div>
-        </div>
-        <p class="logos-honest">These slots are reserved for the first five businesses who trust Forge. We will not use real customer logos here until we have them with permission.</p>
-      </div>
-    </section>
+
 
     <section class="section future" id="future">
       <div class="wrap future-grid">
@@ -868,7 +843,7 @@
               <input id="wlLink" type="url" placeholder="Google Business Profile link" required>
             </div>
             <div class="waitlist-row single">
-              <input id="wlWhatsApp" type="tel" placeholder="WhatsApp number (optional - faster reply)" pattern="[0-9+\-\s()]{7,}">
+              <input id="wlWhatsApp" type="tel" placeholder="Your WhatsApp number" pattern="[0-9+\-\s()]{7,}" required>
             </div>
             <button class="button on-dark" type="submit">Reserve my spot <span class="arrow" aria-hidden="true">→</span></button>
           </form>
@@ -958,7 +933,7 @@
           <label class="sr-only" for="profileUrl">Google Business Profile link</label>
           <input class="field" id="profileUrl" type="url" placeholder="Paste your Google Business Profile link" required>
           <label class="sr-only" for="waPreview">WhatsApp number (optional - faster reply)</label>
-          <input class="field" id="waPreview" type="tel" placeholder="WhatsApp number (optional - faster reply)" pattern="[0-9+\-\s()]{7,}">
+          <input class="field" id="waPreview" type="tel" placeholder="Your WhatsApp number" pattern="[0-9+\-\s()]{7,}" required>
           <button class="button on-dark large" type="submit">Get my private preview <span class="arrow" aria-hidden="true">→</span></button>
         </form>
         <div class="form-state" id="formState" role="status" aria-live="polite"></div>
@@ -1133,7 +1108,7 @@
         const submit = form.querySelector('button');
         if (!input.value) {
           state.className = 'form-state error';
-          state.textContent = 'Paste your Google Business Profile link to begin.';
+          state.textContent = 'Paste your Google Business Profile link and your WhatsApp number to begin.';
           return;
         }
         const original = submit.innerHTML;
@@ -1170,7 +1145,7 @@
           const submit = wlForm.querySelector('button');
           if (!name || !email || !link) {
             wlState.className = 'state error';
-            wlState.textContent = 'Name, email, and Google link are required.';
+            wlState.textContent = 'Name, email, WhatsApp number, and Google link are required.';
             return;
           }
           const original = submit.innerHTML;

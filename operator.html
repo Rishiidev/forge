@@ -416,7 +416,7 @@
         <form class="commitment-form" id="opForm" novalidate>
           <label class="sr-only" for="opEmail">Email</label>
           <input id="opEmail" type="email" placeholder="you@business.com" required>
-          <input id="opWhatsApp" type="tel" placeholder="WhatsApp number (optional - faster reply)" style="margin-top:10px;" pattern="[0-9+\-\s()]{7,}">
+          <input id="opWhatsApp" type="tel" placeholder="Your WhatsApp number" style="margin-top:10px;" pattern="[0-9+\-\s()]{7,}" required>
           <button class="button on-dark large" type="submit">Talk to Forge <span class="arrow" aria-hidden="true">→</span></button>
         </form>
         <div class="commitment-state" id="opState" role="status" aria-live="polite"></div>
@@ -467,7 +467,7 @@
         const submit = form.querySelector('button');
         if (!input.value) {
           state.className = 'commitment-state error';
-          state.textContent = 'Drop your email and we will respond within one business day.';
+          state.textContent = 'Drop your email and WhatsApp number. We will respond within one business day.';
           return;
         }
         const original = submit.innerHTML;
