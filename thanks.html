@@ -4,7 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Your request is in. Here is what happens next, and what you can do in the meantime.">
-  <meta name="theme-color" content="#3A3B1F">
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#262D0D">
   <title>Request received - Forge</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +51,7 @@
     .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
     .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
-    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; border-radius: 6px; }
     .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
     .nav-links a:hover { color: var(--ink); }
     .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
@@ -144,25 +146,130 @@
       [data-reveal] { opacity: 1; transform: none; }
     }
   
-    /* ---------- Floating WhatsApp button ---------- */
-    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; background: #25D366; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: 0 12px 28px rgba(37, 211, 102, .35); transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s ease; }
-    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(37, 211, 102, .45); }
-    .wa-float:active { transform: translateY(0) scale(.98); }
-    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
-    .wa-float .label { display: none; }
-    @media (min-width: 720px) { .wa-float .label { display: inline; } }
+    /* ---------- Floating WhatsApp button (desktop only) ---------- */
+    .wa-float {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 40;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      background: var(--ground);
+      color: var(--mark);
+      border: 1px solid rgba(214, 221, 160, .25);
+      border-radius: 50%;
+      box-shadow: 0 10px 22px rgba(38, 45, 13, .28), 0 2px 5px rgba(38, 45, 13, .16);
+      transition: transform .25s var(--ease), box-shadow .25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; display: block; }
+    .wa-float .label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(38, 45, 13, .38), 0 3px 8px rgba(38, 45, 13, .22); }
+    .wa-float:active { transform: translateY(0) scale(.96); }
+    .wa-float:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+    @media (min-width: 960px) { .wa-float { display: inline-flex; } }
     @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
+    /* ---------- Tooltip bubble (hover only) ---------- */
+    .wa-float .bubble {
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 12px);
+      min-width: 180px;
+      max-width: 240px;
+      padding: 10px 14px;
+      background: var(--ground);
+      color: var(--mark);
+      border: 1px solid rgba(214, 221, 160, .25);
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(38, 45, 13, .32);
+      font-size: 13px;
+      line-height: 1.35;
+      text-align: left;
+      letter-spacing: 0;
+      white-space: normal;
+      opacity: 0;
+      transform: translateY(4px) scale(.98);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 41;
+    }
+    .wa-float .bubble-headline {
+      display: block;
+      font-weight: 600;
+      color: var(--mark);
+    }
+    .wa-float .bubble-sub {
+      display: block;
+      margin-top: 4px;
+      color: rgba(214, 221, 160, .75);
+      font-weight: 400;
+      font-size: 12px;
+    }
+    /* Tail */
+    .wa-float .bubble::after {
+      content: "";
+      position: absolute;
+      right: 18px;
+      bottom: -6px;
+      width: 12px;
+      height: 12px;
+      background: var(--ground);
+      border-right: 1px solid rgba(214, 221, 160, .25);
+      border-bottom: 1px solid rgba(214, 221, 160, .25);
+      transform: rotate(45deg);
+    }
+    /* Reveal on hover, keyboard focus, or touch focus-within */
+    .wa-float:hover .bubble,
+    .wa-float:focus-visible .bubble,
+    .wa-float:focus-within .bubble {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .wa-float .bubble { transition: none; transform: none; }
+    }
+
   </style>
+
+        .ref-card {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 24px auto 0;
+          padding: 14px 18px;
+          max-width: 560px;
+          background: rgba(214, 221, 160, .12);
+          border: 1px solid var(--mark);
+          border-radius: 12px;
+        }
+        .ref-card .ref-label {
+          font-size: 11px;
+          letter-spacing: .12em;
+          text-transform: uppercase;
+          color: rgba(214, 221, 160, .7);
+        }
+        .ref-card .ref-value {
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--mark);
+          letter-spacing: .04em;
+        }
+        .ref-card .ref-hint {
+          font-size: 12px;
+          color: rgba(214, 221, 160, .65);
+          margin-left: auto;
+        }
 </head>
 <body>
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="index.html" aria-label="Forge home">
-        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
-          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
-          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
-        </svg>
+        <img src="logo.png" alt="Forge" class="brand-mark">
         <span>Forge</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
@@ -186,6 +293,11 @@
             <h3 id="successTitle">Your request is in Forge's inbox.</h3>
             <p id="successSub">A confirmation has been sent to your email. We will review your details and respond within one business day.</p>
           </div>
+        </div>
+        <div class="ref-card" id="refCard" data-reveal style="display:none;">
+          <span class="ref-label">Reference</span>
+          <span class="ref-value" id="refLabel"></span>
+          <span class="ref-hint">Use this when messaging us on WhatsApp.</span>
         </div>
         <div class="success-actions" data-reveal>
           <a class="button on-dark" id="whatsappCta" href="#">Open WhatsApp to confirm <span class="arrow" aria-hidden="true">→</span></a>
@@ -262,70 +374,100 @@
   <footer>
     <div class="wrap footer-inner">
       <span>© Forge. Thank you for trusting us with this.</span>
-      <div class="footer-links"><a href="index.html">Home</a><a href="audit.html">Free audit</a><a href="operator.html">Operator plan</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@forge.local">Contact</a></div>
-    </div>
-  </footer>
-
-  <script>
+<script>
     (() => {
-      // ---------- WhatsApp number ----------
-
-      // ---------- Floating WhatsApp button ----------
-      (() => {
-        const float = document.getElementById('waFloat');
-        if (!float) return;
-        const url = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
-        float.href = url;
-      })();
-
-      // Edit this once. Format: country code + number, no +, no spaces.
+            // ============================================================
+      // WHATSAPP NUMBER — replace with your real number.
+      // Format: country code + digits, no +, no spaces.
+      // Example: '919999999999' for India +91 99999 99999
+      // To update everywhere: search-replace this entire file's
+      // WA_NUMBER value (currently placeholder 919999999999).
+      // ============================================================
       const WA_NUMBER = '919999999999';
       const WA_BASE = 'https://wa.me/' + WA_NUMBER;
 
-      // Read source from the URL so the page knows what to confirm
+      // ---------- Read everything we need from the URL ----------
       const params = new URLSearchParams(window.location.search);
-      const source = params.get('source') || 'preview';
-      const tier = params.get('tier');
-      const position = params.get('position');
-      const biz = params.get('biz') || 'my business';
+      const source = (params.get('source') || 'preview').toLowerCase();
+      const reference = (params.get('ref') || '').trim();
+      const name = (params.get('name') || '').trim();
+      const biz = (params.get('biz') || '').trim();
+      const link = (params.get('link') || '').trim();
+      const whatsapp = (params.get('whatsapp') || params.get('wa') || '').trim();
+      const category = (params.get('category') || '').trim();
+      const tier = (params.get('tier') || '').trim();
+
+      // ---------- Visibility helpers ----------
+      const safe = (v) => (v || '').replace(/[<>&]/g, '');
+
+      // ---------- Build the data-aware WhatsApp message ----------
+      function buildWhatsAppMessage() {
+        // Always start with the reference — it's the search key for the operator
+        const lines = [];
+        lines.push('Hi Forge, I just ' + verbFor(source) + '.');
+        lines.push('');
+        lines.push('Reference: ' + (reference || '(none)'));
+        if (name)     lines.push('Name: ' + name);
+        if (biz)      lines.push('Business: ' + biz);
+        if (link)     lines.push('Google: ' + link);
+        if (category) lines.push('Category: ' + category);
+        if (tier)     lines.push('Plan: ' + tier);
+        lines.push('');
+        lines.push('I would prefer the report and the conversation on WhatsApp.');
+        return lines.join('\n');
+      }
+
+      function verbFor(s) {
+        if (s === 'audit')    return 'requested the free 7-point audit';
+        if (s === 'preview')  return 'requested a private preview';
+        if (s === 'waitlist') return 'joined the waitlist';
+        if (s === 'operator') return 'submitted an enquiry about the Operator plan';
+        return 'submitted the contact form';
+      }
+
+      function headlineFor(s) {
+        if (s === 'audit')    return 'Your free 7-point audit is being prepared.';
+        if (s === 'preview')  return 'Your private preview is being forged.';
+        if (s === 'waitlist') return 'You are on the waitlist for next month.';
+        if (s === 'operator') return 'Your Operator plan enquiry is in Forge’s inbox.';
+        return 'Your request is in Forge’s inbox.';
+      }
+
+      function subFor(s, ref) {
+        const refLine = ref ? 'Your reference is <strong>' + safe(ref) + '</strong>.' : '';
+        if (s === 'audit')    return refLine + ' Tap the WhatsApp button below to confirm and we will start the review today.';
+        if (s === 'preview')  return refLine + ' Tap the WhatsApp button below to confirm and we will send the preview within 24 hours.';
+        if (s === 'waitlist') return refLine + ' Tap the WhatsApp button below and we will tell you the moment a slot opens.';
+        if (s === 'operator') return refLine + ' Tap the WhatsApp button below and we will reply within one business day.';
+        return refLine + ' Tap the WhatsApp button below to confirm and we will take it from there.';
+      }
+
+      // ---------- Render the success card + WhatsApp CTA ----------
       const title = document.getElementById('successTitle');
       const sub = document.getElementById('successSub');
       const waCta = document.getElementById('whatsappCta');
-      let waMsg = '';
-      if (source === 'waitlist') {
-        waMsg = `Hi Forge, I just joined the waitlist${position ? ' (position #' + position + ' of 12)' : ''}. I am interested in a launch slot for next month.`;
-      } else if (source === 'audit') {
-        waMsg = `Hi Forge, I just requested the 7-point audit for ${biz}. Here is my Google Business link so you can review it.`;
-      } else if (source === 'operator') {
-        waMsg = `Hi Forge, I am interested in the ${tier || 'Operator'} plan. Can we talk this week?`;
-      } else {
-        waMsg = `Hi Forge, I just requested a private preview. Here is my Google Business link.`;
+      const refCard = document.getElementById('refCard');
+      const refLabel = document.getElementById('refLabel');
+
+      if (title) title.textContent = headlineFor(source);
+      if (sub)   sub.innerHTML = subFor(source, reference);
+      if (refCard && refLabel && reference) {
+        refCard.style.display = 'flex';
+        refLabel.textContent = reference;
       }
-      // If the prospect supplied their own WhatsApp number, hand them off to
-      // a chat that already includes that number in the message - so the team
-      // can save it on first reply and reach out faster.
-      const prospectWa = (new URLSearchParams(window.location.search).get('wa') || '').trim();
       if (waCta) {
-        let finalMsg = waMsg;
-        if (prospectWa) finalMsg = waMsg + '\n\nMy WhatsApp: ' + prospectWa;
-        waCta.href = WA_BASE + '?text=' + encodeURIComponent(finalMsg);
-      }
-      if (source === 'audit') {
-        title.textContent = 'Your free 7-point audit is being prepared.';
-        sub.textContent = 'The private write-up will land in your inbox within 48 hours. No list. No follow-up sequence.';
-      } else if (source === 'waitlist') {
-        const posText = position ? (' You are <strong>#' + position + '</strong> in the queue.') : '';
-        title.innerHTML = 'You are on the waitlist for next month.' + posText;
-        sub.textContent = 'When a slot opens, the first people on the waitlist receive their private preview one week before the page is updated.';
-      } else if (source === 'operator') {
-        title.textContent = 'Your note to Forge is in.';
-        const tierText = tier ? (' You were interested in the <strong>' + tier + '</strong> plan.') : '';
-        sub.innerHTML = 'We will respond to your email within one business day with the right plan and the next available slot.' + tierText;
-      } else {
-        title.textContent = 'Your preview request is in Forge\'s inbox.';
-        sub.textContent = 'A confirmation has been sent to your email. We will review your Google profile and send a private concept within 24 hours.';
+        waCta.href = WA_BASE + '?text=' + encodeURIComponent(buildWhatsAppMessage());
+        waCta.textContent = 'Open WhatsApp to confirm — ' + (reference || 'your request') + ' ' + '→';
       }
 
+      // ---------- Floating WhatsApp button (general enquiry) ----------
+      const floatBtn = document.getElementById('waFloat');
+      if (floatBtn) {
+        const url = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
+        floatBtn.href = url;
+      }
+
+      // ---------- Scroll reveal ----------
       const reveal = document.querySelectorAll('[data-reveal]');
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || !('IntersectionObserver' in window)) {
@@ -337,11 +479,23 @@
         reveal.forEach(i => obs.observe(i));
       }
     })();
+  </script>erver((entries, o) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } });
+        }, { threshold: .12, rootMargin: '0px 0px -40px' });
+        reveal.forEach(i => obs.observe(i));
+      }
+    })();
   </script>
 
-  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp">
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
-    <span class="label">Chat on WhatsApp</span>
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <image href="forge-mark.svg" x="14" y="14" width="72" height="72" preserveAspectRatio="xMidYMid meet" />
+    </svg>
+    <span class="label">Chat with Forge on WhatsApp</span>
+    <span class="bubble" role="tooltip">
+      <span class="bubble-headline">Hi ð how can I help with your website?</span>
+      <span class="bubble-sub">Quick question? Ask here.</span>
+    </span>
   </a>
 </body>
 </html>

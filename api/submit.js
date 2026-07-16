@@ -46,7 +46,19 @@ export default async function handler(req, res) {
     tier = '',
     position = '',
     website = '', // honeypot — must be empty
+    reference: submittedRef = '', // client may suggest, but server always generates
   } = body;
+
+  // Rate-limit by IP (cheap, in-memory; resets on cold start)
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket?.remoteAddress || 'unknown';
+  if (rateLimited(ip)) {
+    console.warn('[forge] rate limit hit for', ip);
+    res.setHeader('Access-Control-Allow-Origin', allowed ? origin : 'https://forge.bruuhh.com');
+    return res.status(429).json({ ok: false, error: 'Too many submissions. Please try again later.' });
+  }
+
+  // Generate the reference token server-side (always - never trust client)
+  const reference = genReference(source);
 
   // Honeypot: bots fill every field. Real humans don't fill a hidden field.
   if (website) {
@@ -91,9 +103,10 @@ export default async function handler(req, res) {
     waitlist: 'New waitlist signup for Forge',
     operator: 'New Operator plan enquiry for Forge',
   };
-  const subject = labels[source] || 'New Forge submission';
+  const subject = `${labels[source] || 'New Forge submission'} — ${reference}`;
 
   const rows = [
+    ['Reference',    reference],
     ['Source',       source],
     ['Email',        email],
     name  ? ['Name',         name]   : null,
@@ -199,11 +212,39 @@ export default async function handler(req, res) {
   return res.status(200).json({
     ok: true,
     source,
+    reference,
     emailQueued,
     emailError,
     notionQueued,
     notionError,
   });
+}
+
+
+// ---- Reference token generator ----
+// Format: SRC-XXXX (4 chars from a no-confusion alphabet)
+const REF_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+function genReference(source) {
+  const prefixes = { preview: 'PRV', audit: 'AUD', waitlist: 'WTL', operator: 'OPR' };
+  const prefix = prefixes[source] || 'FRG';
+  let suffix = '';
+  for (let i = 0; i < 4; i++) {
+    suffix += REF_ALPHABET[Math.floor(Math.random() * REF_ALPHABET.length)];
+  }
+  return `${prefix}-${suffix}`;
+}
+
+// ---- IP rate limit ----
+// Cheap in-memory bucket. Stops casual bot floods. Resets on cold start.
+const RL = new Map();
+function rateLimited(ip, limit = 5, windowMs = 60 * 60 * 1000) {
+  if (!ip) return false;
+  const now = Date.now();
+  const entry = RL.get(ip) || { count: 0, resetAt: now + windowMs };
+  if (now > entry.resetAt) { entry.count = 0; entry.resetAt = now + windowMs; }
+  entry.count++;
+  RL.set(ip, entry);
+  return entry.count > limit;
 }
 
 function renderEmail(rows) {
