@@ -69,6 +69,8 @@
     .hero h1 { margin-bottom: 22px; }
     .hero p { max-width: 52ch; margin: 0 auto; }
     .success-card { margin: 36px auto 0; max-width: 580px; padding: 24px; background: #fff; border: 1px solid var(--success); border-radius: 18px; display: flex; gap: 16px; align-items: flex-start; text-align: left; }
+    .success-actions { margin: 24px auto 0; max-width: 580px; display: grid; gap: 10px; }
+    .success-actions .button { width: 100%; justify-content: center; }
     .success-card .check { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--success); color: #fff; flex-shrink: 0; font-weight: 700; }
     .success-card h3 { font-size: 17px; margin-bottom: 4px; }
     .success-card p { color: var(--muted); font-size: 14px; }
@@ -141,6 +143,15 @@
       *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
       [data-reveal] { opacity: 1; transform: none; }
     }
+  
+    /* ---------- Floating WhatsApp button ---------- */
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; background: #25D366; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: 0 12px 28px rgba(37, 211, 102, .35); transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s ease; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(37, 211, 102, .45); }
+    .wa-float:active { transform: translateY(0) scale(.98); }
+    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
+    .wa-float .label { display: none; }
+    @media (min-width: 720px) { .wa-float .label { display: inline; } }
+    @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
   </style>
 </head>
 <body>
@@ -155,7 +166,7 @@
         <span>Forge</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="index.html">Home</a>
+        <a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
         <a href="audit.html">Free audit</a>
         <a href="operator.html">Operator plan</a>
       </nav>
@@ -175,6 +186,10 @@
             <h3 id="successTitle">Your request is in Forge's inbox.</h3>
             <p id="successSub">A confirmation has been sent to your email. We will review your details and respond within one business day.</p>
           </div>
+        </div>
+        <div class="success-actions" data-reveal>
+          <a class="button on-dark" id="whatsappCta" href="#">Open WhatsApp to confirm <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="button on-dark secondary" href="index.html">Back to home</a>
         </div>
       </div>
     </section>
@@ -247,19 +262,54 @@
   <footer>
     <div class="wrap footer-inner">
       <span>© Forge. Thank you for trusting us with this.</span>
-      <div class="footer-links"><a href="index.html">Home</a><a href="audit.html">Free audit</a><a href="mailto:hello@forge.local">Contact</a></div>
+      <div class="footer-links"><a href="index.html">Home</a><a href="audit.html">Free audit</a><a href="operator.html">Operator plan</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@forge.local">Contact</a></div>
     </div>
   </footer>
 
   <script>
     (() => {
+      // ---------- WhatsApp number ----------
+
+      // ---------- Floating WhatsApp button ----------
+      (() => {
+        const float = document.getElementById('waFloat');
+        if (!float) return;
+        const url = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
+        float.href = url;
+      })();
+
+      // Edit this once. Format: country code + number, no +, no spaces.
+      const WA_NUMBER = '919999999999';
+      const WA_BASE = 'https://wa.me/' + WA_NUMBER;
+
       // Read source from the URL so the page knows what to confirm
       const params = new URLSearchParams(window.location.search);
       const source = params.get('source') || 'preview';
       const tier = params.get('tier');
       const position = params.get('position');
+      const biz = params.get('biz') || 'my business';
       const title = document.getElementById('successTitle');
       const sub = document.getElementById('successSub');
+      const waCta = document.getElementById('whatsappCta');
+      let waMsg = '';
+      if (source === 'waitlist') {
+        waMsg = `Hi Forge, I just joined the waitlist${position ? ' (position #' + position + ' of 12)' : ''}. I am interested in a launch slot for next month.`;
+      } else if (source === 'audit') {
+        waMsg = `Hi Forge, I just requested the 7-point audit for ${biz}. Here is my Google Business link so you can review it.`;
+      } else if (source === 'operator') {
+        waMsg = `Hi Forge, I am interested in the ${tier || 'Operator'} plan. Can we talk this week?`;
+      } else {
+        waMsg = `Hi Forge, I just requested a private preview. Here is my Google Business link.`;
+      }
+      // If the prospect supplied their own WhatsApp number, hand them off to
+      // a chat that already includes that number in the message - so the team
+      // can save it on first reply and reach out faster.
+      const prospectWa = (new URLSearchParams(window.location.search).get('wa') || '').trim();
+      if (waCta) {
+        let finalMsg = waMsg;
+        if (prospectWa) finalMsg = waMsg + '\n\nMy WhatsApp: ' + prospectWa;
+        waCta.href = WA_BASE + '?text=' + encodeURIComponent(finalMsg);
+      }
       if (source === 'audit') {
         title.textContent = 'Your free 7-point audit is being prepared.';
         sub.textContent = 'The private write-up will land in your inbox within 48 hours. No list. No follow-up sequence.';
@@ -288,5 +338,10 @@
       }
     })();
   </script>
+
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+    <span class="label">Chat on WhatsApp</span>
+  </a>
 </body>
 </html>

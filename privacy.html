@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Forge privacy policy. What we collect when you visit this site, request a preview, request a 7-point audit, or ask about the Operator plan, and exactly what we do with it.">
+  <meta name="theme-color" content="#3A3B1F">
+  <title>Privacy Policy - Forge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ground: #3A3B1F;
+      --ground-2: #2A2B16;
+      --mark: #D6DDA0;
+      --paper: #F5F3EC;
+      --paper-2: #EDEAE0;
+      --ink: #1B1B12;
+      --line: rgba(27, 27, 18, .10);
+      --line-2: rgba(27, 27, 18, .06);
+      --muted: #6B6A55;
+      --max: 760px;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; letter-spacing: -.005em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .muted { color: var(--muted); }
+    h1, h2, h3, p, ul, ol { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.035em; line-height: 1.1; font-weight: 600; }
+    h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
+    h2 { font-size: 1.4rem; margin-top: 36px; margin-bottom: 12px; }
+    h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 6px; }
+    .lede { color: var(--muted); font-size: 18px; line-height: 1.55; }
+    .serif { font-family: "Fraunces", "Times New Roman", serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+    :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; border-radius: 4px; }
+
+    .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
+    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
+
+    .legal { padding: 72px 0 80px; }
+    .legal h1 { margin-bottom: 14px; }
+    .legal p, .legal li { color: var(--ink-2, #2C2C1B); }
+    .legal ul, .legal ol { padding-left: 22px; }
+    .legal li { margin-bottom: 6px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+    .callout { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-2); color: var(--ink-2, #2C2C1B); font-size: 15px; }
+
+    footer { padding: 24px 0 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; background: var(--paper); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a:hover { color: var(--ink); }
+
+    /* Floating WhatsApp button (same component as the rest of the site) */
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; background: #25D366; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: 0 12px 28px rgba(37, 211, 102, .35); transition: transform .25s var(--ease), box-shadow .25s ease; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(37, 211, 102, .45); }
+    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
+    .wa-float .label { display: none; }
+    @media (min-width: 720px) { .wa-float .label { display: inline; } }
+    @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html" aria-label="Forge home">
+        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
+          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
+          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
+        </svg>
+        <span>Forge</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="audit.html">Free audit</a>
+        <a href="operator.html">Operator plan</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+      <a class="nav-cta" href="index.html#preview">Get my preview <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="legal">
+      <div class="wrap">
+        <h1>Privacy Policy</h1>
+        <p class="meta">Effective: 16 July 2026. Written in plain English because the law is the law, but the words should not be.</p>
+
+        <h2>What Forge is</h2>
+        <p>Forge is a one-person studio that turns a Google Business Profile into a professional website for local businesses. The website lives at this domain. The studio is operated by Rishiidev.</p>
+
+        <h2>What this policy covers</h2>
+        <p>This policy covers four interactions you can have with this site:</p>
+        <ol>
+          <li>Browsing the four pages (home, free 7-point audit, Operator prospectus, and the confirmation page).</li>
+          <li>Requesting a private preview of what Forge would build for your business.</li>
+          <li>Requesting the free 7-point audit of your Google Business Profile.</li>
+          <li>Asking about the Operator plan (ongoing management of the website after launch).</li>
+        </ol>
+        <p>It also covers the join-the-waitlist form that appears on the home page when the monthly launch cap is full.</p>
+
+        <h2>What we collect</h2>
+
+        <h3>When you browse</h3>
+        <p>We do not place advertising cookies. We do not run third-party trackers on this site. We do not sell or share your visit data with anyone.</p>
+        <p>Our hosting provider (Vercel or Netlify) may log standard request metadata (IP address, user agent, request path) for security and uptime. Those logs are retained for a short, provider-defined window and are not joined with any form data you submit.</p>
+
+        <h3>When you request a preview</h3>
+        <p>We collect:</p>
+        <ul>
+          <li>The Google Business Profile link you paste.</li>
+          <li>Your WhatsApp number, if you choose to provide it. Marked optional. Used to reply faster.</li>
+        </ul>
+        <p>That is the entire preview form. We do not require your name, email, or phone for a preview.</p>
+
+        <h3>When you request the free audit</h3>
+        <p>We collect:</p>
+        <ul>
+          <li>Your name.</li>
+          <li>Your email address.</li>
+          <li>Your business name.</li>
+          <li>Your business category (one of: salon, clinic, cafe, studio, real estate, hotel, tuition, service, other).</li>
+          <li>The Google Business Profile link you want us to review.</li>
+          <li>Your WhatsApp number, if you choose to provide it. Marked optional.</li>
+        </ul>
+
+        <h3>When you join the waitlist</h3>
+        <p>We collect:</p>
+        <ul>
+          <li>Your name.</li>
+          <li>Your email address.</li>
+          <li>Your business category.</li>
+          <li>The Google Business Profile link you want a slot for.</li>
+          <li>Your WhatsApp number, if you choose to provide it. Marked optional.</li>
+        </ul>
+
+        <h3>When you ask about the Operator plan</h3>
+        <p>We collect:</p>
+        <ul>
+          <li>Your email address.</li>
+          <li>Your WhatsApp number, if you choose to provide it. Marked optional.</li>
+        </ul>
+
+        <h2>What we do with it</h2>
+        <p>We use the information you submit to do exactly what the form says we will do:</p>
+        <ul>
+          <li>For previews: read your Google Business Profile, build a private preview, and send it to you within 24 hours.</li>
+          <li>For audits: review the seven specific points listed on the audit page, write a private one-page report, and email it to you within 48 hours.</li>
+          <li>For waitlist: keep your place in the queue, and email you when a slot opens.</li>
+          <li>For Operator enquiries: reply within one business day with the right plan and the next available slot.</li>
+        </ul>
+        <p>That is the entire purpose. We do not enrich your data with anything else. We do not score you. We do not retarget you.</p>
+
+        <h2>How long we keep it</h2>
+        <ul>
+          <li>Preview requests: kept until your preview is delivered, then archived for 90 days in case of follow-up, then deleted.</li>
+          <li>Audit requests: kept for 12 months so you can refer back to the report, then deleted.</li>
+          <li>Waitlist entries: kept for 90 days. If you do not claim a slot in that window, you are removed and would need to rejoin.</li>
+          <li>Operator enquiries: kept for 12 months, or for the duration of any active plan, whichever is longer.</li>
+        </ul>
+
+        <h2>Who we share it with</h2>
+        <p>No one. Not for marketing. Not for resale. Not for any reason.</p>
+        <p>The two narrow exceptions:</p>
+        <ul>
+          <li><strong>Hosting and infrastructure.</strong> Vercel or Netlify serves the site, and a form-handling service (Formspree, Resend, or a similar tool) receives form submissions and forwards them to our email and CRM. Each of these services is contractually bound to protect the data they hold for us.</li>
+          <li><strong>The law.</strong> If a court order or equivalent legal obligation requires disclosure, we will comply, and we will tell you we did.</li>
+        </ul>
+
+        <h2>How we protect it</h2>
+        <p>The site is served over HTTPS. Form submissions travel to a single, well-known provider that we audit. We do not store your Google Business Profile data on any system beyond what is needed to deliver the preview or audit.</p>
+
+        <h2>Your rights</h2>
+        <p>You can ask us at any time to:</p>
+        <ul>
+          <li>Tell you exactly what we hold about you.</li>
+          <li>Correct it.</li>
+          <li>Delete it.</li>
+        </ul>
+        <p>Email <a href="mailto:hello@forge.local" style="color: inherit; text-decoration: underline;">hello@forge.local</a> and we will action the request within seven days. There is no automated portal, because this is a one-person studio and you should not have to log in to delete yourself.</p>
+
+        <h2>Children</h2>
+        <p>This site is not for children under 18. We do not knowingly collect data from anyone under 18.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>If we change anything material, we will update the "Effective" date at the top of this page. The previous version remains available on request.</p>
+
+        <div class="callout">
+          <strong>Short version.</strong> We collect what each form needs, use it for exactly what the form says, do not sell it, do not enrich it, do not retarget, and delete it on the schedule above. If you want your data gone, email and it is gone.
+        </div>
+
+        <p style="margin-top: 36px;"><a class="muted" href="terms.html" style="text-decoration: underline;">Read the terms of service</a> &nbsp;·&nbsp; <a class="muted" href="index.html" style="text-decoration: underline;">Back to home</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© Forge. Privacy policy.</span>
+      <div class="footer-links"><a href="index.html">Home</a><a href="terms.html">Terms</a><a href="mailto:hello@forge.local">Contact</a></div>
+    </div>
+  </footer>
+
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+    <span class="label">Chat on WhatsApp</span>
+  </a>
+
+  <script>
+    (() => {
+      const WA_NUMBER = '919999999999';
+      const WA_BASE = 'https://wa.me/' + WA_NUMBER;
+      const float = document.getElementById('waFloat');
+      if (float) {
+        float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I have a question about your privacy policy.');
+      }
+    })();
+  </script>
+</body>
+</html>

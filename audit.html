@@ -170,6 +170,15 @@
       *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
       [data-reveal] { opacity: 1; transform: none; }
     }
+  
+    /* ---------- Floating WhatsApp button ---------- */
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 40; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; background: #25D366; color: #fff; border-radius: 999px; font-weight: 600; font-size: 14px; box-shadow: 0 12px 28px rgba(37, 211, 102, .35); transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s ease; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(37, 211, 102, .45); }
+    .wa-float:active { transform: translateY(0) scale(.98); }
+    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; }
+    .wa-float .label { display: none; }
+    @media (min-width: 720px) { .wa-float .label { display: inline; } }
+    @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
   </style>
 </head>
 <body>
@@ -187,7 +196,7 @@
         <a href="index.html">Home</a>
         <a href="#what">What's inside</a>
         <a href="#sample">Sample</a>
-        <a href="#next">After the audit</a>
+        <a href="#next">After the audit</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
       </nav>
       <a class="nav-cta" href="#audit">Get the free audit <span aria-hidden="true">→</span></a>
     </div>
@@ -241,6 +250,10 @@
           <div class="form-row">
             <label for="aLink">Google Business Profile link</label>
             <input id="aLink" type="url" placeholder="https://g.page/your-business" required>
+          </div>
+          <div class="form-row">
+            <label for="aWhatsApp">WhatsApp number (optional - faster reply)</label>
+            <input id="aWhatsApp" type="tel" placeholder="+91 99999 99999" pattern="[0-9+\-\s()]{7,}">
           </div>
           <button class="button large" type="submit">Send my free audit <span class="arrow" aria-hidden="true">→</span></button>
           <p class="consent">By submitting, you agree to receive one private audit and one optional follow-up. No list, no spam, no selling your data.</p>
@@ -329,12 +342,26 @@
   <footer>
     <div class="wrap footer-inner">
       <span>© Forge. Free audit. No list. No spam.</span>
-      <div class="footer-links"><a href="index.html">Home</a><a href="operator.html">Operator plan</a><a href="mailto:hello@forge.local">Contact</a></div>
+      <div class="footer-links"><a href="index.html">Home</a><a href="operator.html">Operator plan</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@forge.local">Contact</a></div>
     </div>
   </footer>
 
   <script>
     (() => {
+      // ---------- WhatsApp number ----------
+
+      // ---------- Floating WhatsApp button ----------
+      (() => {
+        const float = document.getElementById('waFloat');
+        if (!float) return;
+        const url = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
+        float.href = url;
+      })();
+
+      // Edit this once. Format: country code + number, no +, no spaces.
+      const WA_NUMBER = '919999999999';
+      const WA_BASE = 'https://wa.me/' + WA_NUMBER;
+
       const form = document.getElementById('auditForm');
       const state = document.getElementById('auditState');
       const reveal = document.querySelectorAll('[data-reveal]');
@@ -355,6 +382,7 @@
         const biz = document.getElementById('aBiz').value.trim();
         const cat = document.getElementById('aCategory').value;
         const link = document.getElementById('aLink').value.trim();
+        const wa = document.getElementById('aWhatsApp').value.trim();
         const submit = form.querySelector('button');
         if (!name || !email || !biz || !cat || !link) {
           state.className = 'form-state error';
@@ -372,9 +400,16 @@
           state.className = 'form-state success';
           state.innerHTML = 'Audit request received for <strong>' + biz.replace(/[<>]/g, '') + '</strong>. The private write-up will arrive at <strong>' + email.replace(/[<>]/g, '') + '</strong> within 48 hours.';
           form.reset();
+          const dest = 'thanks.html?source=audit&biz=' + encodeURIComponent(biz) + '&email=' + encodeURIComponent(email) + (wa ? '&wa=' + encodeURIComponent(wa) : '');
+          window.setTimeout(() => { window.location.href = dest; }, 900);
         }, 1300);
       });
     })();
   </script>
+
+  <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+    <span class="label">Chat on WhatsApp</span>
+  </a>
 </body>
 </html>
