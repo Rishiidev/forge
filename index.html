@@ -820,34 +820,18 @@
         <div class="waitlist" data-state="hidden">
           <h4>Join the waitlist for next month</h4>
           <p>Three fields. We will email you the moment a slot opens, and the first waitlist members receive their private preview one week before the page is updated.</p>
-          <form id="waitlistForm" novalidate>
-            <div class="waitlist-row single">
-              <input id="wlName" type="text" placeholder="Your name" required>
-            </div>
-            <div class="waitlist-row">
-              <input id="wlEmail" type="email" placeholder="Email" required>
-              <select id="wlNiche" required>
-                <option value="">Your category</option>
-                <option>Salon or spa</option>
-                <option>Clinic or dental</option>
-                <option>Cafe or restaurant</option>
-                <option>Design or architecture studio</option>
-                <option>Real estate</option>
-                <option>Hotel or guesthouse</option>
-                <option>Tuition or coaching</option>
-                <option>Service business</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="waitlist-row single">
-              <input id="wlLink" type="url" placeholder="Google Business Profile link" required>
-            </div>
-            <div class="waitlist-row single">
-              <input id="wlWhatsApp" type="tel" placeholder="Your WhatsApp number" pattern="[0-9+\-\s()]{7,}" required>
-            </div>
-            <button class="button on-dark" type="submit">Reserve my spot <span class="arrow" aria-hidden="true">→</span></button>
-          </form>
-          <div class="state" id="waitlistState" role="status" aria-live="polite"></div>
+          <iframe
+            src="https://tally.so/embed/68y0MY?hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="600"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Join the waitlist for next month"
+            style="width: 100%; border: 0; background: transparent; display: block; margin: 8px 0 16px;"
+          ></iframe>
+          <script async src="https://tally.so/widgets/embed.js"></script>
           <div class="micro">
             <span>Capped at 12 spots</span>
             <span>First come, first served</span>
@@ -929,14 +913,20 @@
         <div class="eyebrow on-dark" style="justify-content:center;" id="finalEyebrow">Your first impression, upgraded</div>
         <h2 id="finalHeadline">Give customers <span class="serif">somewhere</span> worth arriving.</h2>
         <p id="finalSub">Send your Google Business Profile link. We will forge a private preview and send it to you within 24 hours. No obligation. No changes to your Google listing.</p>
-        <form class="final-form" id="previewForm" novalidate>
-          <label class="sr-only" for="profileUrl">Google Business Profile link</label>
-          <input class="field" id="profileUrl" type="url" placeholder="Paste your Google Business Profile link" required>
-          <label class="sr-only" for="waPreview">WhatsApp number (optional - faster reply)</label>
-          <input class="field" id="waPreview" type="tel" placeholder="Your WhatsApp number" pattern="[0-9+\-\s()]{7,}" required>
-          <button class="button on-dark large" type="submit">Get my private preview <span class="arrow" aria-hidden="true">→</span></button>
-        </form>
-        <div class="form-state" id="formState" role="status" aria-live="polite"></div>
+        <div class="final-tally">
+          <iframe
+            src="https://tally.so/embed/2EydDe?hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="600"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Request a private preview"
+            style="width: 100%; max-width: 580px; margin: 0 auto; border: 0; background: transparent; display: block;"
+          ></iframe>
+          <script async src="https://tally.so/widgets/embed.js"></script>
+        </div>
         <div class="final-micro" id="finalMicro">
           <span><span class="dot"></span> Preview in 24 hours</span>
           <span><span class="dot"></span> No obligation to continue</span>
@@ -1098,77 +1088,9 @@
         });
       });
 
-      // ---------- Preview form ----------
-      const form = document.getElementById('previewForm');
-      const state = document.getElementById('formState');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const input = document.getElementById('profileUrl');
-        const waInput = document.getElementById('waPreview');
-        const submit = form.querySelector('button');
-        if (!input.value) {
-          state.className = 'form-state error';
-          state.textContent = 'Paste your Google Business Profile link and your WhatsApp number to begin.';
-          return;
-        }
-        const original = submit.innerHTML;
-        submit.disabled = true;
-        submit.textContent = isFull ? 'Adding you to the waitlist...' : 'Forging your preview...';
-        state.className = 'form-state';
-        state.textContent = isFull
-          ? 'Saving your spot for next month. We will email you one week before launch.'
-          : 'Reading your profile so we can shape the first draft around your real information.';
-        const wa = waInput ? encodeURIComponent(waInput.value.trim()) : '';
-        window.setTimeout(() => {
-          submit.disabled = false;
-          submit.innerHTML = original;
-          state.className = 'form-state success';
-          const verb = isFull ? 'waitlist' : 'preview request';
-          state.innerHTML = verb.charAt(0).toUpperCase() + verb.slice(1) + ' received. We will review <strong>' + input.value.replace(/[<>]/g, '') + '</strong>' + (isFull ? ' and send a private concept one week before next month opens.' : ' and send a private concept within 24 hours.');
-          input.value = '';
-          if (waInput) waInput.value = '';
-          const dest = 'thanks.html?source=' + (isFull ? 'waitlist' : 'preview') + (wa ? '&wa=' + wa : '');
-          window.setTimeout(() => { window.location.href = dest; }, 900);
-        }, 1100);
-      });
-
-      // ---------- Waitlist form ----------
-      const wlForm = document.getElementById('waitlistForm');
-      if (wlForm) {
-        const wlState = document.getElementById('waitlistState');
-        wlForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const name = document.getElementById('wlName').value.trim();
-          const email = document.getElementById('wlEmail').value.trim();
-          const link = document.getElementById('wlLink').value.trim();
-          const wa = (document.getElementById('wlWhatsApp') || { value: '' }).value.trim();
-          const submit = wlForm.querySelector('button');
-          if (!name || !email || !link) {
-            wlState.className = 'state error';
-            wlState.textContent = 'Name, email, WhatsApp number, and Google link are required.';
-            return;
-          }
-          const original = submit.innerHTML;
-          submit.disabled = true;
-          submit.textContent = 'Reserving your spot...';
-          wlState.className = 'state';
-          wlState.textContent = 'Adding you to the waitlist for next month.';
-          // Simulated position: pseudo-random but stable per email.
-          // This is honest theatre until a real backend assigns a real number.
-          // The thanks page repeats the same algorithm so the position matches.
-          const hash = Array.from(email).reduce((a, c) => a + c.charCodeAt(0), 0);
-          const position = (hash % CAP.waitlistSize) + 1;
-          window.setTimeout(() => {
-            submit.disabled = false;
-            submit.innerHTML = original;
-            wlState.className = 'state success';
-            wlState.innerHTML = 'You are <strong>#' + position + ' of ' + CAP.waitlistSize + '</strong> in the waitlist for next month. We will email <strong>' + email.replace(/[<>]/g, '') + '</strong> the moment a slot opens.';
-            wlForm.reset();
-            const dest = 'thanks.html?source=waitlist&position=' + position + '&email=' + encodeURIComponent(email) + (wa ? '&wa=' + encodeURIComponent(wa) : '');
-            window.setTimeout(() => { window.location.href = dest; }, 900);
-          }, 1100);
-        });
-      }
+      // The preview form and the waitlist form are now Tally iframes.
+      // Submission goes to Tally, and Tally redirects directly to thanks.html.
+      // No client-side handler needed for either.
     })();
   </script>
 

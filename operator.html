@@ -413,13 +413,18 @@
         <div class="eyebrow on-dark" style="justify-content:center;">Talk to Forge</div>
         <h2>The Operator plan is <span class="serif">capped at 8 active clients</span>.</h2>
         <p>If you want ongoing management of the website Forge built for you, leave a note. We will tell you honestly whether the Active plan fits, or whether Steady is enough, or whether we are full this month.</p>
-        <form class="commitment-form" id="opForm" novalidate>
-          <label class="sr-only" for="opEmail">Email</label>
-          <input id="opEmail" type="email" placeholder="you@business.com" required>
-          <input id="opWhatsApp" type="tel" placeholder="Your WhatsApp number" style="margin-top:10px;" pattern="[0-9+\-\s()]{7,}" required>
-          <button class="button on-dark large" type="submit">Talk to Forge <span class="arrow" aria-hidden="true">→</span></button>
-        </form>
-        <div class="commitment-state" id="opState" role="status" aria-live="polite"></div>
+        <iframe
+          src="https://tally.so/embed/0Qy0kB?hideTitle=1&transparentBackground=1&dynamicHeight=1"
+          loading="lazy"
+          width="100%"
+          height="600"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="Talk to Forge about the Operator plan"
+          style="width: 100%; max-width: 580px; margin: 0 auto; border: 0; background: transparent; display: block;"
+        ></iframe>
+        <script async src="https://tally.so/widgets/embed.js"></script>
       </div>
     </section>
   </main>
@@ -458,33 +463,9 @@
         reveal.forEach(i => obs.observe(i));
       }
 
-      const form = document.getElementById('opForm');
-      const state = document.getElementById('opState');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const input = document.getElementById('opEmail');
-        const wa = (document.getElementById('opWhatsApp') || { value: '' }).value.trim();
-        const submit = form.querySelector('button');
-        if (!input.value) {
-          state.className = 'commitment-state error';
-          state.textContent = 'Drop your email and WhatsApp number. We will respond within one business day.';
-          return;
-        }
-        const original = submit.innerHTML;
-        submit.disabled = true;
-        submit.textContent = 'Sending...';
-        state.className = 'commitment-state';
-        state.textContent = 'Reading your note and checking the Operator plan availability for this month.';
-        window.setTimeout(() => {
-          submit.disabled = false;
-          submit.innerHTML = original;
-          state.className = 'commitment-state success';
-          state.innerHTML = 'Note received. We will reply to <strong>' + input.value.replace(/[<>]/g, '') + '</strong> within one business day with the right plan and the next available slot.';
-          input.value = '';
-          const dest = 'thanks.html?source=operator&tier=Active' + (wa ? '&wa=' + encodeURIComponent(wa) : '');
-          window.setTimeout(() => { window.location.href = dest; }, 900);
-        }, 1100);
-      });
+      // The Operator form is now a Tally iframe.
+      // Submission goes to Tally, and Tally redirects directly to thanks.html?source=operator&tier=Active.
+      // No client-side handler needed.
     })();
   </script>
 
