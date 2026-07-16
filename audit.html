@@ -215,50 +215,23 @@
             <span><span class="dot"></span> Personal review, not a software report</span>
           </div>
         </div>
-        <form class="form-card" id="auditForm" data-reveal novalidate>
+        <div class="form-card" data-reveal>
           <h3>Get the free audit</h3>
           <p>Paste your Google Business Profile link. We review seven specific points and send a private write-up within 48 hours.</p>
-          <div class="form-row">
-            <label for="aName">Your name</label>
-            <input id="aName" type="text" placeholder="e.g. Priya Shah" required>
-          </div>
-          <div class="form-row two">
-            <div>
-              <label for="aEmail">Email</label>
-              <input id="aEmail" type="email" placeholder="you@business.com" required>
-            </div>
-            <div>
-              <label for="aBiz">Business name</label>
-              <input id="aBiz" type="text" placeholder="e.g. Studio Mysa" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <label for="aCategory">Category</label>
-            <select id="aCategory" required>
-              <option value="">Select your category</option>
-              <option>Salon or spa</option>
-              <option>Clinic or dental</option>
-              <option>Cafe or restaurant</option>
-              <option>Design or architecture studio</option>
-              <option>Real estate</option>
-              <option>Hotel or guesthouse</option>
-              <option>Tuition or coaching</option>
-              <option>Service business</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label for="aLink">Google Business Profile link</label>
-            <input id="aLink" type="url" placeholder="https://g.page/your-business" required>
-          </div>
-          <div class="form-row">
-            <label for="aWhatsApp">Your WhatsApp number</label>
-            <input id="aWhatsApp" type="tel" placeholder="+91 99999 99999" pattern="[0-9+\-\s()]{7,}" required>
-          </div>
-          <button class="button large" type="submit">Send my free audit <span class="arrow" aria-hidden="true">→</span></button>
+          <iframe
+            src="https://tally.so/embed/9qy0M5?hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="900"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Get the free 7-point audit"
+            style="width: 100%; border: 0; background: transparent;"
+          ></iframe>
+          <script async src="https://tally.so/widgets/embed.js"></script>
           <p class="consent">By submitting, you agree to receive one private audit and one optional follow-up. No list, no spam, no selling your data.</p>
-          <div class="form-state" id="auditState" role="status" aria-live="polite"></div>
-        </form>
+        </div>
       </div>
     </section>
 
@@ -363,7 +336,6 @@
       const WA_BASE = 'https://wa.me/' + WA_NUMBER;
 
       const form = document.getElementById('auditForm');
-      const state = document.getElementById('auditState');
       const reveal = document.querySelectorAll('[data-reveal]');
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce || !('IntersectionObserver' in window)) {
@@ -375,35 +347,10 @@
         reveal.forEach(i => obs.observe(i));
       }
 
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const name = document.getElementById('aName').value.trim();
-        const email = document.getElementById('aEmail').value.trim();
-        const biz = document.getElementById('aBiz').value.trim();
-        const cat = document.getElementById('aCategory').value;
-        const link = document.getElementById('aLink').value.trim();
-        const wa = document.getElementById('aWhatsApp').value.trim();
-        const submit = form.querySelector('button');
-        if (!name || !email || !biz || !cat || !link) {
-          state.className = 'form-state error';
-          state.textContent = 'All six fields are required to give you an honest audit.';
-          return;
-        }
-        const original = submit.innerHTML;
-        submit.disabled = true;
-        submit.textContent = 'Reviewing your profile...';
-        state.className = 'form-state';
-        state.textContent = 'Reading your Google Business Profile so the audit is specific to your business.';
-        window.setTimeout(() => {
-          submit.disabled = false;
-          submit.innerHTML = original;
-          state.className = 'form-state success';
-          state.innerHTML = 'Audit request received for <strong>' + biz.replace(/[<>]/g, '') + '</strong>. The private write-up will arrive at <strong>' + email.replace(/[<>]/g, '') + '</strong> within 48 hours.';
-          form.reset();
-          const dest = 'thanks.html?source=audit&biz=' + encodeURIComponent(biz) + '&email=' + encodeURIComponent(email) + (wa ? '&wa=' + encodeURIComponent(wa) : '');
-          window.setTimeout(() => { window.location.href = dest; }, 900);
-        }, 1300);
-      });
+      // The audit form is now a Tally iframe — submission goes to Tally,
+      // and Tally redirects directly to thanks.html?source=audit.
+      // No client-side handler needed.
+      if (form) { /* keep variable defined for any future re-introduction */ }
     })();
   </script>
 
