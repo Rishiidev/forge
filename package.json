@@ -1,0 +1,10 @@
+{
+  "name": "forge",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Forge static site + Vercel serverless functions. Lead capture fans out to Resend, Supabase, and a private GitHub backup.",
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  }
+}
