@@ -25,3 +25,14 @@ build/
 
 # Logs
 *.log
+
+# Client work output — generated site previews, GBP-scraped JSON, customer
+# research, brand reference assets. NEVER push this directory to the public
+# repo. It contains named business details (phone, address, hours, reviews).
+audits/
+
+# Working scratch files created during design / dev sessions.
+# Hidden by convention; do not commit.
+.gitignore.append
+.logo_compare.png
+.nav_preview_4x.png

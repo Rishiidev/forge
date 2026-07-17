@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="Forge terms of service. The agreement between Forge and you when you request a preview, ask for the 7-point audit, join the waitlist, or subscribe to the Operator plan.">
-  <meta name="theme-color" content="#3A3B1F">
-  <title>Terms of Service - Forge</title>
+  <meta name="theme-color" content="#262D0D">
+  <title>Terms of Service &middot; Forge</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ground: #3A3B1F;
-      --ground-2: #2A2B16;
+      --ground: #262D0D;
+      --ground-2: #1A1F08;
       --mark: #D6DDA0;
       --paper: #F5F3EC;
       --paper-2: #EDEAE0;
       --ink: #1B1B12;
+      --ink-2: #2C2C1B;
       --line: rgba(27, 27, 18, .10);
       --line-2: rgba(27, 27, 18, .06);
       --muted: #6B6A55;
@@ -25,142 +29,194 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; letter-spacing: -.005em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: -.005em;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
     a { color: inherit; text-decoration: none; }
+    a.link { text-decoration: underline; text-underline-offset: 3px; }
+    a.link:hover { color: var(--ground); }
     img, svg { display: block; max-width: 100%; }
-    .wrap { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+
+    .wrap { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
     .muted { color: var(--muted); }
+
     h1, h2, h3, p, ul, ol { margin-top: 0; }
-    h1, h2, h3 { letter-spacing: -.035em; line-height: 1.1; font-weight: 600; }
-    h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); }
-    h2 { font-size: 1.4rem; margin-top: 36px; margin-bottom: 12px; }
-    h3 { font-size: 1.1rem; margin-top: 24px; margin-bottom: 6px; }
-    .lede { color: var(--muted); font-size: 18px; line-height: 1.55; }
+    h1, h2, h3 { letter-spacing: -.035em; line-height: 1.1; font-weight: 600; color: var(--ink); }
+    h1 { font-size: clamp(2rem, 8vw, 3.4rem); margin-bottom: 12px; }
+    h2 {
+      font-size: clamp(1.25rem, 4.5vw, 1.55rem);
+      margin-top: 40px;
+      margin-bottom: 12px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line-2);
+    }
+    h2:first-of-type { border-top: 0; margin-top: 28px; padding-top: 0; }
+    h3 {
+      font-size: 1.05rem;
+      margin-top: 22px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    p { color: var(--ink-2); }
+    ul, ol { padding-left: 22px; color: var(--ink-2); }
+    li { margin-bottom: 8px; }
+    li:last-child { margin-bottom: 0; }
+
+    .lede { color: var(--muted); font-size: 1.05rem; line-height: 1.55; }
     .serif { font-family: "Fraunces", "Times New Roman", serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; }
     :focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; border-radius: 4px; }
 
-    .nav { position: sticky; top: 0; z-index: 50; height: 68px; background: rgba(245, 243, 236, .85); border-bottom: 1px solid var(--line-2); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); }
-    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    /* ---------- Header / nav (matches index.html) ---------- */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      height: 64px;
+      background: rgba(245, 243, 236, .88);
+      border-bottom: 1px solid var(--line-2);
+      backdrop-filter: saturate(150%) blur(14px);
+      -webkit-backdrop-filter: saturate(150%) blur(14px);
+    }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
     .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; letter-spacing: -.02em; }
-    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; }
-    .nav-links { display: flex; align-items: center; gap: 24px; color: var(--muted); font-size: 14px; }
+    .brand-mark { width: 24px; height: 24px; flex-shrink: 0; border-radius: 4px; }
+    .nav-links { display: none; align-items: center; gap: 22px; color: var(--muted); font-size: 14px; }
     .nav-links a:hover { color: var(--ink); }
-    .nav-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 16px; background: var(--ground); color: var(--mark); border-radius: 999px; font-size: 13px; font-weight: 600; }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 38px; padding: 0 16px;
+      background: var(--ground); color: var(--mark);
+      border-radius: 999px; font-size: 13px; font-weight: 600;
+    }
+    .nav-cta:hover { background: var(--ground-2); }
+    @media (min-width: 760px) {
+      .nav-links { display: flex; }
+      .nav-cta span.label-full { display: inline; }
+      .nav-cta span.label-short { display: none; }
+    }
 
-    .legal { padding: 72px 0 80px; }
-    .legal h1 { margin-bottom: 14px; }
-    .legal p, .legal li { color: var(--ink-2, #2C2C1B); }
-    .legal ul, .legal ol { padding-left: 22px; }
-    .legal li { margin-bottom: 6px; }
-    .meta { color: var(--muted); font-size: 14px; margin-bottom: 36px; }
-    .callout { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-2); color: var(--ink-2, #2C2C1B); font-size: 15px; }
-    .term { display: grid; grid-template-columns: 80px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line-2); }
-    .term:last-of-type { border-bottom: 0; }
-    .term strong { color: var(--ink); font-weight: 600; }
-    .term .n { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--ground); }
+    /* ---------- Legal page body ---------- */
+    .legal { padding: 48px 0 64px; }
+    .legal h1 { margin-bottom: 12px; }
+    .meta { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+    .callout {
+      margin: 28px 0;
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper-2);
+      color: var(--ink-2);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .callout strong { color: var(--ink); }
+
+    /* Numbered term cards: legible on mobile, structured on desktop */
+    .term-grid { display: grid; gap: 14px; margin-top: 12px; }
+    .term {
+      padding: 16px 18px;
+      border: 1px solid var(--line-2);
+      border-radius: 14px;
+      background: var(--paper-2);
+    }
+    .term .n {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: var(--ground);
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .term h3 { margin-top: 0; margin-bottom: 6px; font-size: 1rem; }
+    .term p, .term li { font-size: 14.5px; }
+    .term p:last-child, .term ul:last-child { margin-bottom: 0; }
+
+    .back-links {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line-2);
+      font-size: 14px;
+    }
+    .back-links a + a { margin-left: 12px; }
+
+    @media (min-width: 720px) {
+      .legal { padding: 72px 0 96px; }
+      .meta { margin-bottom: 36px; }
+      .legal p, .legal li { font-size: 16.5px; }
+      .term-grid { grid-template-columns: repeat(2, 1fr); }
+      .term.full { grid-column: 1 / -1; }
+    }
 
     footer { padding: 24px 0 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; background: var(--paper); }
     .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
     .footer-links { display: flex; gap: 18px; }
     .footer-links a:hover { color: var(--ink); }
 
-      .wa-float {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 40;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 52px;
-    padding: 0;
-    background: var(--ground);
-    color: var(--mark);
-    border: 1px solid rgba(214, 221, 160, .25);
-    border-radius: 50%;
-    box-shadow: 0 10px 22px rgba(38, 45, 13, .28), 0 2px 5px rgba(38, 45, 13, .16);
-    transition: transform .25s var(--ease), box-shadow .25s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; display: block; }
-  .wa-float .label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-  .wa-float:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(38, 45, 13, .34), 0 3px 7px rgba(38, 45, 13, .20); }
-  .wa-float:active { transform: translateY(0) scale(.96); }
-  .wa-float:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
-  @media (min-width: 960px) { .wa-float { display: inline-flex; } }
-  @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
-    /* ---------- Tooltip bubble (hover only) ---------- */
+    /* ---------- Floating WhatsApp chip (matches index.html) ---------- */
+    .wa-float {
+      position: fixed; right: 20px; bottom: 20px; z-index: 40;
+      display: none; align-items: center; justify-content: center;
+      width: 52px; height: 52px; padding: 0;
+      background: var(--ground); color: var(--mark);
+      border: 1px solid rgba(214, 221, 160, .25);
+      border-radius: 50%;
+      box-shadow: 0 10px 22px rgba(38, 45, 13, .28), 0 2px 5px rgba(38, 45, 13, .16);
+      transition: transform .25s var(--ease), box-shadow .25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-float svg { width: 22px; height: 22px; flex-shrink: 0; display: block; }
+    .wa-float .label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(38, 45, 13, .34), 0 3px 7px rgba(38, 45, 13, .20); }
+    .wa-float:active { transform: translateY(0) scale(.96); }
+    .wa-float:focus-visible { outline: 2px solid var(--mark); outline-offset: 3px; }
+    @media (min-width: 960px) { .wa-float { display: inline-flex; } }
+    @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } }
     .wa-float .bubble {
-      position: absolute;
-      right: 0;
-      bottom: calc(100% + 12px);
-      min-width: 180px;
-      max-width: 240px;
+      position: absolute; right: 0; bottom: calc(100% + 12px);
+      min-width: 180px; max-width: 240px;
       padding: 10px 14px;
-      background: var(--ground);
-      color: var(--mark);
+      background: var(--ground); color: var(--mark);
       border: 1px solid rgba(214, 221, 160, .25);
       border-radius: 12px;
       box-shadow: 0 10px 24px rgba(38, 45, 13, .32);
-      font-size: 13px;
-      line-height: 1.35;
-      text-align: left;
-      letter-spacing: 0;
+      font-size: 13px; line-height: 1.35; text-align: left; letter-spacing: 0;
       white-space: normal;
-      opacity: 0;
-      transform: translateY(4px) scale(.98);
+      opacity: 0; transform: translateY(4px) scale(.98);
       pointer-events: none;
       transition: opacity .18s ease, transform .18s ease;
       z-index: 41;
     }
-    .wa-float .bubble-headline {
-      display: block;
-      font-weight: 600;
-      color: var(--mark);
-    }
-    .wa-float .bubble-sub {
-      display: block;
-      margin-top: 4px;
-      color: rgba(214, 221, 160, .75);
-      font-weight: 400;
-      font-size: 12px;
-    }
-    /* Tail */
+    .wa-float .bubble-headline { display: block; font-weight: 600; color: var(--mark); }
+    .wa-float .bubble-sub { display: block; margin-top: 4px; color: rgba(214, 221, 160, .75); font-weight: 400; font-size: 12px; }
     .wa-float .bubble::after {
-      content: "";
-      position: absolute;
-      right: 18px;
-      bottom: -6px;
-      width: 12px;
-      height: 12px;
+      content: ""; position: absolute; right: 18px; bottom: -6px;
+      width: 12px; height: 12px;
       background: var(--ground);
       border-right: 1px solid rgba(214, 221, 160, .25);
       border-bottom: 1px solid rgba(214, 221, 160, .25);
       transform: rotate(45deg);
     }
-    /* Reveal on hover, keyboard focus, or touch focus-within */
     .wa-float:hover .bubble,
     .wa-float:focus-visible .bubble,
     .wa-float:focus-within .bubble {
-      opacity: 1;
-      transform: translateY(0) scale(1);
+      opacity: 1; transform: translateY(0) scale(1);
     }
     @media (prefers-reduced-motion: reduce) {
       .wa-float .bubble { transition: none; transform: none; }
     }
-
   </style>
 </head>
 <body>
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="index.html" aria-label="Forge home">
-        <svg class="brand-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="100" height="100" rx="20" fill="#3A3B1F"/>
-          <path d="M28 30 L60 30 L60 38 L40 38 L40 50 L58 50 L58 58 L40 58 L40 70 L28 70 Z" fill="#D6DDA0"/>
-          <path d="M48 42 L80 42 L80 50 L60 50 L60 62 L78 62 L78 70 L60 70 L48 70 Z" fill="#B7C074"/>
-        </svg>
+        <img src="favicon.svg" alt="" class="brand-mark">
         <span>Forge</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
@@ -169,53 +225,70 @@
         <a href="operator.html">Operator plan</a>
         <a href="privacy.html">Privacy</a>
       </nav>
-      <a class="nav-cta" href="index.html#preview">Get my preview <span aria-hidden="true">→</span></a>
+      <a class="nav-cta" href="index.html#preview"><span class="label-short">Preview</span><span class="label-full">Get my preview</span> <span aria-hidden="true">&rarr;</span></a>
     </div>
   </header>
 
   <main>
     <section class="legal">
       <div class="wrap">
-        <h1>Terms of Service</h1>
-        <p class="meta">Effective: 16 July 2026. The agreement between you and Forge for the preview, audit, waitlist, and Operator plan.</p>
+        <h1>Terms of <span class="serif">service</span></h1>
+        <p class="meta">Effective 16 July 2026. The agreement between you and Forge for the preview, audit, waitlist, and Operator plan.</p>
 
         <h2>Who this agreement is between</h2>
-        <p>This is between you (the local business owner or authorised representative) and Forge, operated by Rishiidev. By submitting any form on this site, you confirm that you have authority to enter into this agreement on behalf of the business named in the form.</p>
+        <p>You &mdash; the local business owner or authorised representative &mdash; and Forge. By submitting any form on this site, you confirm you have authority to enter into this agreement on behalf of the business named in the form.</p>
 
-        <h2>The summary</h2>
         <div class="callout">
-          Forge turns your Google Business Profile into a professional website. We charge a one-time fee for the launch package, an optional monthly fee for the Operator plan, and never charge you for the free 7-point audit. The full mechanics of each are below.
+          <strong>One-paragraph summary.</strong> Forge turns your Google Business Profile into a professional website. We charge a one-time fee for the launch package, an optional monthly fee for the Operator plan, and never charge for the free 7-point audit. The full mechanics of each are below.
         </div>
 
-        <h2>The four interactions</h2>
+        <h2>The four offerings</h2>
 
-        <h3>1. Free 7-Point Audit</h3>
-        <p>Free. No obligation. We deliver a one-page private write-up within 48 hours. If we cannot deliver within 48 hours for any reason within our control, you can ask for the audit to be cancelled with no further contact from us. The audit is opinion, not a guarantee of any business outcome.</p>
+        <div class="term-grid">
 
-        <h3>2. Private preview</h3>
-        <p>Free. You send a Google Business Profile link. We build a private preview and send it to you within 24 hours. The preview is for your evaluation only. You do not have the right to publish, redistribute, or claim authorship of the preview, and we retain all intellectual property in it. If you choose to proceed to the launch package, the preview becomes the first draft of the deliverable.</p>
+          <div class="term">
+            <span class="n">01 &middot; FREE</span>
+            <h3>Free 7-Point Audit</h3>
+            <p>No obligation. We deliver a one-page private write-up within 48 hours. If we cannot deliver within 48 hours for any reason within our control, you can ask for the audit to be cancelled with no further contact from us.</p>
+            <p>The audit is opinion, not a guarantee of business outcomes.</p>
+          </div>
 
-        <h3>3. Launch website (₹9,999 one-time)</h3>
-        <p>If you approve the preview and want to proceed:</p>
-        <ul>
-          <li>You pay 50% upfront to reserve your launch slot and start customisation.</li>
-          <li>You pay the remaining 50% before the domain goes live.</li>
-          <li>We deliver the website within 48 hours of approval, deposit, and receipt of the required domain access.</li>
-          <li>If we miss the 48-hour launch deadline for a reason within our control, your deposit is refunded in full.</li>
-          <li>The launch package includes one revision, defined as changes to the agreed page. New pages, new sections, or a complete change of direction are out of scope and quoted separately.</li>
-          <li>The launch package includes 14 days of bug support, defined as fixing something that fails to work as agreed. New feature requests, design refreshes, or content updates beyond the agreed scope are not bugs.</li>
-        </ul>
-        <p>Your domain is registered in your name. The website files can be transferred to you after the final payment.</p>
+          <div class="term">
+            <span class="n">02 &middot; FREE</span>
+            <h3>Private preview</h3>
+            <p>You send a Google Business Profile link. We build a private preview and send it to you within 24 hours. The preview is for your evaluation only. You may not publish, redistribute, or claim authorship of the preview, and Forge retains all intellectual property in it.</p>
+            <p>If you proceed to the launch package, the preview becomes the first draft of the deliverable.</p>
+          </div>
 
-        <h3>4. Operator plan (₹1,499 / ₹3,999 / ₹7,999 per month)</h3>
-        <p>If you subscribe to the Operator plan after launch:</p>
-        <ul>
-          <li>The plan is monthly. You can cancel any month with no penalty.</li>
-          <li>The plan includes hosting, SSL, backups, uptime monitoring, security updates, and the change quota listed for your tier.</li>
-          <li>Changes outside the quota are quoted separately before any work begins.</li>
-          <li>Forge accepts a maximum of 8 active Operator clients at a time. When full, new enquiries are waitlisted.</li>
-          <li>On cancellation, your website continues to be served until the end of the paid period. After that, we archive the project and you retain ownership of your domain and the project files.</li>
-        </ul>
+          <div class="term">
+            <span class="n">03 &middot; &inr;9,999 ONE-TIME</span>
+            <h3>Launch website</h3>
+            <p>If you approve the preview and want to proceed:</p>
+            <ul>
+              <li>50% upfront to reserve your slot and start customisation.</li>
+              <li>50% before the domain goes live.</li>
+              <li>Delivered within 48 hours of approval, deposit, and receipt of required domain access.</li>
+              <li>If we miss the 48-hour launch deadline for a reason within our control, your deposit is refunded in full.</li>
+              <li>One revision is included, defined as changes to the agreed page. New pages, new sections, or a complete change of direction are out of scope and quoted separately.</li>
+              <li>14 days of bug support included, defined as fixing something that fails to work as agreed. New feature requests are not bugs.</li>
+            </ul>
+            <p>Your domain is registered in your name. Website files can be transferred to you after the final payment.</p>
+          </div>
+
+          <div class="term">
+            <span class="n">04 &middot; &inr;1,499 / &inr;3,999 / &inr;7,999 PER MONTH</span>
+            <h3>Operator plan</h3>
+            <p>If you subscribe to the Operator plan after launch:</p>
+            <ul>
+              <li>The plan is monthly. Cancel any month with no penalty.</li>
+              <li>Includes hosting, SSL, backups, uptime monitoring, security updates, and the change quota for your tier.</li>
+              <li>Changes outside the quota are quoted separately before any work begins.</li>
+              <li>Forge accepts a maximum of 8 active Operator clients at a time. When full, new enquiries are waitlisted.</li>
+              <li>On cancellation, your website continues to be served until the end of the paid period. After that, we archive the project and you retain ownership of your domain and project files.</li>
+            </ul>
+          </div>
+
+        </div>
 
         <h2>What we promise</h2>
         <ul>
@@ -229,24 +302,23 @@
         <ul>
           <li>You provide accurate information in the form fields.</li>
           <li>You respond to reasonable approval and access requests within the timeline we agree on.</li>
-          <li>You do not use the preview, the audit, or the website in a way that infringes on a third party's rights (for example, by using copyrighted images you do not own).</li>
+          <li>You do not use the preview, the audit, or the website in a way that infringes on a third party's rights.</li>
           <li>You do not resell the launch website as a template to other businesses.</li>
         </ul>
 
         <h2>What we do not promise</h2>
-        <p>Honest list, no fine print:</p>
         <ul>
           <li>We do not guarantee that the website will rank on Google.</li>
           <li>We do not guarantee that the website will generate leads, calls, or revenue.</li>
           <li>We do not guarantee a specific number of customers from the website.</li>
-          <li>We do not guarantee that the 48-hour launch deadline will be met if the delay is caused by missing domain access, missing assets, or slow client feedback. The deadline is conditional on approval, deposit, and the required inputs being in our hands.</li>
+          <li>The 48-hour launch deadline is conditional on approval, deposit, and the required inputs being in our hands.</li>
         </ul>
 
         <h2>Refunds</h2>
         <ul>
           <li><strong>Free services</strong> (preview, audit, waitlist): nothing to refund.</li>
-          <li><strong>Launch deposit</strong>: refundable in full if we miss the 48-hour launch deadline for a reason within our control. Not refundable if the delay is on the client's side (missing access, missing assets, late approvals).</li>
-          <li><strong>Final 50%</strong>: not refundable once the website is live and delivered. We will fix any agreed bugs during the 14-day support period.</li>
+          <li><strong>Launch deposit</strong>: refundable in full if we miss the 48-hour launch deadline for a reason within our control. Not refundable if the delay is on the client's side.</li>
+          <li><strong>Final 50%</strong>: not refundable once the website is live and delivered. Bugs are fixed during the 14-day support period.</li>
           <li><strong>Operator plan</strong>: cancel any month. We do not refund the current month, but we do not auto-renew after cancellation.</li>
         </ul>
 
@@ -263,43 +335,50 @@
         <p>This agreement is governed by the laws of India. Disputes will be resolved first through good-faith conversation. If that fails, through arbitration in the city where Forge operates.</p>
 
         <h2>Changes to these terms</h2>
-        <p>If we change anything material, we will update the "Effective" date at the top of this page. If you have an active engagement with us, we will email you before the change takes effect.</p>
+        <p>If we change anything material, we update the <em>Effective</em> date at the top of this page. If you have an active engagement with us, we email you before the change takes effect.</p>
 
         <h2>Contact</h2>
-        <p>Email <a href="mailto:hello@forge.local" style="text-decoration: underline;">hello@forge.local</a>. This is a one-person studio, so expect a reply within one business day, not within one hour.</p>
+        <p>Email <a class="link" href="mailto:hello@forge.local">hello@forge.local</a>. This is a one-person studio, so expect a reply within one business day, not within one hour.</p>
 
-        <p style="margin-top: 36px;"><a class="muted" href="privacy.html" style="text-decoration: underline;">Read the privacy policy</a> &nbsp;·&nbsp; <a class="muted" href="index.html" style="text-decoration: underline;">Back to home</a></p>
+        <p class="back-links">
+          <a class="link" href="privacy.html">Read the privacy policy</a>
+          <a class="link" href="index.html">Back to home</a>
+        </p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="wrap footer-inner">
-      <span>© Forge. Terms of service.</span>
-      <div class="footer-links"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="mailto:hello@forge.local">Contact</a></div>
+      <span>&copy; Forge. Terms of service.</span>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:hello@forge.local">Contact</a>
+      </div>
     </div>
   </footer>
 
   <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
-      <svg viewBox="0 0 100 100" aria-hidden="true">
-      <image href="forge-mark.svg" x="14" y="14" width="72" height="72" preserveAspectRatio="xMidYMid meet" />
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/>
     </svg>
-      <span class="label">Chat with Forge on WhatsApp</span>
+    <span class="label">Chat with Forge on WhatsApp</span>
     <span class="bubble" role="tooltip">
-      <span class="bubble-headline">Hi ð how can I help with your website?</span>
+      <span class="bubble-headline">Hi &#x1F44B; how can I help with your website?</span>
       <span class="bubble-sub">Quick question? Ask here.</span>
     </span>
   </a>
 
-    <script>
-      (() => {
-        const WA_NUMBER = '919999999999';
-        const WA_BASE = 'https://wa.me/' + WA_NUMBER;
-        const float = document.getElementById('waFloat');
-        if (float) {
-          float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I have a question about your terms.');
-        }
-      })();
-    </script>
+  <script>
+    (() => {
+      const WA_NUMBER = '919999999999';
+      const WA_BASE = 'https://wa.me/' + WA_NUMBER;
+      const float = document.getElementById('waFloat');
+      if (float) {
+        float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I have a question about your terms.');
+      }
+    })();
+  </script>
 </body>
 </html>
