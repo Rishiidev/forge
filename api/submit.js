@@ -90,9 +90,14 @@ export default async function handler(req, res) {
   }
 
   // ---- Env config ----
+  // RESEND_API_KEY  — required for email. Set in Vercel.
+  // LEADS_TO_EMAIL  — primary destination. Set in Vercel.
+  // TO_EMAIL        — legacy alias, still honored if LEADS_TO_EMAIL is absent.
+  // FROM_EMAIL      — sender (must be a verified Resend domain in production).
+  // NOTION_*        — optional, if you want rows in a Notion CRM too.
   const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
-  const FROM_EMAIL = process.env.FROM_EMAIL || 'Forge <onresend.com>';
-  const TO_EMAIL = process.env.TO_EMAIL || 'bruuhhstudios@gmail.com';
+  const FROM_EMAIL = process.env.FROM_EMAIL || 'Forge <onboarding@resend.dev>';
+  const TO_EMAIL = process.env.LEADS_TO_EMAIL || process.env.TO_EMAIL || 'bruuhhstudios@gmail.com';
   const NOTION_API_KEY = process.env.NOTION_API_KEY || '';
   const NOTION_DB_ID = process.env.NOTION_DB_ID || '';
 
