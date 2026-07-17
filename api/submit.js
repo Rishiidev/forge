@@ -258,7 +258,7 @@ async function dispatchSupabase({ SUPABASE_URL, SUPABASE_KEY, lead }) {
         'Prefer':        'return=representation',
       },
       body: JSON.stringify([{
-        source,
+        source:      lead.source,
         name:        name_or_null(lead.name),
         email:       lead.email,
         biz:         name_or_null(lead.biz),
