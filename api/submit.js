@@ -178,22 +178,24 @@ export default async function handler(req, res) {
   ]);
 
   // ---- Normalize results ----
-  const email  = legResult(emailResult,  RESEND_API_KEY  ? 'skipped' : 'skipped');
-  const db     = legResult(dbResult,     !SUPABASE_URL || !SUPABASE_KEY ? 'skipped:env' : null);
-  const github = legResult(githubResult, !GITHUB_TOKEN ? 'skipped:env' : null);
+  // (Renamed from `email`/`db`/`github` to `*Leg` because `email` collides
+  // with the destructured field of the same name from req.body above.)
+  const emailLeg = legResult(emailResult,  RESEND_API_KEY  ? 'skipped' : 'skipped');
+  const dbLeg    = legResult(dbResult,     !SUPABASE_URL || !SUPABASE_KEY ? 'skipped:env' : null);
+  const gitLeg   = legResult(githubResult, !GITHUB_TOKEN ? 'skipped:env' : null);
 
   // Top-level ok is "the durable store (Supabase) succeeded OR was
   // attempted and we're skipping because env not set". The user's
   // lead is in either GitHub (if Supabase env missing) or Supabase
   // (preferred). If both legs skipped, we surface that.
   const topLevelOk =
-    (db.ok || github.ok) &&
-    !(db.ok === false && github.ok === false && email.ok === false);
+    (dbLeg.ok || gitLeg.ok) &&
+    !(dbLeg.ok === false && gitLeg.ok === false && emailLeg.ok === false);
 
   console.log('[forge] submit complete', {
     reference, source,
-    email: email.ok, db: db.ok, github: github.ok,
-    dbError: db.error, githubError: github.error, emailError: email.error,
+    email: emailLeg.ok, db: dbLeg.ok, github: gitLeg.ok,
+    dbError: dbLeg.error, githubError: gitLeg.error, emailError: emailLeg.error,
   });
 
   res.setHeader('Access-Control-Allow-Origin', corsOrigin);
@@ -201,9 +203,9 @@ export default async function handler(req, res) {
     ok: topLevelOk,
     source,
     reference,
-    email,
-    db,
-    github,
+    email: emailLeg,
+    db: dbLeg,
+    github: gitLeg,
   });
 }
 
