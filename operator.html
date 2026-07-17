@@ -527,61 +527,10 @@
         float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
       }
 
-      // ---------- Operator form (native) ----------
-      const opForm = document.getElementById('opForm');
-      if (opForm) {
-        opForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const submit = opForm.querySelector('button');
-          const state = document.getElementById('opState');
-          const email = document.getElementById('opEmail').value.trim();
-          const wa = document.getElementById('opWhatsApp').value.trim();
-          if (!email || !wa) {
-            state.className = 'commitment-state error';
-            state.textContent = 'Drop your email and WhatsApp number. We will respond within one business day.';
-            return;
-          }
-          const original = submit.innerHTML;
-          submit.disabled = true;
-          submit.textContent = 'Sending...';
-          state.className = 'commitment-state';
-          state.textContent = 'Reading your note and checking the Operator plan availability for this month.';
-          try {
-            const res = await fetch('/api/submit', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ source: 'operator', email, whatsapp: wa, tier: 'Active' }),
-              // honeypot read inside the success block below
-            });
-            const data = await res.json().catch(() => ({ ok: res.ok }));
-            submit.disabled = false;
-            submit.innerHTML = original;
-            if (res.ok && data.ok) {
-              const honeypot = (opForm.querySelector('input[name="website"]') || {}).value || '';
-              state.className = 'commitment-state success';
-              state.innerHTML = 'Note received. Reference: <strong>' + (data.reference || 'pending') + '</strong>. Redirecting to WhatsApp…';
-              const q = new URLSearchParams({
-                source: 'operator',
-                tier: 'Active',
-                ref: data.reference || '',
-                whatsapp: wa,
-                email: email,
-                website: honeypot,
-              });
-              const dest = 'thanks.html?' + q.toString();
-              window.setTimeout(() => { window.location.href = dest; }, 900);
-            } else {
-              state.className = 'commitment-state error';
-              state.textContent = 'Could not send right now. Please try again or message us on WhatsApp.';
-            }
-          } catch (err) {
-            submit.disabled = false;
-            submit.innerHTML = original;
-            state.className = 'commitment-state error';
-            state.textContent = 'Network error. Please try again, or message us on WhatsApp.';
-          }
-        });
-      }
+      // ---------- Operator form (Option A: WhatsApp primary, email backup) ----------
+      // Native handler removed; form submits now go through forge-wa-submit.js
+      // which opens WhatsApp with the form data and POSTs /api/submit
+      // fire-and-forget as email backup.
 
       // ---------- Scroll reveal ----------
       const reveal = document.querySelectorAll('[data-reveal]');
@@ -596,6 +545,12 @@
       }
     })();
   </script>
+
+  <script src="forge-wa-submit.js" data-form="opForm"
+          data-source="operator" data-label="Operator plan enquiry"
+          data-wa="919999999999"
+          data-required="opEmail,opWhatsApp"
+          data-fields="opEmail,opWhatsApp"></script>
 
   <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

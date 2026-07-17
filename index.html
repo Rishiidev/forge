@@ -1172,119 +1172,17 @@
       };
       buttons.forEach(b => b.addEventListener('click', () => setNiche(b.dataset.niche)));
 
-      // ---------- Preview form (native) ----------
-      const previewForm = document.getElementById('previewForm');
-      if (previewForm) {
-        previewForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const submit = previewForm.querySelector('button');
-          const state = document.getElementById('formState');
-          const link = document.getElementById('profileUrl').value.trim();
-          const wa = document.getElementById('waPreview').value.trim();
-          if (!link || !wa) {
-            state.className = 'form-state error';
-            state.textContent = 'Paste your Google Business Profile link and your WhatsApp number.';
-            return;
-          }
-          const original = submit.innerHTML;
-          submit.disabled = true;
-          submit.textContent = 'Sending...';
-          state.className = 'form-state';
-          state.textContent = 'Sending your preview request.';
-          try {
-            const res = await fetch('/api/submit', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ source: 'preview', link, whatsapp: wa }),
-            });
-            const data = await res.json().catch(() => ({ ok: res.ok }));
-            submit.disabled = false;
-            submit.innerHTML = original;
-            if (res.ok && data.ok) {
-              const honeypot = (previewForm.querySelector('input[name="website"]') || {}).value || '';
-              state.className = 'form-state success';
-              state.innerHTML = 'Preview request received. Reference: <strong>' + (data.reference || 'pending') + '</strong>. Redirecting to WhatsApp…';
-              const q = new URLSearchParams({
-                source: 'preview',
-                ref: data.reference || '',
-                link: link,
-                whatsapp: wa,
-                website: honeypot,
-              });
-              const dest = 'thanks.html?' + q.toString();
-              window.setTimeout(() => { window.location.href = dest; }, 900);
-            } else {
-              state.className = 'form-state error';
-              state.textContent = 'Could not send right now. Please try again or message us directly on WhatsApp.';
-            }
-          } catch (err) {
-            submit.disabled = false;
-            submit.innerHTML = original;
-            state.className = 'form-state error';
-            state.textContent = 'Network error. Please try again, or message us on WhatsApp.';
-          }
-        });
-      }
+            // ---------- Preview form (native) ---------- ----------
+      // Native handler removed; form submits now go through forge-wa-submit.js
+      // which opens WhatsApp with the form data and POSTs /api/submit
+      // fire-and-forget as email backup. See forge-wa-submit.js.
 
-      // ---------- Waitlist form (native, only visible when cap is full) ----------
-      const waitlistForm = document.getElementById('waitlistForm');
-      if (waitlistForm) {
-        waitlistForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const submit = waitlistForm.querySelector('button');
-          const state = document.getElementById('waitlistState');
-          const name = document.getElementById('wlName').value.trim();
-          const email = document.getElementById('wlEmail').value.trim();
-          const category = document.getElementById('wlNiche').value;
-          const link = document.getElementById('wlLink').value.trim();
-          const wa = document.getElementById('wlWhatsApp').value.trim();
-          if (!email || !wa || !link) {
-            state.className = 'state error';
-            state.textContent = 'Email, WhatsApp, and Google link are required.';
-            return;
-          }
-          const original = submit.innerHTML;
-          submit.disabled = true;
-          submit.textContent = 'Reserving...';
-          state.className = 'state';
-          state.textContent = 'Reserving your spot for next month.';
-          try {
-            const res = await fetch('/api/submit', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ source: 'waitlist', name, email, category, link, whatsapp: wa }),
-            });
-            const data = await res.json().catch(() => ({ ok: res.ok }));
-            submit.disabled = false;
-            submit.innerHTML = original;
-            if (res.ok && data.ok) {
-              const honeypot = (document.getElementById('waitlistForm').querySelector('input[name="website"]') || {}).value || '';
-              state.className = 'state success';
-              state.innerHTML = 'You are on the waitlist. Reference: <strong>' + (data.reference || 'pending') + '</strong>. Redirecting to WhatsApp…';
-              const q = new URLSearchParams({
-                source: 'waitlist',
-                ref: data.reference || '',
-                name: name,
-                email: email,
-                link: link,
-                category: category,
-                whatsapp: wa,
-                website: honeypot,
-              });
-              const dest = 'thanks.html?' + q.toString();
-              window.setTimeout(() => { window.location.href = dest; }, 900);
-            } else {
-              state.className = 'state error';
-              state.textContent = 'Could not send right now. Please try again or message us on WhatsApp.';
-            }
-          } catch (err) {
-            submit.disabled = false;
-            submit.innerHTML = original;
-            state.className = 'state error';
-            state.textContent = 'Network error. Please try again, or message us on WhatsApp.';
-          }
-        });
-      }
+
+            // ---------- Waitlist form (native, only visible when cap is full) ---------- ----------
+      // Native handler removed; form submits now go through forge-wa-submit.js
+      // which opens WhatsApp with the form data and POSTs /api/submit
+      // fire-and-forget as email backup. See forge-wa-submit.js.
+
 
       // ---------- FAQ ----------
       document.querySelectorAll('.faq-question').forEach(q => {
@@ -1298,6 +1196,18 @@
       // No client-side handler needed for either.
     })();
   </script>
+
+  <script src="forge-wa-submit.js" data-form="previewForm"
+          data-source="preview" data-label="private preview request"
+          data-wa="919999999999"
+          data-required="profileUrl,waPreview"
+          data-fields="profileUrl,waPreview"></script>
+
+  <script src="forge-wa-submit.js" data-form="waitlistForm"
+          data-source="waitlist" data-label="waitlist signup"
+          data-wa="919999999999"
+          data-required="wlName,wlEmail,wlNiche,wlLink,wlWhatsApp"
+          data-fields="wlName,wlEmail,wlNiche,wlLink,wlWhatsApp"></script>
 
   <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

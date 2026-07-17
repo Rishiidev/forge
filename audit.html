@@ -443,64 +443,10 @@
         float.href = WA_BASE + '?text=' + encodeURIComponent('Hi Forge, I was just on your site. I have a question.');
       }
 
-      // ---------- Audit form (native) ----------
-      const auditForm = document.getElementById('auditForm');
-      if (auditForm) {
-        auditForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const submit = auditForm.querySelector('button');
-          const state = document.getElementById('auditState');
-          const name = document.getElementById('aName').value.trim();
-          const email = document.getElementById('aEmail').value.trim();
-          const biz = document.getElementById('aBiz').value.trim();
-          const category = document.getElementById('aCategory').value;
-          const link = document.getElementById('aLink').value.trim();
-          const wa = document.getElementById('aWhatsApp').value.trim();
-          if (!name || !email || !biz || !category || !link || !wa) {
-            state.className = 'form-state error';
-            state.textContent = 'All six fields are required to give you an honest audit.';
-            return;
-          }
-          const original = submit.innerHTML;
-          submit.disabled = true;
-          submit.textContent = 'Sending...';
-          state.className = 'form-state';
-          state.textContent = 'Sending your audit request.';
-          try {
-            const honeypot = (auditForm.querySelector('input[name="website"]') || {}).value || '';
-            const res = await fetch('/api/submit', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ source: 'audit', name, email, biz, category, link, whatsapp: wa, website: honeypot }),
-            });
-            const data = await res.json().catch(() => ({ ok: res.ok }));
-            submit.disabled = false;
-            submit.innerHTML = original;
-            if (res.ok && data.ok) {
-              state.className = 'form-state success';
-              state.innerHTML = 'Audit request received for ' + biz + '. Reference: <strong>' + (data.reference || 'pending') + '</strong>. Redirecting to WhatsApp…';
-              const q = new URLSearchParams({
-                source: 'audit',
-                biz: biz,
-                wa: wa,
-                ref: data.reference || '',
-                name: name,
-                link: link,
-              });
-              const dest = 'thanks.html?' + q.toString();
-              window.setTimeout(() => { window.location.href = dest; }, 900);
-            } else {
-              state.className = 'form-state error';
-              state.textContent = 'Could not send right now. Please try again or message us on WhatsApp.';
-            }
-          } catch (err) {
-            submit.disabled = false;
-            submit.innerHTML = original;
-            state.className = 'form-state error';
-            state.textContent = 'Network error. Please try again, or message us on WhatsApp.';
-          }
-        });
-      }
+      // ---------- Audit form (Option A: WhatsApp primary, email backup) ----------
+      // Native handler removed: form submits now go through forge-wa-submit.js
+      // which opens WhatsApp with the form data and POSTs /api/submit
+      // fire-and-forget as email backup. See forge-wa-submit.js.
 
       // ---------- Scroll reveal ----------
       const reveal = document.querySelectorAll('[data-reveal]');
@@ -516,13 +462,19 @@
     })();
   </script>
 
+  <script src="forge-wa-submit.js" data-form="auditForm"
+          data-source="audit" data-label="free 7-point audit"
+          data-wa="919999999999"
+          data-required="aName,aEmail,aBiz,aCategory,aLink,aWhatsApp"
+          data-fields="aName,aEmail,aBiz,aCategory,aLink,aWhatsApp"></script>
+
   <a class="wa-float" id="waFloat" href="#" aria-label="Chat with Forge on WhatsApp (opens in a new tab)" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.4.1-.6.1-.1.1-.3.3-.4.5-.1.2-.3.3-.5.5-.2.2-.3.3-.6.1-.3-.1-1.2-.4-2.2-1.3-1.7-1.5-1.8-3.1-2-3.4-.1-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4-.1-.5-.1-.1-.6-.7-.8-1-.2-.3-.5-.7-.5-1.4 0-.7.5-1.4.7-1.6.2-.2.4-.2.6-.2h.5c.2 0 .4 0 .6.2.2.2.6.7.6 1.7 0 1-.5 2.2-.6 2.4-.1.2-.2.3-.1.6.1.3.6 1 .7 1.1 1.1 1.6 2.2 2 2.5 2.2.3.2.5.2.7 0 .2-.2.8-.9 1-1.1.2-.2.4-.2.7-.1.3.1 1.9.9 2.2 1 .3.1.5.2.6.4.1.1.1.7-.1 1.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/>
     </svg>
     <span class="label">Chat with Forge on WhatsApp</span>
     <span class="bubble" role="tooltip">
-      <span class="bubble-headline">Hi ð how can I help with your website?</span>
+      <span class="bubble-headline">Hi &#x1F44B; how can I help with your website?</span>
       <span class="bubble-sub">Quick question? Ask here.</span>
     </span>
   </a>
