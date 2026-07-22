@@ -36,3 +36,4 @@ audits/
 .gitignore.append
 .logo_compare.png
 .nav_preview_4x.png
+.vercel

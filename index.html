@@ -287,41 +287,101 @@
     .relief-task strong { font-weight: 600; }
     .relief-task .state { font-size: 11px; color: rgba(214, 221, 160, .55); }
 
-    /* Offer */
+    /* Offer — full-bleed redesign v2 */
     .offer { background: var(--ground); color: var(--mark); position: relative; overflow: hidden; }
     .offer::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(214, 221, 160, .08), transparent 60%); }
-    .offer-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(40px, 7vw, 100px); align-items: start; position: relative; }
-    .offer h2 { margin-bottom: 22px; }
-    .offer .lede { color: rgba(214, 221, 160, .75); max-width: 44ch; }
-    .offer-note { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; border-top: 1px solid var(--line-dark); padding-top: 24px; }
+    .offer-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; margin-bottom: 36px; }
+    .offer-head h2 { margin: 0; }
+    .offer-head .lede { color: rgba(214, 221, 160, .75); max-width: 56ch; margin: 16px 0 0; }
+    .offer-head .offer-trust { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .offer-head .trust-pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgba(214, 221, 160, .06); border: 1px solid var(--line-dark); border-radius: 999px; font-size: 12px; color: rgba(214, 221, 160, .8); white-space: nowrap; }
+    .offer-head .trust-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mark-2); box-shadow: 0 0 8px var(--mark-2); }
+    .offer-head .trust-pill strong { color: var(--mark); font-weight: 600; }
+
+    /* Price grid — equal cards, full width */
+    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative; }
+    .price-card { display: flex; flex-direction: column; position: relative; padding: 32px 28px; background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: 20px; transition: transform .25s var(--ease), border-color .25s var(--ease); }
+    .price-card:hover { transform: translateY(-2px); border-color: rgba(214, 221, 160, .35); }
+    .price-card.featured { background: linear-gradient(180deg, var(--ground-2) 0%, rgba(214, 221, 160, .04) 100%); border-color: var(--mark); box-shadow: 0 0 0 1px var(--mark), 0 24px 48px -16px rgba(214, 221, 160, .12); }
+    .price-card .ribbon { position: absolute; top: -1px; left: 28px; padding: 6px 12px; background: var(--mark); color: var(--ground); font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; border-radius: 0 0 8px 8px; }
+    .price-card.featured .ribbon { background: var(--warm); color: var(--paper); }
+    .price-card .name { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(214, 221, 160, .65); margin: 16px 0 4px; }
+    .price-card.featured .name { color: var(--mark); }
+    .price-card .price-row { display: flex; align-items: baseline; gap: 12px; padding: 8px 0 0; }
+    .price-card .price-row .amt { font-size: 56px; font-weight: 600; letter-spacing: -.04em; color: var(--mark); line-height: 1; font-feature-settings: "tnum"; }
+    .price-card .price-row .meta { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: rgba(214, 221, 160, .6); }
+    .price-card .price-row .meta strong { color: var(--mark); font-weight: 600; font-size: 13px; }
+    .price-card .tagline { font-size: 14px; color: rgba(214, 221, 160, .75); line-height: 1.5; margin: 16px 0 0; }
+    .price-card .features { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-direction: column; gap: 0; }
+    .price-card .features li { display: flex; gap: 12px; padding: 12px 0; font-size: 14px; color: rgba(214, 221, 160, .85); border-bottom: 1px solid var(--line-dark-2); align-items: flex-start; line-height: 1.45; }
+    .price-card .features li:last-child { border-bottom: none; }
+    .price-card .features li::before { content: "✓"; color: var(--mark-2); font-weight: 700; flex-shrink: 0; }
+    .price-card .features li.muted { color: rgba(214, 221, 160, .55); }
+    .price-card .features li.muted::before { content: "—"; color: rgba(214, 221, 160, .3); }
+    .price-card .actions { margin-top: auto; padding-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .price-card .actions .button { width: 100%; justify-content: center; }
+    .price-card .note { font-size: 12px; color: rgba(214, 221, 160, .5); margin-top: 12px; line-height: 1.5; text-align: center; }
+
+    .compare-trigger { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 28px; padding: 14px 20px; background: transparent; border: 1px solid var(--line-dark); border-radius: 12px; color: rgba(214, 221, 160, .85); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .2s var(--ease); font-family: inherit; width: 100%; }
+    .compare-trigger:hover { background: rgba(214, 221, 160, .04); border-color: rgba(214, 221, 160, .35); color: var(--mark); }
+    .compare-trigger svg { width: 14px; height: 14px; }
+
+    .trust-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 48px; padding: 24px 0; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+    .trust-strip .cell { display: flex; flex-direction: column; gap: 4px; padding: 0 24px; text-align: center; border-right: 1px solid var(--line-dark); }
+    .trust-strip .cell:last-child { border-right: none; }
+    .trust-strip .strong { font-size: 22px; font-weight: 600; color: var(--mark); letter-spacing: -.02em; font-feature-settings: "tnum"; }
+    .trust-strip .lbl { font-size: 12px; color: rgba(214, 221, 160, .6); }
+
+    .offer-note { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
     .offer-note div { font-size: 13px; color: rgba(214, 221, 160, .7); }
     .offer-note div strong { display: block; color: var(--mark); font-size: 22px; font-weight: 600; margin-bottom: 4px; }
-    .price-card { position: relative; padding: 36px; background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: 18px; transition: padding .3s var(--ease); }
-    .price-card.is-full { padding-bottom: 28px; }
-    .price-card .ribbon { position: absolute; top: 0; right: 32px; padding: 7px 14px; background: var(--mark); color: var(--ground); font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border-radius: 0 0 8px 8px; transition: background .3s ease; }
-    .price-card.is-full .ribbon { background: var(--warm); color: var(--paper); }
-    .price-card .name { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: rgba(214, 221, 160, .65); margin-bottom: 12px; }
-    .price-card .price { display: flex; align-items: baseline; gap: 10px; padding: 20px 0; border-bottom: 1px solid var(--line-dark); }
-    .price-card .price .amt { font-size: 64px; font-weight: 600; letter-spacing: -.04em; color: var(--mark); }
-    .price-card .price .meta { color: rgba(214, 221, 160, .55); font-size: 13px; }
-    .price-card .price .meta strong { display: block; color: var(--mark); font-size: 14px; font-weight: 600; }
-    .price-card ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 0; }
-    .price-card li { display: flex; gap: 10px; padding: 11px 0; font-size: 14px; color: rgba(214, 221, 160, .8); border-bottom: 1px solid var(--line-dark-2); align-items: start; }
-    .price-card li::before { content: "✓"; color: var(--mark-2); font-weight: 700; }
-    .price-card .actions { margin-top: 28px; display: grid; gap: 12px; }
-    .price-card .note { font-size: 12px; color: rgba(214, 221, 160, .5); margin-top: 16px; line-height: 1.5; }
 
-    /* Two-tier price grid */
-    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .price-card.secondary { background: var(--ground); }
-    .price-card.secondary .name { color: rgba(214, 221, 160, .55); }
-    .price-card.secondary .price .amt { color: var(--mark-2); }
-    .price-card.secondary ul { grid-template-columns: 1fr; }
-    .price-card .sub { font-size: 13px; color: rgba(214, 221, 160, .6); margin: 12px 0 0; line-height: 1.5; }
-    @media (max-width: 880px) { .price-grid { grid-template-columns: 1fr; } }
+    .compare-modal { position: fixed; inset: 0; z-index: 60; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(0, 0, 0, .7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .compare-modal.open { display: flex; animation: fadeIn .2s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .compare-card { background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: 20px; padding: 32px; max-width: 720px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 32px 64px -16px rgba(0, 0, 0, .5); }
+    .compare-card .close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: var(--ground); border: 1px solid var(--line-dark); color: var(--mark); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .compare-card .close:hover { background: rgba(214, 221, 160, .08); }
+    .compare-card h3 { font-size: 24px; margin: 0 0 4px; color: var(--mark); }
+    .compare-card .sub { color: rgba(214, 221, 160, .6); font-size: 14px; margin: 0 0 24px; }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th, .compare-table td { padding: 14px 16px; text-align: left; font-size: 14px; border-bottom: 1px solid var(--line-dark-2); }
+    .compare-table th { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: rgba(214, 221, 160, .55); font-weight: 600; background: rgba(214, 221, 160, .04); }
+    .compare-table th:first-child { border-radius: 8px 0 0 8px; }
+    .compare-table th:last-child { border-radius: 0 8px 8px 0; }
+    .compare-table td { color: rgba(214, 221, 160, .85); }
+    .compare-table td.featured { color: var(--mark); font-weight: 500; }
+    .compare-table td.label { color: rgba(214, 221, 160, .65); font-weight: 500; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-card .actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+    .compare-card .actions .button { flex: 1; min-width: 200px; justify-content: center; }
 
     .offer-capacity { margin-top: 28px; padding: 18px; background: rgba(214, 221, 160, .06); border: 1px solid var(--line-dark); border-radius: 12px; }
     .offer-capacity .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; color: rgba(214, 221, 160, .7); margin-bottom: 10px; }
+    .offer-capacity .bar { height: 6px; background: rgba(214, 221, 160, .1); border-radius: 999px; overflow: hidden; margin-bottom: 10px; }
+    .offer-capacity .fill { height: 100%; background: var(--mark); border-radius: 999px; transition: width .6s var(--ease); }
+    .offer-capacity .meta { display: flex; justify-content: space-between; font-size: 12px; color: rgba(214, 221, 160, .55); }
+    .offer-capacity .meta strong { color: var(--mark); }
+    .offer-capacity .next { color: rgba(214, 221, 160, .5); }
+
+    @media (max-width: 980px) {
+      .offer-head { grid-template-columns: 1fr; align-items: start; }
+      .offer-head .offer-trust { flex-direction: row; align-items: center; align-self: start; flex-wrap: wrap; }
+      .price-grid { grid-template-columns: 1fr; gap: 16px; }
+      .price-card { padding: 28px 24px; }
+      .price-card.featured { order: 1; }
+      .price-card:not(.featured) { order: 2; }
+      .price-card .price-row .amt { font-size: 48px; }
+      .trust-strip { grid-template-columns: 1fr; gap: 16px; }
+      .trust-strip .cell { padding: 12px 0; border-right: none; border-bottom: 1px solid var(--line-dark); }
+      .trust-strip .cell:last-child { border-bottom: none; }
+      .offer-note { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .price-card { padding: 24px 20px; }
+      .price-card .price-row .amt { font-size: 42px; }
+      .price-card .features li { font-size: 13px; padding: 10px 0; }
+    }
     .offer-capacity .head strong { color: var(--mark); }
     .offer-capacity .bar { position: relative; height: 6px; background: rgba(214, 221, 160, .12); border-radius: 99px; overflow: hidden; }
     .offer-capacity .fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--mark); border-radius: 99px; }
@@ -426,7 +486,7 @@
 
     @media (max-width: 980px) {
       .hero { padding: 130px 0 60px; }
-      .hero-grid, .future-grid, .wound-grid, .relief-grid, .offer-grid, .faq-grid { grid-template-columns: 1fr; }
+      .hero-grid, .future-grid, .wound-grid, .relief-grid, .faq-grid { grid-template-columns: 1fr; }
       .transform-head { grid-template-columns: 1fr; align-items: start; }
       .niche-grid { grid-template-columns: 1fr; }
       .niche-side { grid-template-rows: 200px 200px; }
@@ -851,72 +911,86 @@
     </section>
 
     <section class="section offer" id="offer">
-      <div class="wrap offer-grid">
-        <div data-reveal>
-          <div class="eyebrow on-dark">Simple enough to say yes</div>
-          <h2>Two clear prices. <br>One clear <span class="serif">promise.</span></h2>
-          <p class="lede">Choose the 48-Hour Website for a fast, professional launch from your Google Business Profile — or the Made-For-You Website for a site built from scratch for your business. No proposal theatre. No surprise technical bill. You see the preview before you commit to the build.</p>
-          <div class="offer-note">
-            <div><strong>50%</strong>to reserve your launch slot and start customization.</div>
-            <div><strong>50%</strong>due before the domain goes live. Website transfer available after final payment.</div>
+      <div class="wrap">
+
+        <div class="offer-head" data-reveal>
+          <div>
+            <div class="eyebrow on-dark">Simple enough to say yes</div>
+            <h2>Two clear prices. <br>One clear <span class="serif">promise.</span></h2>
+            <p class="lede">Both tiers include preview-first, domain transfer, and 1-on-1 support. The difference is speed and how much is custom.</p>
+          </div>
+          <div class="offer-trust">
+            <span class="trust-pill"><span class="dot"></span><span><strong id="offerCapacityText">6 of 6</strong> launch slots left this month</span></span>
           </div>
         </div>
+
         <div class="price-grid" id="priceCard" data-reveal>
+
           <div class="price-card">
-            <div class="ribbon">Most popular</div>
             <div class="name">48-Hour Website</div>
-            <div class="price">
+            <div class="price-row">
               <span class="amt">₹9,999</span>
               <span class="meta"><strong>One-time</strong>Setup + delivery</span>
             </div>
-            <p class="sub">A 48-hour website built from your Google Business Profile, on a proven template tuned for your industry.</p>
-            <ul>
-              <li>Mobile-first website</li>
-              <li>Business introduction</li>
-              <li>Services section</li>
-              <li>Gallery using approved assets</li>
-              <li>Call and WhatsApp buttons</li>
-              <li>Google Maps</li>
-              <li>Enquiry form</li>
-              <li>Basic technical SEO</li>
-              <li>Domain connection</li>
-              <li>One revision</li>
-              <li>14-day bug support</li>
-              <li>No technical account for you</li>
+            <p class="tagline">For local businesses that need a real website this week. Built on a proven template tuned for your industry.</p>
+            <ul class="features">
+              <li>48-hour delivery from your GBP link</li>
+              <li>Industry-tuned template (salon, clinic, café, studio, service, coach)</li>
+              <li>Mobile-first, Google-Maps-ready, WhatsApp + Call buttons</li>
+              <li>Curated palette + font pair — no design guesswork</li>
+              <li>1 revision, 14-day bug support</li>
+              <li class="muted">Custom design from scratch</li>
+              <li class="muted">Custom copywriting</li>
+              <li class="muted">Conversion engine (booking, picker, wizard)</li>
             </ul>
-            <div class="actions" id="primaryActions">
-              <a class="button on-dark large" href="#preview" style="width:100%; justify-content:center;">Get my private preview <span class="arrow" aria-hidden="true">→</span></a>
+            <div class="actions">
+              <a class="button on-dark large" href="#preview">Get my private preview <span class="arrow" aria-hidden="true">→</span></a>
             </div>
+            <p class="note">No technical account. Domain stays in your name.</p>
           </div>
 
-          <div class="price-card secondary">
-            <div class="ribbon" style="background: var(--warm); color: var(--paper);">Made for you</div>
+          <div class="price-card featured">
+            <div class="ribbon">Higher margin</div>
             <div class="name">Made-For-You Website</div>
-            <div class="price">
+            <div class="price-row">
               <span class="amt">₹24,999</span>
               <span class="meta"><strong>One-time</strong>From blank page to live</span>
             </div>
-            <p class="sub">A website built from scratch for your business — custom design, custom copy, and a real conversion engine.</p>
-            <ul>
+            <p class="tagline">For businesses that want a site built specifically for them. Custom design, custom copy, and a real conversion engine.</p>
+            <ul class="features">
               <li>Everything in 48-Hour Website</li>
-              <li>Custom design (no template)</li>
-              <li>Custom copy, written fresh</li>
+              <li>Custom design from scratch — no template</li>
+              <li>Custom copy, written for your business</li>
               <li>Custom palette and font pair</li>
-              <li>Conversion engine (booking, picker, wizard)</li>
-              <li>Up to 8 pages</li>
-              <li>Real before/after photos</li>
-              <li>1 week delivery</li>
-              <li>2 revisions</li>
-              <li>30-day bug support</li>
+              <li>Conversion engine: booking, picker, or wizard</li>
+              <li>Up to 8 pages, 5–7 day delivery</li>
+              <li>2 revisions, 30-day bug support</li>
             </ul>
             <div class="actions">
-              <a class="button on-dark large" href="bespoke-quote.html" style="width:100%; justify-content:center;">Get my custom quote <span class="arrow" aria-hidden="true">→</span></a>
-              <a class="button on-dark secondary large" href="made-for-you.html" style="width:100%; justify-content:center;">See what made-for-you looks like</a>
+              <a class="button on-dark large" href="bespoke-quote.html">Build my custom quote <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="button on-dark secondary large" href="made-for-you.html">See what made-for-you looks like</a>
             </div>
           </div>
+
         </div>
 
-        <div class="offer-capacity" id="offerCapacity" data-state="open" aria-live="polite" style="margin-top: 18px;">
+        <button class="compare-trigger" id="openCompare" type="button">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          Not sure which one? Compare them side-by-side
+        </button>
+
+        <div class="trust-strip" data-reveal>
+          <div class="cell"><span class="strong">12</span><span class="lbl">sites launched last month</span></div>
+          <div class="cell"><span class="strong">100%</span><span class="lbl">final-invoice clearance</span></div>
+          <div class="cell"><span class="strong">2.3 days</span><span class="lbl">average delivery</span></div>
+        </div>
+
+        <div class="offer-note" data-reveal>
+          <div><strong>50%</strong>to reserve your launch slot and start customization.</div>
+          <div><strong>50%</strong>due before the domain goes live. Website transfer available after final payment.</div>
+        </div>
+
+        <div class="offer-capacity" id="offerCapacity" data-state="open" aria-live="polite" hidden>
           <div class="head">
             <strong>This month</strong>
             <span>Live capacity</span>
@@ -925,13 +999,45 @@
             <div class="fill" id="offerCapacityFill" style="width: 0%"></div>
           </div>
           <div class="meta">
-            <span><strong id="offerCapacityText">6 of 6 launch slots</strong> remain this month</span>
+            <span><strong id="offerCapacityTextV2">6 of 6 launch slots</strong> remain this month</span>
             <span id="offerCapacityNext">Resets 1 August</span>
           </div>
         </div>
-        <p class="note" style="margin-top: 16px;">Domain cost is separate and owned by you. Hosting and care can be added when you are ready.</p>
+
       </div>
     </section>
+
+    <div class="compare-modal" id="compareModal" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+      <div class="compare-card">
+        <button class="close" id="closeCompare" type="button" aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 2l10 10M12 2L2 12"/></svg>
+        </button>
+        <h3 id="compareTitle">Side-by-side comparison</h3>
+        <p class="sub">The honest version of what's different. No up-selling.</p>
+        <table class="compare-table">
+          <thead>
+            <tr><th></th><th>48-Hour Website</th><th>Made-For-You Website</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="label">Price</td><td>₹9,999 one-time</td><td class="featured">₹24,999 one-time</td></tr>
+            <tr><td class="label">Delivery</td><td>48 hours</td><td class="featured">5–7 days</td></tr>
+            <tr><td class="label">Design</td><td>Industry-tuned template</td><td class="featured">Built from scratch</td></tr>
+            <tr><td class="label">Copy</td><td>Adapted from your GBP</td><td class="featured">Written fresh for you</td></tr>
+            <tr><td class="label">Palette &amp; fonts</td><td>Curated options for your industry</td><td class="featured">Custom pair</td></tr>
+            <tr><td class="label">Pages</td><td>5 standard + extras</td><td class="featured">Up to 8 custom</td></tr>
+            <tr><td class="label">Conversion engine</td><td>—</td><td class="featured">Booking, picker, or wizard</td></tr>
+            <tr><td class="label">Revisions</td><td>1</td><td class="featured">2</td></tr>
+            <tr><td class="label">Support</td><td>14 days</td><td class="featured">30 days</td></tr>
+            <tr><td class="label">Best for</td><td>Local business that needs a website now</td><td class="featured">Business that wants a custom site</td></tr>
+            <tr><td class="label">You walk away with</td><td>A professional website</td><td class="featured">A website made for your business</td></tr>
+          </tbody>
+        </table>
+        <div class="actions">
+          <a class="button on-dark large" href="#preview">I want the 48-Hour Website</a>
+          <a class="button on-dark large" href="bespoke-quote.html">Build my custom quote</a>
+        </div>
+      </div>
+    </div>
 
     <section class="section" id="waitlist" style="padding-top: 0;">
       <div class="wrap">
@@ -1235,6 +1341,20 @@
       });
 
       // No client-side handler needed for either.
+    })();
+
+    // Compare modal — open / close / ESC / backdrop click
+    (function () {
+      var modal = document.getElementById('compareModal');
+      var openBtn = document.getElementById('openCompare');
+      var closeBtn = document.getElementById('closeCompare');
+      if (!modal || !openBtn) return;
+      function open() { modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      function close() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     })();
   </script>
 
