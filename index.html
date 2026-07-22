@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <noscript><style>[data-reveal],.stagger>*{opacity:1!important;transform:none!important}</style></noscript>
   <style>
     :root {
       --ground: #3A3B1F;
@@ -304,11 +305,20 @@
     .price-card .price .amt { font-size: 64px; font-weight: 600; letter-spacing: -.04em; color: var(--mark); }
     .price-card .price .meta { color: rgba(214, 221, 160, .55); font-size: 13px; }
     .price-card .price .meta strong { display: block; color: var(--mark); font-size: 14px; font-weight: 600; }
-    .price-card ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .price-card ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 0; }
     .price-card li { display: flex; gap: 10px; padding: 11px 0; font-size: 14px; color: rgba(214, 221, 160, .8); border-bottom: 1px solid var(--line-dark-2); align-items: start; }
     .price-card li::before { content: "✓"; color: var(--mark-2); font-weight: 700; }
     .price-card .actions { margin-top: 28px; display: grid; gap: 12px; }
     .price-card .note { font-size: 12px; color: rgba(214, 221, 160, .5); margin-top: 16px; line-height: 1.5; }
+
+    /* Two-tier price grid */
+    .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .price-card.secondary { background: var(--ground); }
+    .price-card.secondary .name { color: rgba(214, 221, 160, .55); }
+    .price-card.secondary .price .amt { color: var(--mark-2); }
+    .price-card.secondary ul { grid-template-columns: 1fr; }
+    .price-card .sub { font-size: 13px; color: rgba(214, 221, 160, .6); margin: 12px 0 0; line-height: 1.5; }
+    @media (max-width: 880px) { .price-grid { grid-template-columns: 1fr; } }
 
     .offer-capacity { margin-top: 28px; padding: 18px; background: rgba(214, 221, 160, .06); border: 1px solid var(--line-dark); border-radius: 12px; }
     .offer-capacity .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; color: rgba(214, 221, 160, .7); margin-bottom: 10px; }
@@ -570,6 +580,7 @@
         <a href="#transform">The change</a>
         <a href="#examples">Made for</a>
         <a href="#offer">Price</a>
+        <a href="made-for-you.html">Made-for-you</a>
         <a href="#faq">Questions</a><a href="privacy.html">Privacy</a>
       </nav>
       <a class="nav-cta" href="audit.html">Get the free audit <span aria-hidden="true">→</span></a>
@@ -843,52 +854,82 @@
       <div class="wrap offer-grid">
         <div data-reveal>
           <div class="eyebrow on-dark">Simple enough to say yes</div>
-          <h2>One clear price. <br>One clear <span class="serif">promise.</span></h2>
-          <p class="lede">No proposal theatre. No surprise technical bill. You see the preview before you commit to the build.</p>
+          <h2>Two clear prices. <br>One clear <span class="serif">promise.</span></h2>
+          <p class="lede">Choose the 48-Hour Website for a fast, professional launch from your Google Business Profile — or the Made-For-You Website for a site built from scratch for your business. No proposal theatre. No surprise technical bill. You see the preview before you commit to the build.</p>
           <div class="offer-note">
             <div><strong>50%</strong>to reserve your launch slot and start customization.</div>
             <div><strong>50%</strong>due before the domain goes live. Website transfer available after final payment.</div>
           </div>
         </div>
-        <div class="price-card" id="priceCard" data-reveal>
-          <div class="ribbon" id="ribbon">Founding partner rate</div>
-          <div class="name">Launch website</div>
-          <div class="price">
-            <span class="amt">₹9,999</span>
-            <span class="meta"><strong>One-time</strong>Setup + delivery</span>
-          </div>
-          <ul>
-            <li>Mobile-first website</li>
-            <li>Business introduction</li>
-            <li>Services section</li>
-            <li>Gallery using approved assets</li>
-            <li>Call and WhatsApp buttons</li>
-            <li>Google Maps</li>
-            <li>Enquiry form</li>
-            <li>Basic technical SEO</li>
-            <li>Domain connection</li>
-            <li>One revision</li>
-            <li>14-day bug support</li>
-            <li>No technical account for you</li>
-          </ul>
-          <div class="actions" id="primaryActions">
-            <a class="button on-dark large" href="#preview" style="width:100%; justify-content:center;">Get my private preview <span class="arrow" aria-hidden="true">→</span></a>
-          </div>
-          <div class="offer-capacity" id="offerCapacity" data-state="open" aria-live="polite">
-            <div class="head">
-              <strong>This month</strong>
-              <span>Live capacity</span>
+        <div class="price-grid" id="priceCard" data-reveal>
+          <div class="price-card">
+            <div class="ribbon">Most popular</div>
+            <div class="name">48-Hour Website</div>
+            <div class="price">
+              <span class="amt">₹9,999</span>
+              <span class="meta"><strong>One-time</strong>Setup + delivery</span>
             </div>
-            <div class="bar" role="img" aria-label="6 of 6 launch slots remain this month">
-              <div class="fill" id="offerCapacityFill" style="width: 0%"></div>
-            </div>
-            <div class="meta">
-              <span><strong id="offerCapacityText">6 of 6 launch slots</strong> remain this month</span>
-              <span id="offerCapacityNext">Resets 1 August</span>
+            <p class="sub">A 48-hour website built from your Google Business Profile, on a proven template tuned for your industry.</p>
+            <ul>
+              <li>Mobile-first website</li>
+              <li>Business introduction</li>
+              <li>Services section</li>
+              <li>Gallery using approved assets</li>
+              <li>Call and WhatsApp buttons</li>
+              <li>Google Maps</li>
+              <li>Enquiry form</li>
+              <li>Basic technical SEO</li>
+              <li>Domain connection</li>
+              <li>One revision</li>
+              <li>14-day bug support</li>
+              <li>No technical account for you</li>
+            </ul>
+            <div class="actions" id="primaryActions">
+              <a class="button on-dark large" href="#preview" style="width:100%; justify-content:center;">Get my private preview <span class="arrow" aria-hidden="true">→</span></a>
             </div>
           </div>
-          <p class="note">Domain cost is separate and owned by you. Hosting and care can be added when you are ready.</p>
+
+          <div class="price-card secondary">
+            <div class="ribbon" style="background: var(--warm); color: var(--paper);">Made for you</div>
+            <div class="name">Made-For-You Website</div>
+            <div class="price">
+              <span class="amt">₹24,999</span>
+              <span class="meta"><strong>One-time</strong>From blank page to live</span>
+            </div>
+            <p class="sub">A website built from scratch for your business — custom design, custom copy, and a real conversion engine.</p>
+            <ul>
+              <li>Everything in 48-Hour Website</li>
+              <li>Custom design (no template)</li>
+              <li>Custom copy, written fresh</li>
+              <li>Custom palette and font pair</li>
+              <li>Conversion engine (booking, picker, wizard)</li>
+              <li>Up to 8 pages</li>
+              <li>Real before/after photos</li>
+              <li>1 week delivery</li>
+              <li>2 revisions</li>
+              <li>30-day bug support</li>
+            </ul>
+            <div class="actions">
+              <a class="button on-dark large" href="bespoke-quote.html" style="width:100%; justify-content:center;">Get my custom quote <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="button on-dark secondary large" href="made-for-you.html" style="width:100%; justify-content:center;">See what made-for-you looks like</a>
+            </div>
+          </div>
         </div>
+
+        <div class="offer-capacity" id="offerCapacity" data-state="open" aria-live="polite" style="margin-top: 18px;">
+          <div class="head">
+            <strong>This month</strong>
+            <span>Live capacity</span>
+          </div>
+          <div class="bar" role="img" aria-label="6 of 6 launch slots remain this month">
+            <div class="fill" id="offerCapacityFill" style="width: 0%"></div>
+          </div>
+          <div class="meta">
+            <span><strong id="offerCapacityText">6 of 6 launch slots</strong> remain this month</span>
+            <span id="offerCapacityNext">Resets 1 August</span>
+          </div>
+        </div>
+        <p class="note" style="margin-top: 16px;">Domain cost is separate and owned by you. Hosting and care can be added when you are ready.</p>
       </div>
     </section>
 

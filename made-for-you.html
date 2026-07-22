@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1f2611" />
+<title>Made-For-You Website — Forge</title>
+<meta name="description" content="A website built from scratch for your business. Custom design, custom copy, real conversion engine. Five-day delivery, ₹24,999 starting." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="canonical" href="https://forge.bruuhh.com/made-for-you.html" />
+<style>
+  :root {
+    --bg: #1a2010;
+    --ground: #1f2611;
+    --ground-2: #252e16;
+    --paper: #fbfaf8;
+    --line: #e8ddd0;
+    --line-dark: rgba(214, 221, 160, 0.18);
+    --line-dark-2: rgba(214, 221, 160, 0.08);
+    --ink: #1f1812;
+    --ink-soft: #3a2e25;
+    --muted: #7a6e63;
+    --mark: #d6dda0;
+    --mark-2: #c5d389;
+    --warm: #c97f3a;
+    --ok: #2c6b3c;
+    --max: 1080px;
+    --r: 14px;
+    --r-lg: 22px;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ground); color: var(--mark); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: var(--mark); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+  .nav { padding: 22px 0; border-bottom: 1px solid var(--line-dark); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--mark); }
+  .brand img { width: 28px; height: 28px; }
+  .nav-links { display: flex; gap: 22px; font-size: 14px; }
+  .nav-links a { color: rgba(214, 221, 160, .65); }
+  .nav-cta { padding: 10px 18px; background: var(--mark); color: var(--ground); border-radius: 999px; font-size: 14px; font-weight: 600; }
+  .nav-cta:hover { background: var(--mark-2); text-decoration: none; }
+
+  .hero { padding: 72px 0 64px; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: center; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+  .eyebrow { display: inline-block; padding: 4px 12px; background: rgba(214, 221, 160, .08); border: 1px solid var(--line-dark); border-radius: 999px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(214, 221, 160, .7); margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(40px, 6vw, 64px); line-height: 1.02; margin: 0 0 20px; letter-spacing: -.03em; font-weight: 600; color: var(--mark); }
+  .hero h1 .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-style: italic; }
+  .hero .lede { font-size: 17px; color: rgba(214, 221, 160, .75); max-width: 540px; margin: 0 0 28px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .button { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; background: var(--mark); color: var(--ground); border: none; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .2s var(--ease); font-family: inherit; }
+  .button:hover { background: var(--mark-2); text-decoration: none; transform: translateY(-1px); }
+  .button.secondary { background: transparent; color: var(--mark); border: 1px solid var(--line-dark); }
+  .button.secondary:hover { background: rgba(214, 221, 160, .04); }
+
+  /* Demo card */
+  .demo-card { background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: var(--r-lg); padding: 28px; }
+  .demo-card .demo-toolbar { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(214, 221, 160, .5); margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--line-dark); }
+  .demo-card .demo-toolbar strong { color: var(--mark); font-weight: 600; }
+  .demo-card .demo-content { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .demo-card .demo-side { display: grid; grid-template-rows: 1fr 1fr; gap: 12px; }
+  .demo-card .demo-block { padding: 14px; background: var(--ground); border: 1px solid var(--line-dark); border-radius: var(--r); font-size: 12px; }
+  .demo-card .demo-block .label { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(214, 221, 160, .5); margin-bottom: 6px; }
+  .demo-card .demo-block .val { font-weight: 600; color: var(--mark); }
+  .demo-card .demo-block.hero { grid-row: 1 / 3; padding: 18px; }
+  .demo-card .demo-block.hero h4 { font-size: 22px; margin: 0 0 6px; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 500; line-height: 1.1; color: var(--mark); }
+  .demo-card .demo-block.hero p { margin: 0 0 14px; color: rgba(214, 221, 160, .65); font-size: 13px; }
+  .demo-card .demo-block.hero .picker { display: flex; gap: 6px; flex-wrap: wrap; }
+  .demo-card .demo-block.hero .picker span { padding: 5px 10px; background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: 999px; font-size: 11px; color: rgba(214, 221, 160, .75); }
+  .demo-card .demo-block.hero .picker span.active { background: var(--mark); color: var(--ground); border-color: var(--mark); }
+
+  .section { padding: 64px 0; }
+  .section h2 { font-size: clamp(32px, 5vw, 48px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -.02em; font-weight: 600; color: var(--mark); }
+  .section h2 .serif { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 500; }
+  .section .lede { color: rgba(214, 221, 160, .7); font-size: 16px; max-width: 640px; margin: 0 0 40px; }
+
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line-dark); border-radius: var(--r-lg); overflow: hidden; }
+  @media (max-width: 720px) { .compare { grid-template-columns: 1fr; } }
+  .compare .col { padding: 28px; }
+  .compare .col.dark { background: var(--ground-2); }
+  .compare .col h3 { font-size: 18px; margin: 0 0 4px; color: var(--mark); }
+  .compare .col .price { font-size: 32px; font-weight: 600; margin: 8px 0 16px; color: var(--mark); }
+  .compare .col ul { list-style: none; padding: 0; margin: 0; }
+  .compare .col li { padding: 8px 0; font-size: 14px; color: rgba(214, 221, 160, .75); display: flex; gap: 8px; align-items: flex-start; }
+  .compare .col li::before { content: "—"; color: rgba(214, 221, 160, .4); }
+  .compare .col.dark li::before { content: "✓"; color: var(--mark-2); font-weight: 700; }
+  .compare .col.dark li { color: rgba(214, 221, 160, .85); }
+
+  .engine-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  @media (max-width: 800px) { .engine-grid { grid-template-columns: 1fr; } }
+  .engine { padding: 24px; background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: var(--r-lg); }
+  .engine .label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(214, 221, 160, .5); margin-bottom: 8px; }
+  .engine h4 { font-size: 18px; margin: 0 0 8px; color: var(--mark); }
+  .engine p { font-size: 14px; color: rgba(214, 221, 160, .65); margin: 0; }
+
+  .process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); margin-top: 32px; }
+  @media (max-width: 720px) { .process { grid-template-columns: 1fr 1fr; } }
+  .process .step { padding: 24px 20px; border-right: 1px solid var(--line-dark); }
+  .process .step:last-child { border-right: none; }
+  .process .step .n { font-size: 11px; color: rgba(214, 221, 160, .45); letter-spacing: .1em; margin-bottom: 8px; }
+  .process .step h4 { font-size: 16px; margin: 0 0 6px; color: var(--mark); }
+  .process .step p { font-size: 13px; color: rgba(214, 221, 160, .6); margin: 0; }
+
+  .cta-final { padding: 80px 0; text-align: center; background: var(--ground-2); border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
+  .cta-final h2 { margin: 0 0 16px; }
+  .cta-final .lede { margin: 0 auto 28px; }
+  .cta-final .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .footer { padding: 40px 0 50px; text-align: center; font-size: 13px; color: rgba(214, 221, 160, .5); }
+  .footer a { color: rgba(214, 221, 160, .7); text-decoration: underline; margin: 0 8px; }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="Forge" />
+        <span>Forge</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="operator.html">Operator plan</a>
+      </nav>
+      <a class="nav-cta" href="bespoke-quote.html">Get my custom quote →</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Made-For-You Website</span>
+          <h1>Built from a blank page. <br>For <span class="serif">your</span> business.</h1>
+          <p class="lede">Not a template with your logo swapped. A website designed and written for you — your industry, your customer, your voice. With a real conversion engine that turns visitors into customers.</p>
+          <div class="hero-actions">
+            <a class="button" href="bespoke-quote.html">Get my custom quote →</a>
+            <a class="button secondary" href="#compare">See the difference</a>
+          </div>
+        </div>
+        <div class="demo-card" aria-label="An example of a Made-For-You Website">
+          <div class="demo-toolbar">
+            <span><strong>STUDIO MYSA</strong> · Made-For-You demo</span>
+            <span>Live</span>
+          </div>
+          <div class="demo-content">
+            <div class="demo-block hero">
+              <h4>Good hair days start here.</h4>
+              <p>Pick a service, see the price, book on WhatsApp.</p>
+              <div class="picker">
+                <span class="active">Cut</span><span>Colour</span><span>Facial</span><span>Spa</span><span>Bridal</span>
+              </div>
+            </div>
+            <div class="demo-side">
+              <div class="demo-block"><div class="label">Booking</div><div class="val">Real calendar</div></div>
+              <div class="demo-block"><div class="label">Palette</div><div class="val">Custom copper</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="compare">
+      <div class="wrap">
+        <h2>What makes it <span class="serif">made-for-you</span>?</h2>
+        <p class="lede">Two tiers. The 48-Hour Website is the right answer for most businesses. The Made-For-You Website is the right answer when you want the website to feel like it was built for you — because it was.</p>
+        <div class="compare">
+          <div class="col dark">
+            <h3>48-Hour Website</h3>
+            <div class="price">₹9,999</div>
+            <ul>
+              <li>Built from a proven template for your industry</li>
+              <li>Palette + fonts chosen from curated options</li>
+              <li>Copy adapted from your Google Business Profile</li>
+              <li>WhatsApp + Call + Map buttons</li>
+              <li>Live in 48 hours</li>
+              <li>1 revision, 14-day bug support</li>
+            </ul>
+          </div>
+          <div class="col">
+            <h3>Made-For-You Website</h3>
+            <div class="price">₹24,999+</div>
+            <ul>
+              <li>Designed from scratch for your business</li>
+              <li>Custom palette + custom font pair</li>
+              <li>Copy written fresh after a conversation</li>
+              <li>Real conversion engine (booking, picker, wizard)</li>
+              <li>5–7 day delivery, 2 revisions</li>
+              <li>30-day bug support, real photos, 8 pages</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>Pick the <span class="serif">conversion engine</span>.</h2>
+        <p class="lede">The interactive part that turns visitors into customers. One is included. Add more if you need them.</p>
+        <div class="engine-grid">
+          <div class="engine"><div class="label">Engine 1</div><h4>Service picker</h4><p>"I want a haircut" → price, duration, book. Used by salons, clinics, repair shops.</p></div>
+          <div class="engine"><div class="label">Engine 2</div><h4>Real booking calendar</h4><p>Customer picks a slot, gets a confirmation. Not a form, not an email. Real time, real availability.</p></div>
+          <div class="engine"><div class="label">Engine 3</div><h4>Test or quote wizard</h4><p>"I need X" → recommended package + price + WhatsApp confirm. Used by clinics, consultants.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2>How it <span class="serif">works.</span></h2>
+        <p class="lede">Five days from kickoff to live. You stay focused on your business.</p>
+        <div class="process">
+          <div class="step"><div class="n">DAY 1</div><h4>Kickoff call</h4><p>15 minutes. We learn your business, your customer, your voice.</p></div>
+          <div class="step"><div class="n">DAY 2–4</div><h4>I build</h4><p>Custom design, custom copy, conversion engine. You don't lift a finger.</p></div>
+          <div class="step"><div class="n">DAY 5</div><h4>Preview</h4><p>You see the live preview. 2 revisions included. Approve when ready.</p></div>
+          <div class="step"><div class="n">DAY 7</div><h4>Live</h4><p>Domain connected. Domain stays in your name. Files transferred on final payment.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-final">
+      <div class="wrap">
+        <h2>Get your custom quote.</h2>
+        <p class="lede">Six questions. One honest price. No sales call.</p>
+        <div class="actions">
+          <a class="button" href="bespoke-quote.html">Get my custom quote →</a>
+          <a class="button secondary" href="index.html">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <a href="index.html">Home</a><a href="operator.html">Operator plan</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="mailto:hello@forge.bruuhh.com">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

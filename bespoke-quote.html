@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1f2611" />
+<title>Get your custom quote — Forge</title>
+<meta name="description" content="A short six-question quote for a Made-For-You Website. Pick what you need, see the price, reserve your launch slot." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="canonical" href="https://forge.bruuhh.com/bespoke-quote.html" />
+<style>
+  :root {
+    --bg: #1a2010;
+    --ground: #1f2611;
+    --ground-2: #252e16;
+    --paper: #fbfaf8;
+    --line: #e8ddd0;
+    --line-dark: rgba(214, 221, 160, 0.18);
+    --line-dark-2: rgba(214, 221, 160, 0.08);
+    --ink: #1f1812;
+    --ink-soft: #3a2e25;
+    --muted: #7a6e63;
+    --mark: #d6dda0;
+    --mark-2: #c5d389;
+    --warm: #c97f3a;
+    --ok: #2c6b3c;
+    --warn: #a84b1a;
+    --max: 920px;
+    --r: 14px;
+    --r-lg: 22px;
+    --ease: cubic-bezier(.2, .8, .2, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--ground); color: var(--mark); font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: var(--mark); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .nav { padding: 22px 0; border-bottom: 1px solid var(--line-dark); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--mark); }
+  .brand img { width: 28px; height: 28px; }
+  .nav-links { display: flex; gap: 22px; font-size: 14px; }
+  .nav-links a { color: rgba(214, 221, 160, .65); }
+  .nav-cta { padding: 10px 18px; background: var(--mark); color: var(--ground); border-radius: 999px; font-size: 14px; font-weight: 600; }
+  .nav-cta:hover { background: var(--mark-2); text-decoration: none; }
+
+  .hero { padding: 56px 0 24px; text-align: center; }
+  .hero h1 { font-size: clamp(36px, 6vw, 56px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -.02em; font-weight: 600; color: var(--mark); }
+  .hero h1 .serif { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-style: italic; }
+  .hero .lede { font-size: 17px; color: rgba(214, 221, 160, .7); max-width: 640px; margin: 0 auto; }
+  .eyebrow { display: inline-block; padding: 4px 12px; background: rgba(214, 221, 160, .08); border: 1px solid var(--line-dark); border-radius: 999px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(214, 221, 160, .7); margin-bottom: 18px; }
+
+  .calc { padding: 8px 0 48px; }
+  .calc-card { background: var(--ground-2); border: 1px solid var(--line-dark); border-radius: var(--r-lg); padding: 32px; }
+  .step { display: none; }
+  .step.active { display: block; animation: fade .3s var(--ease); }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .step h3 { font-size: 22px; line-height: 1.2; margin: 0 0 6px; color: var(--mark); letter-spacing: -.01em; }
+  .step .sub { color: rgba(214, 221, 160, .6); font-size: 14px; margin-bottom: 20px; }
+
+  .options { display: grid; gap: 10px; }
+  .options.two { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 640px) { .options.two { grid-template-columns: 1fr; } }
+  .option { padding: 16px 18px; background: var(--ground); border: 1px solid var(--line-dark); border-radius: var(--r); cursor: pointer; transition: all .2s var(--ease); display: flex; align-items: center; gap: 12px; }
+  .option:hover { border-color: rgba(214, 221, 160, .35); background: rgba(214, 221, 160, .04); }
+  .option.selected { border-color: var(--mark); background: rgba(214, 221, 160, .08); }
+  .option input { display: none; }
+  .option .checkmark { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line-dark); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .option.selected .checkmark { background: var(--mark); border-color: var(--mark); }
+  .option.selected .checkmark::after { content: "✓"; color: var(--ground); font-size: 12px; font-weight: 700; }
+  .option .label { flex: 1; }
+  .option .label .name { font-weight: 600; color: var(--mark); font-size: 15px; }
+  .option .label .hint { font-size: 13px; color: rgba(214, 221, 160, .55); }
+  .option .price { font-size: 13px; color: var(--mark-2); font-weight: 600; }
+
+  .ctrls { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line-dark); }
+  .progress { font-size: 13px; color: rgba(214, 221, 160, .55); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; background: var(--mark); color: var(--ground); border: none; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .2s var(--ease); font-family: inherit; }
+  .btn:hover { background: var(--mark-2); transform: translateY(-1px); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+  .btn.ghost { background: transparent; color: rgba(214, 221, 160, .8); border: 1px solid var(--line-dark); }
+  .btn.ghost:hover { background: rgba(214, 221, 160, .04); color: var(--mark); }
+
+  .summary { display: none; }
+  .summary.active { display: block; }
+  .summary h3 { font-size: 24px; margin: 0 0 8px; color: var(--mark); }
+  .summary .price-tag { font-size: 56px; font-weight: 600; letter-spacing: -.03em; color: var(--mark); margin: 24px 0 0; }
+  .summary .price-tag .meta { font-size: 14px; color: rgba(214, 221, 160, .6); margin-left: 12px; font-weight: 400; }
+  .summary .breakdown { padding: 0; margin: 24px 0 0; list-style: none; border-top: 1px solid var(--line-dark); }
+  .summary .breakdown li { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--line-dark-2); font-size: 14px; color: rgba(214, 221, 160, .8); }
+  .summary .breakdown li .lbl { color: rgba(214, 221, 160, .65); }
+  .summary .breakdown li.neg { color: var(--mark-2); }
+  .summary .cta-row { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .summary .note { font-size: 13px; color: rgba(214, 221, 160, .5); margin-top: 18px; line-height: 1.5; }
+
+  .field { display: grid; gap: 6px; margin-bottom: 14px; }
+  .field label { font-size: 13px; color: rgba(214, 221, 160, .6); }
+  .field input { padding: 12px 14px; background: var(--ground); border: 1px solid var(--line-dark); border-radius: var(--r); color: var(--mark); font-size: 15px; font-family: inherit; }
+  .field input:focus { outline: none; border-color: var(--mark); }
+
+  .footer { padding: 40px 0 50px; border-top: 1px solid var(--line-dark); margin-top: 40px; text-align: center; font-size: 13px; color: rgba(214, 221, 160, .5); }
+  .footer a { color: rgba(214, 221, 160, .7); text-decoration: underline; }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="Forge" />
+        <span>Forge</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="operator.html">Operator plan</a>
+      </nav>
+      <a class="nav-cta" href="#summary">Get my quote</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Made-For-You Website</span>
+        <h1>Six questions. <span class="serif">One honest quote.</span></h1>
+        <p class="lede">Tell Forge what your business needs. We will show you the price and exactly what is included. No sales call, no waiting.</p>
+      </div>
+    </section>
+
+    <section class="calc">
+      <div class="wrap">
+        <div class="calc-card" id="calc">
+          <!-- Step 1: Industry -->
+          <div class="step active" data-step="1">
+            <h3>What kind of business is this?</h3>
+            <p class="sub">This tunes the design template, fonts, and CRO engine for your industry.</p>
+            <div class="options two">
+              <label class="option" data-value="salon" data-price="0"><input type="radio" name="industry" value="salon"><span class="checkmark"></span><span class="label"><span class="name">Salon, spa, beauty</span><span class="hint">Hair, skincare, nails, bridal</span></span></label>
+              <label class="option" data-value="clinic" data-price="0"><input type="radio" name="industry" value="clinic"><span class="checkmark"></span><span class="label"><span class="name">Clinic, dental, vet</span><span class="hint">Tests, check-ups, appointments</span></span></label>
+              <label class="option" data-value="cafe" data-price="0"><input type="radio" name="industry" value="cafe"><span class="checkmark"></span><span class="label"><span class="name">Café, restaurant</span><span class="hint">Menu, reservations, delivery</span></span></label>
+              <label class="option" data-value="studio" data-price="0"><input type="radio" name="industry" value="studio"><span class="checkmark"></span><span class="label"><span class="name">Studio (yoga, art, photo)</span><span class="hint">Classes, bookings, retreats</span></span></label>
+              <label class="option" data-value="service" data-price="0"><input type="radio" name="industry" value="service"><span class="checkmark"></span><span class="label"><span class="name">Service (plumber, AC, garage)</span><span class="hint">Quotes, emergency, coverage map</span></span></label>
+              <label class="option" data-value="coach" data-price="0"><input type="radio" name="industry" value="coach"><span class="checkmark"></span><span class="label"><span class="name">Coach, tutor, consultant</span><span class="hint">Discovery calls, programs, results</span></span></label>
+            </div>
+          </div>
+
+          <!-- Step 2: Pages -->
+          <div class="step" data-step="2">
+            <h3>How many pages do you need?</h3>
+            <p class="sub">Includes Home, About, Services, Contact. Add more if you have them.</p>
+            <div class="options">
+              <label class="option" data-value="5" data-price="0"><input type="radio" name="pages" value="5"><span class="checkmark"></span><span class="label"><span class="name">5 pages (Home, About, Services, Gallery, Contact)</span><span class="hint">Most businesses start here</span></span></label>
+              <label class="option" data-value="7" data-price="4998"><input type="radio" name="pages" value="7"><span class="checkmark"></span><span class="label"><span class="name">7 pages</span><span class="hint">Add a FAQ and Reviews page</span></span><span class="price">+₹4,998</span></label>
+              <label class="option" data-value="10" data-price="12495"><input type="radio" name="pages" value="10"><span class="checkmark"></span><span class="label"><span class="name">10 pages</span><span class="hint">Add Pricing, Team, Blog index, more</span></span><span class="price">+₹12,495</span></label>
+            </div>
+          </div>
+
+          <!-- Step 3: CRO engine -->
+          <div class="step" data-step="3">
+            <h3>What conversion engine do you need?</h3>
+            <p class="sub">The interactive bit that turns visitors into customers. Pick one, or skip it.</p>
+            <div class="options">
+              <label class="option" data-value="none" data-price="0"><input type="radio" name="cro" value="none"><span class="checkmark"></span><span class="label"><span class="name">No conversion engine</span><span class="hint">WhatsApp + Call buttons are enough</span></span></label>
+              <label class="option" data-value="picker" data-price="4999"><input type="radio" name="cro" value="picker"><span class="checkmark"></span><span class="label"><span class="name">Service picker</span><span class="hint">Click a service, get a quote — like a salon menu</span></span><span class="price">+₹4,999</span></label>
+              <label class="option" data-value="booking" data-price="4999"><input type="radio" name="cro" value="booking"><span class="checkmark"></span><span class="label"><span class="name">Real booking calendar</span><span class="hint">Pick a slot, get a confirmation — not a form</span></span><span class="price">+₹4,999</span></label>
+              <label class="option" data-value="wizard" data-price="4999"><input type="radio" name="cro" value="wizard"><span class="checkmark"></span><span class="label"><span class="name">Test or quote wizard</span><span class="hint">"I need X" → recommended package + price</span></span><span class="price">+₹4,999</span></label>
+            </div>
+          </div>
+
+          <!-- Step 4: Add-ons -->
+          <div class="step" data-step="4">
+            <h3>Anything else you need?</h3>
+            <p class="sub">Pick all that apply. Skip if none.</p>
+            <div class="options">
+              <label class="option" data-value="branding" data-price="4999"><input type="checkbox" name="addon" value="branding"><span class="checkmark"></span><span class="label"><span class="name">Custom branding</span><span class="hint">Custom palette + custom font pair + logo polish</span></span><span class="price">+₹4,999</span></label>
+              <label class="option" data-value="copy" data-price="4999"><input type="checkbox" name="addon" value="copy"><span class="checkmark"></span><span class="label"><span class="name">Custom copywriting</span><span class="hint">Written fresh for your business, not generated from your GBP</span></span><span class="price">+₹4,999</span></label>
+              <label class="option" data-value="multilingual" data-price="4999"><input type="checkbox" name="addon" value="multilingual"><span class="checkmark"></span><span class="label"><span class="name">Hindi or regional page</span><span class="hint">Mirror the home page in a second language</span></span><span class="price">+₹4,999</span></label>
+              <label class="option" data-value="blog" data-price="4999"><input type="checkbox" name="addon" value="blog"><span class="checkmark"></span><span class="label"><span class="name">Blog with 3 starter posts</span><span class="hint">CMS included, you write after launch</span></span><span class="price">+₹4,999</span></label>
+              <label class="option" data-value="speed" data-price="4999"><input type="checkbox" name="addon" value="speed"><span class="checkmark"></span><span class="label"><span class="name">48-hour delivery</span><span class="hint">Skip the queue, ship in 48 hours instead of 5-7 days</span></span><span class="price">+₹4,999</span></label>
+            </div>
+          </div>
+
+          <!-- Step 5: Operator plan -->
+          <div class="step" data-step="5">
+            <h3>Add the Operator plan?</h3>
+            <p class="sub">Monthly care: hosting, updates, monitoring, priority support. Optionally lock in 3 months upfront.</p>
+            <div class="options">
+              <label class="option" data-value="none" data-price="0"><input type="radio" name="ops" value="none"><span class="checkmark"></span><span class="label"><span class="name">No, just the website</span><span class="hint">You can add later</span></span></label>
+              <label class="option" data-value="3mo" data-price="5997"><input type="radio" name="ops" value="3mo"><span class="checkmark"></span><span class="label"><span class="name">3 months prepaid (₹1,999/mo)</span><span class="hint">Saves ₹0 — locks in Active-tier support</span></span><span class="price">+₹5,997</span></label>
+              <label class="option" data-value="6mo" data-price="11994"><input type="radio" name="ops" value="6mo"><span class="checkmark"></span><span class="label"><span class="name">6 months prepaid (₹1,999/mo)</span><span class="hint">Saves ₹0 — locks in Forged-tier support</span></span><span class="price">+₹11,994</span></label>
+            </div>
+          </div>
+
+          <!-- Step 6: Contact -->
+          <div class="step" data-step="6">
+            <h3>Where should Forge send the quote?</h3>
+            <p class="sub">We will email you the breakdown and a kickoff link. No follow-up unless you ask for it.</p>
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" type="text" name="name" placeholder="e.g. Anita Sharma" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" name="email" placeholder="you@business.com" required>
+            </div>
+            <div class="field">
+              <label for="phone">WhatsApp number (optional)</label>
+              <input id="phone" type="tel" name="phone" placeholder="+91 9876543210">
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="summary" id="summary">
+            <h3>Your Made-For-You Website</h3>
+            <p style="color: rgba(214, 221, 160, .6); margin: 0;">Built for your business, industry-tuned, with everything you picked.</p>
+            <div class="price-tag">₹<span id="totalAmt">0</span><span class="meta">one-time + optional monthly</span></div>
+            <ul class="breakdown" id="breakdown"></ul>
+            <div class="cta-row">
+              <button class="btn" id="payBtn">Reserve slot — pay ₹2,499 deposit</button>
+              <button class="btn ghost" id="restartBtn">Start over</button>
+            </div>
+            <p class="note">The ₹2,499 deposit holds your slot and starts the kickoff. 50% more on preview approval, balance before launch. Or click "Send me this quote" to receive it by email first.</p>
+            <div class="cta-row" style="margin-top: 8px;">
+              <a class="btn ghost" id="emailQuoteBtn" href="mailto:hello@forge.bruuhh.com?subject=Quote%20request&body=Please%20send%20me%20my%20quote.">Email me this quote</a>
+            </div>
+          </div>
+
+          <div class="ctrls" id="ctrls">
+            <button class="btn ghost" id="prevBtn" disabled>← Back</button>
+            <span class="progress" id="progress">Step 1 of 6</span>
+            <button class="btn" id="nextBtn" disabled>Next →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Your information is used only to send you this quote. We do not sell, share, or market your details. <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+<script>
+  // ----- Quote logic -----
+  var BASE = 14999; // Made-For-You base, includes 5 pages + 1 conversion engine stub
+  var DEPOSIT = 2499;
+  var RAZORPAY_KEY = 'YOUR_RAZORPAY_KEY_HERE'; // TODO: replace with rzp_live_xxx or rzp_test_xxx
+  var state = { industry: null, pages: null, cro: null, addons: [], ops: null, contact: {} };
+  var currentStep = 1;
+  var totalSteps = 6;
+
+  function selectOption(scope) {
+    scope.querySelectorAll('.option').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var input = el.querySelector('input');
+        if (input.type === 'radio') {
+          scope.querySelectorAll('.option').forEach(function (e) { e.classList.remove('selected'); e.querySelector('input').checked = false; });
+          el.classList.add('selected');
+          input.checked = true;
+        } else {
+          el.classList.toggle('selected');
+          input.checked = el.classList.contains('selected');
+        }
+        updateCtrls();
+      });
+    });
+  }
+  document.querySelectorAll('.step').forEach(selectOption);
+
+  function updateCtrls() {
+    var stepEl = document.querySelector('.step[data-step="' + currentStep + '"]');
+    var valid = false;
+    if (currentStep <= totalSteps) {
+      var inputs = stepEl.querySelectorAll('input');
+      if (currentStep === 4) {
+        valid = true; // addons are optional
+      } else if (currentStep === 6) {
+        valid = stepEl.querySelector('#name').value.trim() && stepEl.querySelector('#email').value.trim().includes('@');
+      } else {
+        valid = stepEl.querySelector('input:checked') !== null;
+      }
+    }
+    document.getElementById('nextBtn').disabled = !valid;
+    document.getElementById('prevBtn').disabled = currentStep === 1;
+    document.getElementById('progress').textContent = currentStep <= totalSteps ? ('Step ' + currentStep + ' of ' + totalSteps) : 'Done';
+  }
+
+  function readStep() {
+    if (currentStep === 1) {
+      var v = document.querySelector('input[name="industry"]:checked');
+      state.industry = v ? v.value : null;
+    } else if (currentStep === 2) {
+      var v = document.querySelector('input[name="pages"]:checked');
+      state.pages = v ? parseInt(v.value, 10) : 5;
+    } else if (currentStep === 3) {
+      var v = document.querySelector('input[name="cro"]:checked');
+      state.cro = v ? v.value : 'none';
+    } else if (currentStep === 4) {
+      state.addons = Array.from(document.querySelectorAll('input[name="addon"]:checked')).map(function (i) { return i.value; });
+    } else if (currentStep === 5) {
+      var v = document.querySelector('input[name="ops"]:checked');
+      state.ops = v ? v.value : 'none';
+    } else if (currentStep === 6) {
+      state.contact = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim()
+      };
+    }
+  }
+
+  function calc() {
+    var lines = [];
+    var total = BASE;
+    lines.push({ lbl: 'Made-For-You base (5 pages, custom design, copy, palette)', amt: BASE });
+
+    if (state.pages && state.pages > 5) {
+      var extra = (state.pages - 5) * 2499;
+      total += extra;
+      lines.push({ lbl: 'Extra pages (×' + (state.pages - 5) + ')', amt: extra });
+    }
+
+    if (state.cro && state.cro !== 'none') {
+      total += 4999;
+      var croNames = { picker: 'Service picker', booking: 'Real booking calendar', wizard: 'Test or quote wizard' };
+      lines.push({ lbl: 'Conversion engine: ' + croNames[state.cro], amt: 4999 });
+    }
+
+    var addonNames = { branding: 'Custom branding', copy: 'Custom copywriting', multilingual: 'Hindi or regional page', blog: 'Blog with 3 starter posts', speed: '48-hour delivery' };
+    state.addons.forEach(function (a) {
+      total += 4999;
+      lines.push({ lbl: 'Add-on: ' + addonNames[a], amt: 4999 });
+    });
+
+    if (state.ops === '3mo') { total += 5997; lines.push({ lbl: 'Operator plan — 3 months prepaid', amt: 5997 }); }
+    if (state.ops === '6mo') { total += 11994; lines.push({ lbl: 'Operator plan — 6 months prepaid', amt: 11994 }); }
+
+    // Cap at ₹74,999
+    if (total > 74999) {
+      lines.push({ lbl: 'Volume cap (you have a non-trivial scope — let us quote in person)', amt: -(total - 74999) });
+      total = 74999;
+    }
+
+    return { total: total, lines: lines };
+  }
+
+  function fmt(n) { return n.toLocaleString('en-IN'); }
+
+  function showSummary() {
+    readStep();
+    var r = calc();
+    document.getElementById('totalAmt').textContent = fmt(r.total);
+    var html = r.lines.map(function (l) {
+      return '<li' + (l.amt < 0 ? ' class="neg">' : '>') + '<span class="lbl">' + l.lbl + '</span><span>' + (l.amt < 0 ? '−' : '') + '₹' + fmt(Math.abs(l.amt)) + '</span></li>';
+    }).join('');
+    document.getElementById('breakdown').innerHTML = html;
+    document.querySelectorAll('.step').forEach(function (s) { s.classList.remove('active'); });
+    document.querySelectorAll('.step').forEach(function (s) { s.style.display = 'none'; });
+    document.getElementById('summary').classList.add('active');
+    document.getElementById('ctrls').style.display = 'none';
+    document.getElementById('summary').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(function (s) { s.classList.remove('active'); s.style.display = 'none'; });
+    document.getElementById('summary').classList.remove('active');
+    document.getElementById('ctrls').style.display = 'flex';
+    var el = document.querySelector('.step[data-step="' + n + '"]');
+    el.style.display = 'block';
+    el.classList.add('active');
+    currentStep = n;
+    updateCtrls();
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', function () {
+    readStep();
+    if (currentStep < totalSteps) {
+      showStep(currentStep + 1);
+    } else {
+      showSummary();
+    }
+  });
+
+  document.getElementById('prevBtn').addEventListener('click', function () {
+    if (currentStep > 1) showStep(currentStep - 1);
+  });
+
+  document.getElementById('restartBtn').addEventListener('click', function () {
+    state = { industry: null, pages: null, cro: null, addons: [], ops: null, contact: {} };
+    document.querySelectorAll('.option').forEach(function (e) { e.classList.remove('selected'); });
+    document.querySelectorAll('input').forEach(function (i) { if (i.type === 'radio' || i.type === 'checkbox') i.checked = false; if (i.type === 'text' || i.type === 'email' || i.type === 'tel') i.value = ''; });
+    showStep(1);
+  });
+
+  // Step 6 input listeners
+  document.getElementById('name').addEventListener('input', updateCtrls);
+  document.getElementById('email').addEventListener('input', updateCtrls);
+  document.getElementById('phone').addEventListener('input', updateCtrls);
+
+  // Razorpay checkout (lazy-loaded)
+  document.getElementById('payBtn').addEventListener('click', function () {
+    var r = calc();
+    if (RAZORPAY_KEY === 'YOUR_RAZORPAY_KEY_HERE') {
+      alert('Razorpay is not configured yet. Please email hello@forge.bruuhh.com to reserve your slot, or wait — Forge will be in touch within 24 hours.');
+      return;
+    }
+    var s = document.createElement('script');
+    s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    s.onload = function () {
+      var options = {
+        key: RAZORPAY_KEY,
+        amount: DEPOSIT * 100,
+        currency: 'INR',
+        name: 'Forge',
+        description: 'Made-For-You Website — deposit',
+        handler: function (response) {
+          window.location.href = 'thanks.html?payment_id=' + response.razorpay_payment_id + '&plan=bespoke';
+        },
+        prefill: { name: state.contact.name || '', email: state.contact.email || '', contact: state.contact.phone || '' },
+        theme: { color: '#d6dda0' },
+        notes: { industry: state.industry, pages: state.pages, cro: state.cro, addons: state.addons.join(','), ops: state.ops, total: r.total }
+      };
+      var rzp = new Razorpay(options);
+      rzp.open();
+    };
+    document.head.appendChild(s);
+  });
+
+  // Send quote via email (mailto fallback)
+  document.getElementById('emailQuoteBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    var r = calc();
+    var body = 'Hi Forge,%0A%0AHere is my quote configuration:%0A%0A' +
+      'Industry: ' + (state.industry || '-') + '%0A' +
+      'Pages: ' + (state.pages || '-') + '%0A' +
+      'Conversion engine: ' + (state.cro || '-') + '%0A' +
+      'Add-ons: ' + (state.addons.join(', ') || 'none') + '%0A' +
+      'Operator plan: ' + (state.ops || '-') + '%0A%0A' +
+      'Estimated total: ₹' + fmt(r.total) + '%0A%0A' +
+      'My name: ' + (state.contact.name || '-') + '%0A' +
+      'My email: ' + (state.contact.email || '-') + '%0A' +
+      'My WhatsApp: ' + (state.contact.phone || '-') + '%0A%0A' +
+      'Please send me the formal quote.';
+    window.location.href = 'mailto:hello@forge.bruuhh.com?subject=Forge%20quote%20request&body=' + body;
+  });
+
+  updateCtrls();
+</script>
+</body>
+</html>
